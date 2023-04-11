@@ -5,19 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TrickedKnowledgeHub"
         mc:Ignorable="d"
-        Title="MainWindow"  WindowState="Maximized" d:DesignHeight="450" d:DesignWidth="900
+        Title="FrontPage"  WindowState="Maximized" d:DesignHeight="450" d:DesignWidth="900
         ">
 
     <Grid>
-        <StackPanel>
+        <StackPanel Height="auto" Width="auto"
+            Orientation="Vertical" Background="#e7e7e7">
         </StackPanel>
-        <Image Margin="314,10,367,217" Source="/Img/TrickedLog.jpg" Stretch="Fill"/>
-        <Button x:Name="Create_Exercise" Content="Button" HorizontalAlignment="Left" Margin="410,299,0,0" VerticalAlignment="Top" Height="49" Width="89" Click="Create_Exercise_Click">
-            <Button.Resources>
+        <Image Source="img/TrickedLog.jpg" Opacity="0.60" />
+            <Button x:Name="Create_Exercise" Content="Opret øvelse" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,200"  Height="50" Width="150" Click="Create_Exercise_Click" Background="#FF0CBE94" Foreground="White" FontSize="18" FontWeight="Bold">
+                <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"></Setter>
                 </Style>
-            </Button.Resources>
-        </Button>
+                </Button.Resources>
+            </Button>
+
     </Grid>
 </Window>
