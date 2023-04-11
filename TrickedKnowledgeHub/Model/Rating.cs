@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TrickedKnowledgeHub.Model
+﻿namespace TrickedKnowledgeHub.Model
 {
     public enum Rating
     {
@@ -13,6 +7,5 @@ namespace TrickedKnowledgeHub.Model
         Øvet = 3,
         Ekspert = 4,
         Talent = 5,
-
     }
 }
