@@ -24,5 +24,10 @@ namespace TrickedKnowledgeHub
         {
             InitializeComponent();
         }
+
+        private void Create_Exercise_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
