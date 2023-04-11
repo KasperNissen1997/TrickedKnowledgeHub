@@ -22,13 +22,5 @@ namespace TrickedKnowledgeHub.Model
             Password = password;
             Type = type;
         }
-        //Fatter ikke helt hvorfor vi har denne????
-        public Employee(string mail, string name, string password, EmployeeType type)
-        {
-            Mail = mail;
-            Name = name;
-            Password = password;
-            Type = type;
-        }
     }
 }
