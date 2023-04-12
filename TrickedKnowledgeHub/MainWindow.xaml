@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TrickedKnowledgeHub"
         mc:Ignorable="d"
-        Title="FrontPage"  WindowState="Maximized" d:DesignHeight="450" d:DesignWidth="900
-        ">
+        Title="MainWindow"  WindowState="Maximized" d:DesignHeight="450" d:DesignWidth="900">
 
     <Grid>
         <StackPanel Height="auto" Width="auto"

@@ -27,7 +27,8 @@ namespace TrickedKnowledgeHub
 
         private void Create_Exercise_Click(object sender, RoutedEventArgs e)
         {
-
+            Create_exercise_window create_Exercise_Window= new Create_exercise_window();
+            create_Exercise_Window.Show();
         }
     }
 }
