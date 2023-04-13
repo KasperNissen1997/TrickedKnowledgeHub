@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TrickedKnowledgeHub.ViewModel;
 
 namespace TrickedKnowledgeHub
 {
@@ -23,12 +24,8 @@ namespace TrickedKnowledgeHub
         public MainWindow()
         {
             InitializeComponent();
-        }
 
-        private void Create_Exercise_Click(object sender, RoutedEventArgs e)
-        {
-            Create_exercise_window create_Exercise_Window= new Create_exercise_window();
-            create_Exercise_Window.Show();
+            DataContext = new MainWindowViewVM();
         }
     }
 }
