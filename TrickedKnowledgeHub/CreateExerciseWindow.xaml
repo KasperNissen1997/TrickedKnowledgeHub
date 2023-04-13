@@ -5,7 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TrickedKnowledgeHub"
         mc:Ignorable="d"
+        xmlns:vm="clr-namespace:TrickedKnowledgeHub.ViewModel"
         Title="Create_exercise_window" Height="450" Width="800" WindowStartupLocation="CenterScreen" Background="#e7e7e7" ResizeMode="NoResize">
+    <Window.DataContext>
+        <vm:CreateExerciseWindowViewVM/>
+    </Window.DataContext>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -40,29 +45,23 @@
         </Button>
 
 
-
         <Label Content="Titel*" HorizontalAlignment="Left" Margin="50,0,0,50" VerticalAlignment="Bottom"/>
-        <TextBox x:Name="Title_TextBox" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Width="300" Height="25" Margin="50,0,50,30" VerticalAlignment="Bottom"/>
-
+        <TextBox Text="{Binding Title}"  x:Name="Title_TextBox" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Width="300" Height="25" Margin="50,0,50,30" VerticalAlignment="Bottom"/>
 
         <Label Content="Spil" Grid.Column="2" HorizontalAlignment="Left" Margin="50,32,0,50" VerticalAlignment="Bottom"/>
-        <ComboBox Background="White" x:Name="Game_ComboBox" Grid.Column="2" Grid.Row="0" Width="100" Height="25" HorizontalAlignment="Left" Margin="50,0,0,30" VerticalAlignment="Bottom" >
-            <ComboBoxItem>Counter Strike</ComboBoxItem>
-            <ComboBoxItem>Valorant</ComboBoxItem>
-        </ComboBox>
+        <ComboBox SelectedItem="{Binding Game}" Background="White" x:Name="Game_ComboBox" Grid.Column="2" Grid.Row="0" Width="100" Height="25" HorizontalAlignment="Left" Margin="50,0,0,30" VerticalAlignment="Bottom" />
 
-            <Label Grid.Row="1" Content="Beskrivelse" Margin="50,0,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="Description_TextBox" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="50,30,50,30" FontStyle="Italic" TextChanged="TextBox_TextChanged">Skriv en kort beskrivelse til din øvelse her...</TextBox>
+        <Label Grid.Row="1" Content="Beskrivelse" Margin="50,0,0,0" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding Description}" x:Name="Description_TextBox" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="50,30,50,30" FontStyle="Italic" TextChanged="TextBox_TextChanged"></TextBox>
 
         <Label Content="Læringsmål*" Grid.Row="1" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,25,0,0"/>
-        <ComboBox x:Name="LearningObjective_ComboBox" Grid.Row="1" Grid.Column="2" Width="100" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0"/>
+        <ComboBox SelectedItem="{Binding LearningObjective}" x:Name="LearningObjective_ComboBox" Grid.Row="1" Grid.Column="2" Width="100" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0"/>
+
+        <Label Content="Fokuspunkter*" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,25,0,0"/>
+        <ComboBox SelectedItem="{Binding FocusPoint}" x:Name="FocusPoint_ComboBox" Grid.Row="1" Grid.Column="3" Width="100" Height="25" VerticalAlignment="Top" Margin="50,50,50,0" HorizontalAlignment="Left"/>
 
         <Label Content="Niveau" Grid.Row="1" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,125,0,0"/>
-        <ComboBox x:Name="Rating_ComboBox" Grid.Row="1" Grid.Column="2" Width="100" Height="25" VerticalAlignment="Top" Margin="50,150,0,0" HorizontalAlignment="Left"/>
-        
-        
-        <Label Content="Fokuspunkter*" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,25,0,0"/>
-        <ComboBox x:Name="FocusPoint_ComboBox" Grid.Row="1" Grid.Column="3" Width="100" Height="25" VerticalAlignment="Top" Margin="50,50,50,0" HorizontalAlignment="Left"/>
+        <ComboBox ItemsSource="{Binding Ratings}" SelectedItem="{Binding SelectedRating}" x:Name="Rating_ComboBox" Grid.Row="1" Grid.Column="2" Width="100" Height="25" VerticalAlignment="Top" Margin="50,150,0,0" HorizontalAlignment="Left"/>
         
         <Label Content="Vælg materiale...*" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,125,0,0"/>
         <Button x:Name="ChooseMaterial_Button" Content="Vælg..."  FontStyle="Italic" Width="100" Height="25" Grid.Row="1" Grid.Column="3" Margin="50,150,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
