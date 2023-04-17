@@ -9,7 +9,7 @@ namespace TrickedKnowledgeHub.ViewModel
 
         public string Title { get; set; }
         public string Description { get; set; }
-        public string Material { get; set; }
+        public byte[] Material { get; set; }
         public DateTime Timestamp { get; set; }
 
         public EmployeeVM Author { get; set; }
