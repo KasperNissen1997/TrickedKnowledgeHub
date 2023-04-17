@@ -13,11 +13,5 @@ namespace TrickedKnowledgeHub.Model.Repo
 
         }
 
-        public void Save()
-        {
-
-
-        }
-
     }
 }
