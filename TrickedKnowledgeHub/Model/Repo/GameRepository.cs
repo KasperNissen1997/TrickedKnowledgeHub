@@ -1,56 +1,67 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TrickedKnowledgeHub.ViewModel;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration.Json;
 
 namespace TrickedKnowledgeHub.Model.Repo
 {
-    internal class GameRepository : Repository
+    public class GameRepository : Repository
     {
-
         private List<Game> games = new List<Game>();
+
+        public GameRepository() { Load(); }
 
         public override void Load()
         {
-            throw new NotImplementedException();
+            using (SqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                SqlCommand cmd = new("SELECT * FROM GAME");
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        string title = dr["G_Title"].ToString();
+
+                        Game game = new(title);
+
+                        games.Add(game);
+                    }
+                }
+            }
         }
 
-        public void Create(string title)
+        public Game Create(string title)
         {
-            games.Add(new Game(title));
+            using (SqlConnection con = GetConnection())
+            {
+                SqlCommand cmd = new("INSERT INTO GAME G_Title VALUES (@G_Title)");
+
+                cmd.Parameters.AddWithValue("G_Title", title);
+
+                cmd.ExecuteNonQuery();
+            }
+
+            Game game = new(title);
+
+            games.Add(game);
+
+            return game;
         }
 
         public Game Retrieve(string title)
         {
             foreach (Game game in games)
-            {
                 if (game.Title == title)
-                {
                     return game;
-                }
-            }
 
             throw new ArgumentException($"No game with title {title} found.");
         }
 
-        public Game RetriveAll()
+        public List<Game> RetriveAll()
         {
-            foreach (Game game in games)
-            {
-                return new Game(game.Title);
-            }
-
-            throw new ArgumentException($"No more game could be found  ");
+            return new(games);
         }
-
-
-
-
-
-
     }
 }

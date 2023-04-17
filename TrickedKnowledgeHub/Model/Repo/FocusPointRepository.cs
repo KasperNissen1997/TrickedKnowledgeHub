@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration.Json;
 
 namespace TrickedKnowledgeHub.Model.Repo
 {
@@ -18,11 +16,11 @@ namespace TrickedKnowledgeHub.Model.Repo
 
         public override void Load()
         {
-            using (SqlConnection con = new SqlConnection(ConnectionString))
+            using (SqlConnection con = GetConnection())
             {
                 con.Open();
 
-                SqlCommand cmd = new SqlCommand("SELECT (F_Title) FROM FOCUSPOINT", con);
+                SqlCommand cmd = new SqlCommand("SELECT F_Title FROM FOCUSPOINT", con);
 
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
@@ -36,18 +34,25 @@ namespace TrickedKnowledgeHub.Model.Repo
             }
         }
 
-        public void Create(string title, LearningObjective parent)
+        public FocusPoint Create(string title, LearningObjective parent)
         {
-            using (SqlConnection con = new SqlConnection(ConnectionString))
+            using (SqlConnection con = GetConnection())
             {
                 con.Open();
 
                 SqlCommand cmd = new SqlCommand("INSERT INTO FOCUSPOINT(F_Title,L_Title)" +
                     "VALUES(@F_Title, @L_Title", con); // tells the server what values you insert into.
                 cmd.Parameters.AddWithValue("@F_Title", title); //adds the vaule to server.
-                cmd.Parameters.AddWithValue("@L_Title", parrent.Title);
+                cmd.Parameters.AddWithValue("@L_Title", parent.Title);
 
                 cmd.ExecuteNonQuery();
+
+                FocusPoint focusPoint = new(title);
+
+                parent.FocusPoints.Add(focusPoint);
+                _focusPoints.Add(focusPoint);
+
+                return focusPoint;
             }
         }
 
@@ -57,10 +62,10 @@ namespace TrickedKnowledgeHub.Model.Repo
                 if (title.Equals(focusPoint.Title))
                     return focusPoint;
 
-            throw new ArgumentException($"no focuspoint found with that tittle{title}");
+            throw new ArgumentException($"No focuspoint found with title: {title}");
         }
 
-        public List<FocusPoint> RetrieveAll() // not use if there need to be a Exception
+        public List<FocusPoint> RetrieveAll()
         {
             return new(_focusPoints);
         }

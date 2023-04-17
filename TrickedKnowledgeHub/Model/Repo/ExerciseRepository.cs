@@ -1,21 +1,13 @@
 ﻿using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration.Json;
 using System;
 using System.Data;
 using System.Collections.Generic;
-using System.DirectoryServices;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
 
 namespace TrickedKnowledgeHub.Model.Repo
 {
     public class ExerciseRepository : Repository
     {
         private List<Exercise> exerciseList = new();
-
-
 
         public ExerciseRepository() { Load(); }
 
@@ -30,25 +22,27 @@ namespace TrickedKnowledgeHub.Model.Repo
                     while(dr.Read())
                     {
                         string Title = dr["Title"].ToString();
-                        string Comment = dr["Comment"].ToString();
+                        string description = dr["Description"].ToString();
                         byte[] Material = (byte[]) dr["Material"];
                         DateTime Time = DateTime.Parse(dr["Time"].ToString());
                         string Mail = dr["Mail"].ToString();
                         string G_Title = dr["G_Title"].ToString();
-                        int Value = int.Parse(dr["Value"].ToString());
+                        Rating rating = (Rating) Enum.Parse(typeof(Rating), dr["Value"].ToString());
                         string F_Title = dr["F_Title"].ToString();
 
+                        Employee associatedEmployee = RepositoryManager.EmployeeRepository.Retrieve(Mail);
+                        Game associatedGame = RepositoryManager.GameRepository.Retrieve(G_Title);
+                        FocusPoint associatedFocusPoint = RepositoryManager.FocusPointRepository.Retrieve(F_Title);
 
-                        Exercise exercise = new(Title, Comment, Material, Time, Mail, G_Title, F_Title, Value);
+                        Exercise exercise = new(Title, description, Material, Time, associatedEmployee, associatedGame, associatedFocusPoint, rating);
+                        
                         exerciseList.Add(exercise);
                     }
                 }
             }
         }
 
-
         #region CRUD
-
         public Exercise Create(Exercise exercise)
         {
             using(SqlConnection con = GetConnection())
