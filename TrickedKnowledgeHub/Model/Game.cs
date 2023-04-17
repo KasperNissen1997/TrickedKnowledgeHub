@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace TrickedKnowledgeHub.Model
 {
@@ -10,12 +6,13 @@ namespace TrickedKnowledgeHub.Model
     {
         public string Title { get; set; }
 
-        private List<LearningObjective> learningObjectives = new List<LearningObjective>();
+        public List<LearningObjective> LearningObjectives { get; set; }
 
         public Game(string title)
         {
             Title = title;
-        }
 
+            LearningObjectives = new();
+        }
     }
 }
