@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TrickedKnowledgeHub.Model.Repo
 {
-    public class LearningObjectiveRepository : Repository
+    internal class LearningObjectiveRepository : Repository
     {
         private List<LearningObjective> learningObjectives = new List<LearningObjective>();
 

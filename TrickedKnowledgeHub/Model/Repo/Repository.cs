@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TrickedKnowledgeHub.Model.Repo
 {
-    abstract class Repository
+    abstract class Repository : IRepository
     {
-
+        public abstract void Load();
          
     }
 }

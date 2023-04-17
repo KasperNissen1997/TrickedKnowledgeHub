@@ -7,12 +7,12 @@ using TrickedKnowledgeHub.ViewModel;
 
 namespace TrickedKnowledgeHub.Model.Repo
 {
-    public class GameRepository : Repository
+    internal class GameRepository : Repository
     {
 
         private List<Game> games = new List<Game>();
 
-        public override Load()
+        public override void Load()
         {
             throw new NotImplementedException();
         }
