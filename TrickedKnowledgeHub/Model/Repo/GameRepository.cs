@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TrickedKnowledgeHub.ViewModel;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration.Json;
 
 namespace TrickedKnowledgeHub.Model.Repo
 {
