@@ -24,16 +24,7 @@ namespace TrickedKnowledgeHub
             InitializeComponent();
         }
 
-        private void Create_button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Cancel_button_Click(object sender, RoutedEventArgs e)
-        {
-
-            Close();
-        }
+        
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {

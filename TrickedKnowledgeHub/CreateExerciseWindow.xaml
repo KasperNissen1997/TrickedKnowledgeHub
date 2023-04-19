@@ -28,7 +28,7 @@
         
         <Image Source="Img/TrickedLog.jpg" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
-        <Button x:Name="Cancel_Button" Content="Annullér"   Click="Cancel_button_Click" Width="150" Height="50" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"    Foreground="White"  Background="#FFB70F0F"  FontWeight="Bold" FontStyle="Italic">
+        <Button x:Name="Cancel_Button" Content="Annullér" Width="150" Height="50" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"    Foreground="White"  Background="#FFB70F0F"  FontWeight="Bold" FontStyle="Italic">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -36,7 +36,7 @@
             </Button.Resources>
         </Button>
 
-        <Button x:Name="Create_Button" Content="Opret"      Click="Create_button_Click" Width="150" Height="50" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"    Foreground="White"  Background="#297a18"    FontWeight="Bold" BorderBrush="#FF297A18" >
+        <Button x:Name="Create_Button" Command="{Binding CreateExerciseCommand}" CommandParameter="{Binding}" Content="Opret" Width="150" Height="50" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"    Foreground="White"  Background="#297a18"    FontWeight="Bold" BorderBrush="#FF297A18" >
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -49,16 +49,16 @@
         <TextBox Text="{Binding Title}"  x:Name="Title_TextBox" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Width="300" Height="25" Margin="50,0,50,30" VerticalAlignment="Bottom"/>
 
         <Label Content="Spil" Grid.Column="2" HorizontalAlignment="Left" Margin="50,32,0,50" VerticalAlignment="Bottom"/>
-        <ComboBox SelectedItem="{Binding Game}" Background="White" x:Name="Game_ComboBox" Grid.Column="2" Grid.Row="0" Width="100" Height="25" HorizontalAlignment="Left" Margin="50,0,0,30" VerticalAlignment="Bottom" />
+        <ComboBox SelectedItem="{Binding SelectedGame}" Background="White" x:Name="Game_ComboBox" Grid.Column="2" Grid.Row="0" Width="100" Height="25" HorizontalAlignment="Left" Margin="50,0,0,30" VerticalAlignment="Bottom" />
 
         <Label Grid.Row="1" Content="Beskrivelse" Margin="50,0,0,0" VerticalAlignment="Top"/>
         <TextBox Text="{Binding Description}" x:Name="Description_TextBox" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="50,30,50,30" FontStyle="Italic" TextChanged="TextBox_TextChanged"></TextBox>
 
         <Label Content="Læringsmål*" Grid.Row="1" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,25,0,0"/>
-        <ComboBox SelectedItem="{Binding LearningObjective}" x:Name="LearningObjective_ComboBox" Grid.Row="1" Grid.Column="2" Width="100" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0"/>
+        <ComboBox ItemsSource="{Binding AvailableLearningObjectives}" SelectedItem="{Binding SelectedLearningObjective}" x:Name="LearningObjective_ComboBox" Grid.Row="1" Grid.Column="2" Width="100" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0"/>
 
         <Label Content="Fokuspunkter*" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,25,0,0"/>
-        <ComboBox SelectedItem="{Binding FocusPoint}" x:Name="FocusPoint_ComboBox" Grid.Row="1" Grid.Column="3" Width="100" Height="25" VerticalAlignment="Top" Margin="50,50,50,0" HorizontalAlignment="Left"/>
+        <ComboBox ItemsSource="{Binding AvailableFocusPoints}" SelectedItem="{Binding SelectedFocusPoint}" x:Name="FocusPoint_ComboBox" Grid.Row="1" Grid.Column="3" Width="100" Height="25" VerticalAlignment="Top" Margin="50,50,50,0" HorizontalAlignment="Left"/>
 
         <Label Content="Niveau" Grid.Row="1" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,125,0,0"/>
         <ComboBox ItemsSource="{Binding Ratings}" SelectedItem="{Binding SelectedRating}" x:Name="Rating_ComboBox" Grid.Row="1" Grid.Column="2" Width="100" Height="25" VerticalAlignment="Top" Margin="50,150,0,0" HorizontalAlignment="Left"/>
