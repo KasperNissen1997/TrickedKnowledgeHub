@@ -46,6 +46,20 @@ namespace TrickedKnowledgeHub.ViewModel
                 OnPropertyChanged(nameof(Description));
             }
         }
+        private ObservableCollection<GameVM> _availableGames;
+        public ObservableCollection<GameVM> AvailableGames
+        {
+            get
+            {
+                return _availableGames;
+            }
+
+            set
+            {
+                _availableGames = value;
+                OnPropertyChanged(nameof(AvailableGames));
+            }
+        }
         private GameVM? _selectedGame;
         public GameVM? SelectedGame
         {
@@ -155,6 +169,13 @@ namespace TrickedKnowledgeHub.ViewModel
 
         public CreateExerciseWindowViewVM()
         {
+            AvailableGames = new();
+            AvailableLearningObjectives = new();
+            AvailableFocusPoints = new();
+
+            foreach (Game game in RepositoryManager.GameRepository.RetriveAll())
+                AvailableGames.Add(new(game));
+                
             Ratings = Rating.GetValues<Rating>().ToList();
 
             // Initialize AvailableLearningObjectives to contain the standard learning objectives.
