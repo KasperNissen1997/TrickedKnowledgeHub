@@ -6,16 +6,27 @@ namespace TestEmployeeRepo
     [TestClass]
     public class UnitTest1
     {
-        
         EmployeeRepository employeeRepository = new EmployeeRepository();
-        List<Employee> employees = new List<Employee>();
+        List<Employee> employees1 = new List<Employee>();
+        List<Employee> employees2 = new List<Employee>();
+
+        [TestMethod]
+        public void TestRetrieve()
+        {
+            employees2.Add(employeeRepository.Retrieve("Nikko@gmail.dk"));
+
+            Assert.AreEqual("Nikolaj, Nikko@gmail.dk, nikko, DDR100best, Teacher", employees2[0]);
+        }
+
         [TestMethod]
         public void TestRetrieveAll()
         {
-            employees = employeeRepository.RetrieveAll();
+            employees1 = employeeRepository.RetrieveAll();
 
-            Assert.AreEqual("Nikolaj, Nikko@gmail.com, nikko, DDR100best, Teacher", employees[0]);
+            Assert.AreEqual("Nikolaj, Nikko@gmail.dk, nikko, DDR100best, Teacher", employees1[0]);
         }
-            
+
+
+
     }
 }
