@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrickedKnowledgeHub", "TrickedKnowledgeHub.csproj", "{15EB1A37-B377-4130-82D8-C3450EF26033}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrickedKnowledgeHub", "TrickedKnowledgeHub.csproj", "{15EB1A37-B377-4130-82D8-C3450EF26033}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestEmployeeRepo", "..\TestEmployeeRepo\TestEmployeeRepo.csproj", "{FC7DD115-9BB8-417E-BAC6-CA99C15E6ABC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{15EB1A37-B377-4130-82D8-C3450EF26033}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15EB1A37-B377-4130-82D8-C3450EF26033}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15EB1A37-B377-4130-82D8-C3450EF26033}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC7DD115-9BB8-417E-BAC6-CA99C15E6ABC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC7DD115-9BB8-417E-BAC6-CA99C15E6ABC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC7DD115-9BB8-417E-BAC6-CA99C15E6ABC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC7DD115-9BB8-417E-BAC6-CA99C15E6ABC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
