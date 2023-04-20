@@ -16,7 +16,7 @@ namespace TrickedKnowledgeHub.Model.Repo
             {
                 con.Open();
 
-                SqlCommand cmd = new("SELECT * FROM GAME");
+                SqlCommand cmd = new("SELECT * FROM GAME", con);
 
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {

@@ -6,7 +6,7 @@ namespace TrickedKnowledgeHub.ViewModel
     {
         private FocusPoint source;
 
-        public string Title;
+        public string Title { get; set; }
 
         public FocusPointVM(FocusPoint source)
         {

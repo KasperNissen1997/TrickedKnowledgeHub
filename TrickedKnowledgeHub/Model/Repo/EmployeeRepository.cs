@@ -10,6 +10,8 @@ namespace TrickedKnowledgeHub.Model.Repo
 
         public EmployeeRepository()
         {
+            employees = new();
+
             Load();
         }
 
@@ -25,13 +27,34 @@ namespace TrickedKnowledgeHub.Model.Repo
                 {
                     while (reader.Read()) //While reader reads
                     {
-                        Employee employee = new Employee(
-                            reader["Name"].ToString(), //SQL string is different from C# string, needs to be converted
-                            reader["Mail"].ToString(),
-                            reader["Nickname"].ToString(),
-                            reader["Password"].ToString(),
-                            (EmployeeType) Enum.Parse(typeof(EmployeeType), reader["Type"].ToString()) //convert string to Enum "EmployeeType"
-                        ); 
+                        string name = reader["Name"].ToString();
+                        string mail = reader["Mail"].ToString();
+                        string nickname = reader["Nickname"].ToString();
+                        string password = reader["Password"].ToString();
+
+                        string danishType = reader["Type"].ToString();
+
+                        EmployeeType employeeType;
+                        switch (danishType)
+                        {
+                            case "Underviser":
+                                employeeType = EmployeeType.Teacher;
+                                break;
+
+                            case "Administator":
+                                employeeType = EmployeeType.Administrator;
+                                break;
+
+                            case "Spilansvarlig":
+                                employeeType = EmployeeType.GameCoordinator;
+                                break;
+
+                            default:
+                                employeeType = EmployeeType.Teacher;
+                                break;
+                        }
+
+                        Employee employee = new(name, mail, nickname, password, employeeType);
 
                         employees.Add(employee);
                     }
