@@ -10,6 +10,18 @@ namespace TestEmployeeRepo
         List<Employee> employees1 = new List<Employee>();
         List<Employee> employees2 = new List<Employee>();
 
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            // create db
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            // drop db
+        }
+
         [TestMethod]
         public void TestRetrieve()
         {
