@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using TrickedKnowledgeHub.ViewModel;
 
-namespace TrickedKnowledgeHub.Command
+namespace TrickedKnowledgeHub.Command.MainWindowCommand
 {
     public class OpenCreateExerciseViewCmd : ICommand
     {

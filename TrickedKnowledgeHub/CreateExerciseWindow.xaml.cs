@@ -34,5 +34,10 @@ namespace TrickedKnowledgeHub
                     tb.Text = "Jeg står her når der er tomt.";
             }
         }
+
+        private void Cancel_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using TrickedKnowledgeHub.Model;
 
-namespace TrickedKnowledgeHub.ViewModel
+namespace TrickedKnowledgeHub.ViewModel.Domain
 {
     public class ExerciseVM
     {

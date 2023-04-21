@@ -10,7 +10,8 @@ using System.Windows.Media.Media3D;
 using TrickedKnowledgeHub.Model;
 using Microsoft.Office.Interop.Word;
 using TrickedKnowledgeHub.Model.Repo;
-using TrickedKnowledgeHub.Command;
+using TrickedKnowledgeHub.Command.CreateExerciseWindowCommand;
+using TrickedKnowledgeHub.ViewModel.Domain;
 
 namespace TrickedKnowledgeHub.ViewModel
 {
