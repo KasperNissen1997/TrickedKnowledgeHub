@@ -17,6 +17,21 @@ namespace TrickedKnowledgeHub.ViewModel
 {
     public class CreateExerciseWindowViewVM : INotifyPropertyChanged
     {
+        private EmployeeVM activeUser;
+        public EmployeeVM ActiveUser
+        {
+            get 
+            {
+                return activeUser;
+            }
+
+            set
+            {
+                activeUser = value;
+                OnPropertyChanged(nameof(ActiveUser));
+            }
+        }
+
         public List<Rating> Ratings { get; set; }
 
         private string _title;
@@ -149,8 +164,8 @@ namespace TrickedKnowledgeHub.ViewModel
                 OnPropertyChanged(nameof(SelectedRating));
             }
         }
-        private Document _material;
-        public Document Material
+        private byte[] _material;
+        public byte[] Material
         {
             get
             {
@@ -166,6 +181,7 @@ namespace TrickedKnowledgeHub.ViewModel
 
         #region Commands
         public CreateExerciseCommand CreateExerciseCommand { get; set; } = new();
+        public SelectMaterialCommand SelectMaterialCommand { get; set; } = new();
         #endregion
 
         public CreateExerciseWindowViewVM()

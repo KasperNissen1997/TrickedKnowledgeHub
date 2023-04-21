@@ -21,6 +21,9 @@ namespace TrickedKnowledgeHub.Command.MainWindowCommand
         {
             if (parameter is MainWindowViewVM vm)
             {
+                if (vm.create_exercise_window.DataContext is CreateExerciseWindowViewVM createExerciseVM)
+                    createExerciseVM.ActiveUser = vm.ActiveUser;
+
                 vm.create_exercise_window.Show();
             }
             else

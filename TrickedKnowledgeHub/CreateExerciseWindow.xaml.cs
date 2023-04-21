@@ -24,8 +24,6 @@ namespace TrickedKnowledgeHub
             InitializeComponent();
         }
 
-        
-
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (sender is TextBox tb)

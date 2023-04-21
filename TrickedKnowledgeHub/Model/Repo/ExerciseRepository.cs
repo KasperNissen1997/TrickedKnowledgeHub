@@ -48,16 +48,16 @@ namespace TrickedKnowledgeHub.Model.Repo
             using(SqlConnection con = GetConnection())
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("INSERT INTO EXERCISE (Title, Comment, Material, Time, Mail, G_Title, Value)" +
-                    "VALUES(@Title, @Comment, @Material, @Time, @Mail, @G_Title, @Value)" + "SELECT @@IDENTITY", con);
+                SqlCommand cmd = new SqlCommand("INSERT INTO EXERCISE (Title, Description, Material, Time, Mail, G_Title, Value)" +
+                    "VALUES(@Title, @Description, @Material, @Time, @Mail, @G_Title, @Value)" + "SELECT @@IDENTITY", con);
 
                 cmd.Parameters.Add("@Title", SqlDbType.NVarChar).Value = exercise.Title;
-                cmd.Parameters.Add("@Comment", SqlDbType.NVarChar).Value = exercise.Description;
+                cmd.Parameters.Add("@Description", SqlDbType.NVarChar).Value = exercise.Description;
                 cmd.Parameters.Add("@Material", SqlDbType.VarBinary).Value = exercise.Material;
                 cmd.Parameters.Add("@Time", SqlDbType.DateTime2).Value = exercise.Timestamp;
-                cmd.Parameters.Add("@Mail", SqlDbType.NVarChar).Value = exercise.Author;
-                cmd.Parameters.Add("@G_Title", SqlDbType.NVarChar).Value = exercise.Game;
-                cmd.Parameters.Add("@Value", SqlDbType.NVarChar).Value = exercise.Rating;
+                cmd.Parameters.Add("@Mail", SqlDbType.NVarChar).Value = exercise.Author.Mail;
+                cmd.Parameters.Add("@G_Title", SqlDbType.NVarChar).Value = exercise.Game.Title;
+                cmd.Parameters.Add("@Value", SqlDbType.Int).Value = (int) exercise.Rating;
 
                 exercise.ExerciseID = Convert.ToInt32(cmd.ExecuteScalar());
                 exerciseList.Add(exercise);
