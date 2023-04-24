@@ -20,15 +20,20 @@ namespace TrickedKnowledgeHub.Model.Repo
             {
                 con.Open();
 
-                SqlCommand cmd = new SqlCommand("SELECT F_Title FROM FOCUSPOINT", con);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM FOCUSPOINT", con);
 
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read()) // As long there something to read from the server it runs and save it to the list
                     {
-                        FocusPoint focusPoint = new FocusPoint(dr["F_Title"].ToString());
+                        string title = dr["F_Title"].ToString();
+                        string learningObjectiveTitle = dr["LO_Title"].ToString();
 
+                        FocusPoint focusPoint = new(title);
                         _focusPoints.Add(focusPoint);
+
+                        LearningObjective associatedLearningObjective = RepositoryManager.LearningObjectiveRepository.Retrive(learningObjectiveTitle);
+                        associatedLearningObjective.FocusPoints.Add(focusPoint);
                     }
                 }
             }

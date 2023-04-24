@@ -12,7 +12,27 @@ namespace TrickedKnowledgeHub.Model.Repo
 
         public override void Load()
         {
-            throw new NotImplementedException();
+            using (SqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                SqlCommand cmd = new("SELECT * FROM LEARNINGSOBJECTIVE", con);
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        string title = dr["LO_Title"].ToString();
+                        string gameTitle = dr["G_Title"].ToString();
+
+                        LearningObjective learningObjective = new(title);
+                        learningObjectives.Add(learningObjective);
+
+                        Game associatedGame = RepositoryManager.GameRepository.Retrieve(gameTitle);
+                        associatedGame.LearningObjectives.Add(learningObjective);
+                    }
+                }
+            }
         }
 
         public LearningObjective Create(string title, Game game)
