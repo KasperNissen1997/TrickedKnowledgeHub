@@ -27,5 +27,10 @@ namespace TrickedKnowledgeHub.Model
             FocusPoint = focusPoint;
             Rating = rating;
         }
+
+        public override string ToString()
+        {
+            return $"{Title}, {Description}, {Material}, {Timestamp}, {Author}, {Game}, {FocusPoint}, {Rating}";
+        }
     }
 }
