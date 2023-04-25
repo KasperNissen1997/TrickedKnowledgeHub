@@ -48,27 +48,28 @@ namespace TestEmployeeRepo
         [TestMethod]
         public void RetrieveExercise()
         {
+            //Arrance
+            exerciseList.Add(ex1);
 
-            //Arrange
+            //Act
             exerciseList.Add(exerciseRepository.Retrieve(0));
 
             //Assert
-            Assert.AreEqual("øvelse i alle våben spray", exerciseList[0].Title);
+            Assert.AreEqual("DELETE THIS", exerciseList[0].Title);
         }
 
         [TestMethod]
         public void RetrieveAllExercises()
         {
             //Arrange
-            //exerciseList.Add(ex1);
-            //exerciseList.Add(ex2);
+            exerciseList.Add(ex1);
+            exerciseList.Add(ex2);
 
             //Act
-            //retrieveAllList.Add(exerciseRepository.RetrieveAll());
-
+            retrieveAllList = exerciseRepository.RetrieveAll();
 
             //Assert
-            //Assert.AreEqual(exerciseList.Count, retrieveAllList.Count);
+            Assert.AreEqual(exerciseList.Count, retrieveAllList.Count);
         }
     }
 }

@@ -77,13 +77,9 @@ namespace TrickedKnowledgeHub.Model.Repo
             return null;
         }
 
-        public Exercise RetrieveAll()
+        public List<Exercise> RetrieveAll()
         {
-            foreach(Exercise exercise in exerciseList)
-            {
-                return exercise;
-            }
-            return null;
+            return new(exerciseList);
         }
 
         #endregion
