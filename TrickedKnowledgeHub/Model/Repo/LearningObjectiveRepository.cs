@@ -69,7 +69,7 @@ namespace TrickedKnowledgeHub.Model.Repo
             throw new ArgumentException($"No learningObjective with title {title} found.");
         }
 
-        public List<LearningObjective> RetriveAll()
+        public List<LearningObjective> RetrieveAll()
         {
             return new(learningObjectives);
         }
