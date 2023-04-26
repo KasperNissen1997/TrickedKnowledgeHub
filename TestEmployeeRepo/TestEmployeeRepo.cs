@@ -12,17 +12,17 @@ namespace TestEmployeeRepo
         List<Employee> employees1 = new List<Employee>();
         List<Employee> employees2 = new List<Employee>();
 
-        //[TestInitialize]
+        [TestInitialize]
 
         public void TestInitialize()
         {
             // create new items
-            employeeRepository.Create("Nikolai", "nikolai@gmail.com", "nikolaikiller123", "donthackmeplz1", EmployeeType.Teacher);
-            employeeRepository.Create("Jonathan", "jonathan@gmail.com", "jonathantheman", "donthackmeplz2", EmployeeType.Teacher);
-            employeeRepository.Create("Kasper", "kasper@gmail.com", "kasperthemaster", "donthackmeplz3", EmployeeType.Teacher);
-            employeeRepository.Create("Casper", "casper@gmail.com", "cappertheslapper", "donthackmeplz4", EmployeeType.Teacher);
-            employeeRepository.Create("Oguz", "oguz@gmail.com", "oguztheboguz", "donthackmeplz5", EmployeeType.Teacher);
-            employeeRepository.Create("Aleksander", "aleksander@gmail.com", "aleksalamander", "donthackmeplz6", EmployeeType.Teacher);
+            employeeRepository.Create("Nikolai", "nikolai@gmail.com", "nikolaikiller123", "donthackmeplz1", EmployeeType.Coach);
+            employeeRepository.Create("Jonathan", "jonathan@gmail.com", "jonathantheman", "donthackmeplz2", EmployeeType.Coach);
+            employeeRepository.Create("Kasper", "kasper@gmail.com", "kasperthemaster", "donthackmeplz3", EmployeeType.Coach);
+            employeeRepository.Create("Casper", "casper@gmail.com", "cappertheslapper", "donthackmeplz4", EmployeeType.Coach);
+            employeeRepository.Create("Oguz", "oguz@gmail.com", "oguztheboguz", "donthackmeplz5", EmployeeType.Coach);
+            employeeRepository.Create("Aleksander", "aleksander@gmail.com", "aleksalamander", "donthackmeplz6", EmployeeType.Coach);
         }
 
         [TestCleanup]
@@ -40,7 +40,6 @@ namespace TestEmployeeRepo
                 }
 
             }
-            con.Close();
 
         }
 
@@ -50,15 +49,17 @@ namespace TestEmployeeRepo
         {
             employees2.Add(employeeRepository.Retrieve("kasper@gmail.com"));
 
-            Assert.AreEqual("kasper@gmail.com, Kasper, kasperthemaster, donthackmeplz3, Teacher", employees2[0]);
+            Assert.AreEqual("kasper@gmail.com, Kasper, kasperthemaster, donthackmeplz3, Coach", employees2[0]);
         }
 
         [TestMethod]
         public void TestRetrieveAll()
         {
             employees1 = employeeRepository.RetrieveAll();
+            
+                Assert.AreEqual("Nikolai, nikolai@gmail.com, nikolaikiller123, donthackmeplz1, Coach", employees1[0]);
 
-            Assert.AreEqual("Nikolaj, Nikko@gmail.dk, nikko, DDR100best, Teacher", employees1[0]);
+            
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public enum EmployeeType
     {
-        Teacher,
+        Coach,
         GameCoordinator,
         Administrator
     }
