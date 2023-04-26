@@ -18,6 +18,7 @@ namespace TrickedKnowledgeHub.ViewModel
 
         public MainWindowViewVM()
         {
+            //You need to enter the email of a active user in the database, so be sure the email is in the database.
             ActiveUser = new(RepositoryManager.EmployeeRepository.Retrieve("nikolai@gmail.com"));
 
             create_exercise_window = new Create_exercise_window();
