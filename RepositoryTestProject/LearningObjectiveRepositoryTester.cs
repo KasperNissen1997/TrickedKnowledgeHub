@@ -7,6 +7,8 @@ namespace RepositoryTestProject
     [TestClass]
     public class LearningObjectiveRepositoryTester
     {
+        private string connectionString = "Server=10.56.8.36; Database=DB_2023_35; User Id=STUDENT_35; Password=OPENDB_35; TrustServerCertificate=true";
+
         private LearningObjectiveRepository learningObjectiveRepo;
         private GameRepository gameRepo;
 
@@ -14,7 +16,7 @@ namespace RepositoryTestProject
         public void ClassInitilize()
         {
             // Initilize the DB with a bunch of Games.
-            using (SqlConnection con = new("Server=10.56.8.36; Database=NOT_SPECIFIED; User Id=NOT_SPECIFIED; Password=NOT_SPECIFIED; TrustServerCertificate=true"))
+            using (SqlConnection con = new(connectionString))
             {
                 con.Open();
 
@@ -36,7 +38,7 @@ namespace RepositoryTestProject
         public void TestInitialize()
         {
             // Initilize the DB with a bunch of LearningObjectives.
-            using (SqlConnection con = new("Server=10.56.8.36; Database=NOT_SPECIFIED; User Id=NOT_SPECIFIED; Password=NOT_SPECIFIED; TrustServerCertificate=true"))
+            using (SqlConnection con = new(connectionString))
             {
                 con.Open();
 
@@ -62,7 +64,7 @@ namespace RepositoryTestProject
         public void TestCleanup()
         {
             // Remove all LearningObjective rows in the DB.
-            using (SqlConnection con = new("Server=10.56.8.36; Database=P3_DB_2023_06; User Id=P3_PROJECT_USER_06; Password=OPENDB_06; TrustServerCertificate=true"))
+            using (SqlConnection con = new(connectionString))
             {
                 con.Open();
 
