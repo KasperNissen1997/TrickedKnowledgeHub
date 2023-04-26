@@ -19,15 +19,15 @@ namespace TrickedKnowledgeHub.Model.Repo
                 SqlCommand cmd = new SqlCommand("SELECT * FROM EXERCISE INNER JOIN EXERCISE_FOCUSPOINT ON EXERCISE.ExerciseID = EXERCISE_FOCUSPOINT.ExerciseID;", con);
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    while(dr.Read())
+                    while (dr.Read())
                     {
                         string Title = dr["Title"].ToString();
                         string description = dr["Description"].ToString();
-                        byte[] Material = (byte[]) dr["Material"];
+                        byte[] Material = (byte[])dr["Material"];
                         DateTime Time = DateTime.Parse(dr["Time"].ToString());
                         string Mail = dr["Mail"].ToString();
                         string G_Title = dr["G_Title"].ToString();
-                        Rating rating = (Rating) Enum.Parse(typeof(Rating), dr["Value"].ToString());
+                        Rating rating = (Rating)Enum.Parse(typeof(Rating), dr["Value"].ToString());
                         string F_Title = dr["F_Title"].ToString();
 
                         Employee associatedEmployee = RepositoryManager.EmployeeRepository.Retrieve(Mail);
@@ -35,7 +35,7 @@ namespace TrickedKnowledgeHub.Model.Repo
                         FocusPoint associatedFocusPoint = RepositoryManager.FocusPointRepository.Retrieve(F_Title);
 
                         Exercise exercise = new(Title, description, Material, Time, associatedEmployee, associatedGame, associatedFocusPoint, rating);
-                        
+
                         exerciseList.Add(exercise);
                     }
                 }
@@ -45,7 +45,7 @@ namespace TrickedKnowledgeHub.Model.Repo
         #region CRUD
         public Exercise Create(Exercise exercise)
         {
-            using(SqlConnection con = GetConnection())
+            using (SqlConnection con = GetConnection())
             {
                 con.Open();
                 SqlCommand cmd = new SqlCommand("INSERT INTO EXERCISE (Title, Description, Material, Time, Mail, G_Title, Value)" +
@@ -57,19 +57,25 @@ namespace TrickedKnowledgeHub.Model.Repo
                 cmd.Parameters.Add("@Time", SqlDbType.DateTime2).Value = exercise.Timestamp;
                 cmd.Parameters.Add("@Mail", SqlDbType.NVarChar).Value = exercise.Author.Mail;
                 cmd.Parameters.Add("@G_Title", SqlDbType.NVarChar).Value = exercise.Game.Title;
-                cmd.Parameters.Add("@Value", SqlDbType.Int).Value = (int) exercise.Rating;
+                cmd.Parameters.Add("@Value", SqlDbType.Int).Value = (int)exercise.Rating;
 
                 exercise.ExerciseID = Convert.ToInt32(cmd.ExecuteScalar());
                 exerciseList.Add(exercise);
+                SqlCommand command = new SqlCommand("INSERT INTO EXERCISE_FOCUSPOINT (ExerciseID, F_Title)" + // this code to bind IxerciseID and the selected FocusPoint
+                                                "VALUES(@ExerciseID, @F_Title)" + "SELECT @@IDENTITY", con);
+                command.Parameters.Add("@ExerciseID", SqlDbType.Int).Value = exercise.ExerciseID;
+                command.Parameters.Add("@F_Title", SqlDbType.NVarChar).Value = exercise.FocusPoint.Title;
+                command.ExecuteNonQuery();
+
                 return exercise;
             }
         }
 
         public Exercise Retrieve(Exercise exercise)
         {
-            foreach(Exercise ex in exerciseList)
+            foreach (Exercise ex in exerciseList)
             {
-                if(exercise.ExerciseID == ex.ExerciseID)
+                if (exercise.ExerciseID == ex.ExerciseID)
                 {
                     return ex;
                 }
@@ -79,7 +85,7 @@ namespace TrickedKnowledgeHub.Model.Repo
 
         public Exercise RetrieveAll()
         {
-            foreach(Exercise exercise in exerciseList)
+            foreach (Exercise exercise in exerciseList)
             {
                 return exercise;
             }
