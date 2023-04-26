@@ -19,7 +19,7 @@ namespace TrickedKnowledgeHub.Model.Repo
             using (SqlConnection con = GetConnection())
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM EXERCISE INNER JOIN EXERCISE_FOCUSPOINT ON EXERCISE.ExerciseID = EXERCISE_FOCUSPOINT.ExerciseID;", con);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM EXERCISE INNER JOIN EXERCISE_FOCUSPOINT ON EXERCISE.ID = EXERCISE_FOCUSPOINT.E_ID;", con);
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
@@ -64,8 +64,8 @@ namespace TrickedKnowledgeHub.Model.Repo
 
                 exercise.ExerciseID = Convert.ToInt32(cmd.ExecuteScalar());
                 exerciseList.Add(exercise);
-                SqlCommand command = new SqlCommand("INSERT INTO EXERCISE_FOCUSPOINT (ExerciseID, F_Title)" + // this code to bind IxerciseID and the selected FocusPoint
-                                                "VALUES(@ExerciseID, @F_Title)" + "SELECT @@IDENTITY", con);
+                SqlCommand command = new SqlCommand("INSERT INTO EXERCISE_FOCUSPOINT (ID, F_Title)" + // this code to bind IxerciseID and the selected FocusPoint
+                                                "VALUES(@ID, @F_Title)" + "SELECT @@IDENTITY", con);
                 command.Parameters.Add("@ExerciseID", SqlDbType.Int).Value = exercise.ExerciseID;
                 command.Parameters.Add("@F_Title", SqlDbType.NVarChar).Value = exercise.FocusPoint.Title;
                 command.ExecuteNonQuery();

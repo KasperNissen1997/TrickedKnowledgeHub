@@ -18,7 +18,7 @@ namespace TrickedKnowledgeHub.ViewModel
 
         public MainWindowViewVM()
         {
-            ActiveUser = new(RepositoryManager.EmployeeRepository.Retrieve("Nikko@gmail.dk"));
+            ActiveUser = new(RepositoryManager.EmployeeRepository.Retrieve("nikolai@gmail.com"));
 
             create_exercise_window = new Create_exercise_window();
         }

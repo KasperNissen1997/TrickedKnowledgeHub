@@ -21,13 +21,14 @@ namespace TrickedKnowledgeHub.Model.Repo
             {
                 con.Open();
 
-                SqlCommand cmd = new("SELECT * FROM LEARNINGSOBJECTIVE", con);
+                SqlCommand cmd = new("SELECT * FROM LEARNINGOBJECTIVE", con);
 
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
-                        string title = dr["LO_Title"].ToString();
+                        string title = dr["ID"].ToString();
+                        string learingObjectiveTitle = dr["LO_Title"].ToString();
                         string gameTitle = dr["G_Title"].ToString();
 
                         LearningObjective learningObjective = new(title);
