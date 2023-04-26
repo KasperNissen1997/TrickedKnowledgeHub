@@ -12,27 +12,27 @@ namespace RepositoryTestProject
         private LearningObjectiveRepository learningObjectiveRepo;
         private GameRepository gameRepo;
 
-        [ClassInitialize]
-        public void ClassInitilize()
-        {
-            // Initilize the DB with a bunch of Games.
-            using (SqlConnection con = new(connectionString))
-            {
-                con.Open();
+        //[ClassInitialize]
+        //public void ClassInitilize()
+        //{
+        //    // Initilize the DB with a bunch of Games.
+        //    using (SqlConnection con = new(connectionString))
+        //    {
+        //        con.Open();
 
-                SqlCommand cmd = new("DELETE FROM GAME; DELETE FROM LEARNINGOBJECTIVE;", con);
+        //        SqlCommand cmd = new("DELETE FROM GAME; DELETE FROM LEARNINGOBJECTIVE;", con);
 
-                cmd.ExecuteNonQuery();
+        //        cmd.ExecuteNonQuery();
 
-                cmd.CommandText = "INSERT INTO GAME (G_TITLE) VALUES " +
-                    "('CS:GO'), " +
-                    "('Valorant'), " +
-                    "('FIFA'), " +
-                    "('Rocket League');";
+        //        cmd.CommandText = "INSERT INTO GAME (G_TITLE) VALUES " +
+        //            "('CS:GO'), " +
+        //            "('Valorant'), " +
+        //            "('FIFA'), " +
+        //            "('Rocket League');";
 
-                cmd.ExecuteNonQuery();
-            }
-        }
+        //        cmd.ExecuteNonQuery();
+        //    }
+        //}
 
         [TestInitialize]
         public void TestInitialize()
