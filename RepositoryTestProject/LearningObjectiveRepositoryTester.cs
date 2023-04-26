@@ -14,12 +14,22 @@ namespace RepositoryTestProject
         public void ClassInitilize()
         {
             // Initilize the DB with a bunch of Games.
-            SqlConnection con = new("Server=10.56.8.36; Database=NOT_SPECIFIED; User Id=NOT_SPECIFIED; Password=NOT_SPECIFIED; TrustServerCertificate=true");
-            SqlCommand cmd = new("INSERT INTO GAME (G_TITLE) VALUES " +
-                "('CS:GO'), " +
-                "('Valorant'), " +
-                "('FIFA'), " +
-                "('Rocket League');", con);
+            using (SqlConnection con = new("Server=10.56.8.36; Database=NOT_SPECIFIED; User Id=NOT_SPECIFIED; Password=NOT_SPECIFIED; TrustServerCertificate=true"))
+            {
+                con.Open();
+
+                SqlCommand cmd = new("DELETE FROM GAME; DELETE FROM LEARNINGOBJECTIVE;", con);
+
+                cmd.ExecuteNonQuery();
+
+                cmd.CommandText = "INSERT INTO GAME (G_TITLE) VALUES " +
+                    "('CS:GO'), " +
+                    "('Valorant'), " +
+                    "('FIFA'), " +
+                    "('Rocket League');";
+
+                cmd.ExecuteNonQuery();
+            }
         }
 
         [TestInitialize]
