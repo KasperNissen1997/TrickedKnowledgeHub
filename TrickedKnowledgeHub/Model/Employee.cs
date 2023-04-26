@@ -16,5 +16,9 @@
             Password = password;
             Type = type;
         }
+        public override string ToString()
+        {
+            return $"{Mail}, {Name}, {Nickname}, {Password}, {Type}";
+        }
     }
 }
