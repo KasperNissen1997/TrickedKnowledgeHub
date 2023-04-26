@@ -9,7 +9,10 @@ namespace TrickedKnowledgeHub.Model.Repo
     {
         private List<Exercise> exerciseList = new();
 
-        public ExerciseRepository() { Load(); }
+        public ExerciseRepository()
+        { 
+            Load(); 
+        }
 
         public override void Load()
         {

@@ -6,9 +6,14 @@ namespace TrickedKnowledgeHub.Model.Repo
 {
     public class LearningObjectiveRepository : Repository
     {
-        private List<LearningObjective> learningObjectives = new List<LearningObjective>();
+        private List<LearningObjective> learningObjectives = new();
 
-        public LearningObjectiveRepository() { Load(); }
+        public LearningObjectiveRepository(bool isTestRepository)
+        {
+            IsTestRepository = isTestRepository;
+
+            Load();
+        }
 
         public override void Load()
         {

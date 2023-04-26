@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.Data.SqlClient;
 
 namespace TrickedKnowledgeHub.Model.Repo
 {
     public class GameRepository : Repository
     {
-        private List<Game> games = new List<Game>();
+        private List<Game> games = new();
 
-        public GameRepository() { Load(); }
+        public GameRepository(bool isTestRepository = false) 
+        { 
+            IsTestRepository = isTestRepository;
+
+            Load(); 
+        }
 
         public override void Load()
         {

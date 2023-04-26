@@ -6,11 +6,11 @@ namespace TrickedKnowledgeHub.Model.Repo
 {
     public class EmployeeRepository : Repository
     {
-        private List<Employee> employees;
+        private List<Employee> employees = new();
 
-        public EmployeeRepository()
+        public EmployeeRepository(bool isTestRepository)
         {
-            employees = new();
+            IsTestRepository = isTestRepository;
 
             Load();
         }
