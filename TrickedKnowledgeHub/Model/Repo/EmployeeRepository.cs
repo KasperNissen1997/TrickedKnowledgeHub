@@ -8,7 +8,7 @@ namespace TrickedKnowledgeHub.Model.Repo
     {
         private List<Employee> employees = new();
 
-        public EmployeeRepository(bool isTestRepository)
+        public EmployeeRepository(bool isTestRepository = false)
         {
             IsTestRepository = isTestRepository;
 

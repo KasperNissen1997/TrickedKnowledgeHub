@@ -8,7 +8,7 @@ namespace TrickedKnowledgeHub.Model.Repo
     {
         private List<LearningObjective> learningObjectives = new();
 
-        public LearningObjectiveRepository(bool isTestRepository)
+        public LearningObjectiveRepository(bool isTestRepository = false)
         {
             IsTestRepository = isTestRepository;
 
