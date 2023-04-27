@@ -31,17 +31,17 @@ namespace TrickedKnowledgeHub.Model.Repo
                         string title = dr["LO_Title"].ToString();
                         string gameTitle = dr["G_Title"].ToString();
 
-                        LearningObjective learningObjective = new(id, title);
-                        learningObjectives.Add(learningObjective);
-
-                        Game associatedGame;
+                        Game parent;
 
                         if (IsTestRepository)
-                            associatedGame = RepositoryManager.TestGameRepository.Retrieve(gameTitle);
+                            parent = RepositoryManager.TestGameRepository.Retrieve(gameTitle);
                         else
-                            associatedGame = RepositoryManager.GameRepository.Retrieve(gameTitle);
+                            parent = RepositoryManager.GameRepository.Retrieve(gameTitle);
 
-                        associatedGame.LearningObjectives.Add(learningObjective);
+                        LearningObjective learningObjective = new(id, title, parent);
+                        learningObjectives.Add(learningObjective);
+
+                        parent.LearningObjectives.Add(learningObjective);
                     }
                 }
             }
@@ -54,7 +54,7 @@ namespace TrickedKnowledgeHub.Model.Repo
             Load();
         }
 
-        public LearningObjective Create(string title, Game game)
+        public LearningObjective Create(string title, Game parent)
         {
             using (SqlConnection con = GetConnection())
             {
@@ -62,13 +62,13 @@ namespace TrickedKnowledgeHub.Model.Repo
                 SqlCommand cmd = new SqlCommand("INSERT INTO LEARNINGOBJECTIVE (LO_Title, G_Title) VALUES (@LO_Title, @G_Title) SELECT @@IDENTITY", con);
 
                 cmd.Parameters.AddWithValue("@LO_Title", title);
-                cmd.Parameters.AddWithValue("@G_Title", game.Title);
+                cmd.Parameters.AddWithValue("@G_Title", parent.Title);
 
                 int id = Convert.ToInt32(cmd.ExecuteScalar());
 
                 LearningObjective learningObjective = new(id, title);
 
-                game.LearningObjectives.Add(learningObjective);
+                parent.LearningObjectives.Add(learningObjective);
                 learningObjectives.Add(learningObjective);
 
                 return learningObjective;

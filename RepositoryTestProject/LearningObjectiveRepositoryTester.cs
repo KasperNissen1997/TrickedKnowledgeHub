@@ -25,7 +25,6 @@ namespace RepositoryTestProject
                     "('Valorant'), " +
                     "('FIFA'), " +
                     "('Rocket League');", con);
-
                 cmd.ExecuteNonQuery();
 
                 cmd = new("INSERT INTO LEARNINGOBJECTIVE (LO_Title, G_Title) VALUES " +
@@ -38,7 +37,6 @@ namespace RepositoryTestProject
                     "('Offense & Defense', 'FIFA'), " +
                     "('Offensive', 'Rocket League'), " +
                     "('Ball control', 'Rocket League');", con);
-
                 cmd.ExecuteNonQuery();
             }
 
@@ -55,15 +53,12 @@ namespace RepositoryTestProject
                 con.Open();
 
                 SqlCommand cmd = new("DELETE FROM LEARNINGOBJECTIVE;", con);
-
                 cmd.ExecuteNonQuery();
 
                 cmd.CommandText = "DELETE FROM GAME;";
-
                 cmd.ExecuteNonQuery();
 
-                cmd.CommandText = "DBCC CHECKIDENT ('LEARNINGOBJECTIVE', RESEED, 0);;";
-
+                cmd.CommandText = "DBCC CHECKIDENT ('LEARNINGOBJECTIVE', RESEED, 0);";
                 cmd.ExecuteNonQuery();
             }
         }

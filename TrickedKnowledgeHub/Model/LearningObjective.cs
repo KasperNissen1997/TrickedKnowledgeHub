@@ -6,15 +6,18 @@ namespace TrickedKnowledgeHub.Model
     public class LearningObjective
     {
         public int ID { get; }
+
         public string Title { get; set; }
+        public Game Parent { get; set; }
 
         public List<FocusPoint> FocusPoints = new List<FocusPoint>();
 
-        public LearningObjective(int id, string title)
+        public LearningObjective(int id, string title, Game parent)
         {
             ID = id;
 
             Title = title;
+            Parent = parent;
         }
 
         /// <summary>
@@ -26,6 +29,7 @@ namespace TrickedKnowledgeHub.Model
             StringBuilder sb = new();
             sb.Append("ID: " + ID + ", ");
             sb.Append("Title: " + Title + ", ");
+            sb.Append("Parent: " + Parent.Title + ", ");
             sb.Append("FocusPoints: ");
 
             // Iterate over each associated FocusPoint, and add them to the string.

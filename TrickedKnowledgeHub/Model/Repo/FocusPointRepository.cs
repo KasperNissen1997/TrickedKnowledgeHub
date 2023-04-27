@@ -30,11 +30,11 @@ namespace TrickedKnowledgeHub.Model.Repo
                         string title = dr["F_Title"].ToString();
                         int learningObjectiveID = int.Parse(dr["LO_ID"].ToString());
 
-                        FocusPoint focusPoint = new(title);
-                        _focusPoints.Add(focusPoint);
+                        LearningObjective parent = RepositoryManager.LearningObjectiveRepository.Retrive(learningObjectiveID);
 
-                        LearningObjective associatedLearningObjective = RepositoryManager.LearningObjectiveRepository.Retrive(learningObjectiveID);
-                        associatedLearningObjective.FocusPoints.Add(focusPoint);
+                        _focusPoints.Add(focusPoint);
+                        FocusPoint focusPoint = new(title, parent);
+                        parent.FocusPoints.Add(focusPoint);
                     }
                 }
             }
@@ -53,7 +53,7 @@ namespace TrickedKnowledgeHub.Model.Repo
 
                 cmd.ExecuteNonQuery();
 
-                FocusPoint focusPoint = new(title);
+                FocusPoint focusPoint = new(title, parent);
 
                 parent.FocusPoints.Add(focusPoint);
                 _focusPoints.Add(focusPoint);
