@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace TrickedKnowledgeHub.Model.Repo
 {
@@ -43,7 +44,12 @@ namespace TrickedKnowledgeHub.Model.Repo
                         string title = dr["F_Title"].ToString();
                         int learningObjectiveID = int.Parse(dr["LO_ID"].ToString());
 
-                        LearningObjective parent = RepositoryManager.LearningObjectiveRepository.Retrive(learningObjectiveID);
+                        LearningObjective parent;
+
+                        if (IsTestRepository)
+                            parent = RepositoryManager.TestLearningObjectiveRepository.Retrieve(learningObjectiveID);
+                        else
+                            parent = RepositoryManager.LearningObjectiveRepository.Retrieve(learningObjectiveID);
 
                         FocusPoint focusPoint = new(title, parent);
 
@@ -74,12 +80,12 @@ namespace TrickedKnowledgeHub.Model.Repo
                 con.Open();
 
                 // Prepare the SQL query we are going to send to the DB.
-                SqlCommand cmd = new SqlCommand("INSERT INTO FOCUSPOINT(F_Title,L_Title)" +
-                    "VALUES(@F_Title, @L_Title", con);
+                SqlCommand cmd = new SqlCommand("INSERT INTO FOCUSPOINT(F_Title, LO_ID)" +
+                    "VALUES (@F_Title, @LO_ID)", con);
                 // Initialize the parameters with the values the DB should receive.
                 // We use AddWithValue instead of Add because we are only dealing with strings.
                 cmd.Parameters.AddWithValue("@F_Title", title);
-                cmd.Parameters.AddWithValue("@L_Title", parent.Title);
+                cmd.Parameters.Add("@LO_ID", SqlDbType.Int).Value = parent.ID;
 
                 cmd.ExecuteNonQuery();
 

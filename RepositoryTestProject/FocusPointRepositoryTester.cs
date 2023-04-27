@@ -88,41 +88,41 @@ namespace RepositoryTestProject
         public void Test_Create()
         {
             // Arrange
-            string title = "Utility usage";
-            Game valorantGame = gameRepo.Retrieve("Valorant");
+            string title = "Raw aim";
+            LearningObjective valorantAimLearningObjective = learningObjectiveRepo.Retrieve(3);
 
             // Act
-            LearningObjective utilityUsageLearningObjective = learningObjectiveRepo.Create(title, valorantGame);
+            FocusPoint rawAimFocusPoint = focusPointRepo.Create(title, valorantAimLearningObjective);
 
             // Assert
-            Assert.AreEqual("ID: 10, Title: Utility usage, FocusPoints: ", utilityUsageLearningObjective.ToString());
+            Assert.AreEqual("Title: Raw aim, Parent: 3", rawAimFocusPoint.ToString());
         }
 
         [TestMethod]
-        public void Test_Create_IsAssociatedToGame()
+        public void Test_Create_IsAssociatedToFocusPoint()
         {
             // Arrange
-            string title = "Utility usage";
-            Game valorantGame = gameRepo.Retrieve("Valorant");
+            string title = "Raw aim";
+            LearningObjective csgoAimLearningObjective = learningObjectiveRepo.Retrieve(1);
 
             // Act
-            learningObjectiveRepo.Create(title, valorantGame);
+            FocusPoint newFocusPoint = focusPointRepo.Create(title, csgoAimLearningObjective);
 
             // Assert
-            Assert.AreEqual("Title: Valorant, LearningObjectives: Aim, Team composition, Utility usage", valorantGame.ToString());
+            Assert.AreEqual("ID: 1, Title: Aim, Parent: CS:GO, FocusPoints: Peek, Reaction time, Spray, Tap, Raw aim", csgoAimLearningObjective.ToString());
         }
 
         [TestMethod]
         public void Test_Retrieve()
         {
             // Arrange
-            int passingLearningObjectiveID = 6;
+            string title = "Pop flashes (D2)";
 
             // Act
-            LearningObjective passingLearningObjective = learningObjectiveRepo.Retrive(passingLearningObjectiveID);
+            FocusPoint popFlashesD2FocusPoint = focusPointRepo.Retrieve(title);
 
             // Assert
-            Assert.AreEqual("ID: 6, Title: Passing, FocusPoints: ", passingLearningObjective.ToString());
+            Assert.AreEqual("Title: Pop flashes (D2), Parent: 2", popFlashesD2FocusPoint.ToString());
         }
 
         [TestMethod]
@@ -133,7 +133,7 @@ namespace RepositoryTestProject
             int invalidID = 0;
 
             // Act
-            learningObjectiveRepo.Retrive(invalidID);
+            learningObjectiveRepo.Retrieve(invalidID);
 
             // Assert
         }
@@ -155,13 +155,13 @@ namespace RepositoryTestProject
         public void Test_RetrieveAll_CorrectAmount()
         {
             // Arrange
-            List<LearningObjective> retrievedLearningObjectives;
+            List<FocusPoint> retrievedFocusPoints;
 
             // Act
-            retrievedLearningObjectives = learningObjectiveRepo.RetrieveAll();
+            retrievedFocusPoints = focusPointRepo.RetrieveAll();
 
             // Assert
-            Assert.AreEqual(9, retrievedLearningObjectives.Count);
+            Assert.AreEqual(9, retrievedFocusPoints.Count);
         }
     }
 }

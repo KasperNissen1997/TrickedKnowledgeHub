@@ -109,7 +109,7 @@ namespace RepositoryTestProject
             int passingLearningObjectiveID = 6;
 
             // Act
-            LearningObjective passingLearningObjective = learningObjectiveRepo.Retrive(passingLearningObjectiveID);
+            LearningObjective passingLearningObjective = learningObjectiveRepo.Retrieve(passingLearningObjectiveID);
 
             // Assert
             Assert.AreEqual("ID: 6, Title: Passing, Parent: FIFA, FocusPoints: ", passingLearningObjective.ToString());
@@ -123,7 +123,7 @@ namespace RepositoryTestProject
             int invalidID = 0;
 
             // Act
-            learningObjectiveRepo.Retrive(invalidID);
+            learningObjectiveRepo.Retrieve(invalidID);
 
             // Assert
         }
