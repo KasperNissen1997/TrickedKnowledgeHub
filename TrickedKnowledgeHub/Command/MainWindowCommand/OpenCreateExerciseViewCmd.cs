@@ -25,6 +25,7 @@ namespace TrickedKnowledgeHub.Command.MainWindowCommand
                     createExerciseVM.ActiveUser = vm.ActiveUser;
 
                 vm.create_exercise_window.Show();
+                
             }
             else
                 throw new NotImplementedException();
