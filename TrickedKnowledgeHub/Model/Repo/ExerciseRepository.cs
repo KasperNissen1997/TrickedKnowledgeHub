@@ -29,15 +29,28 @@ namespace TrickedKnowledgeHub.Model.Repo
                         string Title = dr["Title"].ToString();
                         string description = dr["Description"].ToString();
                         byte[] Material = (byte[])dr["Material"];
-                        DateTime Time = DateTime.Parse(dr["Time"].ToString());
+                        DateTime Time = DateTime.Parse(dr["Timestamp"].ToString());
                         string Mail = dr["Mail"].ToString();
                         string G_Title = dr["G_Title"].ToString();
                         Rating rating = (Rating)Enum.Parse(typeof(Rating), dr["Value"].ToString());
                         string F_Title = dr["F_Title"].ToString();
 
-                        Employee associatedEmployee = RepositoryManager.EmployeeRepository.Retrieve(Mail);
-                        Game associatedGame = RepositoryManager.GameRepository.Retrieve(G_Title);
-                        FocusPoint associatedFocusPoint = RepositoryManager.FocusPointRepository.Retrieve(F_Title);
+                        Employee associatedEmployee;
+                        Game associatedGame;
+                        FocusPoint associatedFocusPoint;
+
+                        if (IsTestRepository)
+                        {
+                            associatedEmployee = RepositoryManager.TestEmployeeRepository.Retrieve(Mail);
+                            associatedGame = RepositoryManager.TestGameRepository.Retrieve(G_Title);
+                            associatedFocusPoint = RepositoryManager.TestFocusPointRepository.Retrieve(F_Title);
+                        }
+                        else
+                        {
+                            associatedEmployee = RepositoryManager.EmployeeRepository.Retrieve(Mail);
+                            associatedGame = RepositoryManager.GameRepository.Retrieve(G_Title);
+                            associatedFocusPoint = RepositoryManager.FocusPointRepository.Retrieve(F_Title);
+                        }
 
                         Exercise exercise = new(Title, description, Material, Time, associatedEmployee, associatedGame, associatedFocusPoint, rating);
 
