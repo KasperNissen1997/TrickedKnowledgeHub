@@ -66,8 +66,8 @@ namespace TrickedKnowledgeHub.Model.Repo
 
                 exercise.ExerciseID = Convert.ToInt32(cmd.ExecuteScalar());
                 exerciseList.Add(exercise);
-                SqlCommand command = new SqlCommand("INSERT INTO EXERCISE_FOCUSPOINT (ExerciseID, F_Title)" + // this code to bind IxerciseID and the selected FocusPoint
-                                                "VALUES(@ExerciseID, @F_Title)" + "SELECT @@IDENTITY", con);
+                SqlCommand command = new SqlCommand("INSERT INTO EXERCISE_FOCUSPOINT (ID, F_Title)" + // this code to bind IxerciseID and the selected FocusPoint
+                                                "VALUES(@ID, @F_Title)" + "SELECT @@IDENTITY", con);
                 command.Parameters.Add("@ExerciseID", SqlDbType.Int).Value = exercise.ExerciseID;
                 command.Parameters.Add("@F_Title", SqlDbType.NVarChar).Value = exercise.FocusPoint.Title;
                 command.ExecuteNonQuery();

@@ -95,7 +95,7 @@ namespace TrickedKnowledgeHub.Model.Repo
                 {
                     return employee; //return selected employee
                 }
-
+                
             }
 
             throw new ArgumentException($"Could not find employee with mail: {email} ");
