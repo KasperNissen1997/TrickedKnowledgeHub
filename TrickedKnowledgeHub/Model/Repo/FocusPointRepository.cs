@@ -32,9 +32,10 @@ namespace TrickedKnowledgeHub.Model.Repo
 
                         LearningObjective parent = RepositoryManager.LearningObjectiveRepository.Retrive(learningObjectiveID);
 
-                        _focusPoints.Add(focusPoint);
                         FocusPoint focusPoint = new(title, parent);
+
                         parent.FocusPoints.Add(focusPoint);
+                        _focusPoints.Add(focusPoint);
                     }
                 }
             }
