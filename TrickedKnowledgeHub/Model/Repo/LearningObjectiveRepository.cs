@@ -27,18 +27,31 @@ namespace TrickedKnowledgeHub.Model.Repo
                 {
                     while (dr.Read())
                     {
-                        string title = dr["ID"].ToString();
-                        string learingObjectiveTitle = dr["LO_Title"].ToString();
+                        int id = int.Parse(dr["ID"].ToString());
+                        string title = dr["LO_Title"].ToString();
                         string gameTitle = dr["G_Title"].ToString();
 
-                        LearningObjective learningObjective = new(title);
+                        LearningObjective learningObjective = new(id, title);
                         learningObjectives.Add(learningObjective);
 
-                        Game associatedGame = RepositoryManager.GameRepository.Retrieve(gameTitle);
+                        Game associatedGame;
+
+                        if (IsTestRepository)
+                            associatedGame = RepositoryManager.TestGameRepository.Retrieve(gameTitle);
+                        else
+                            associatedGame = RepositoryManager.GameRepository.Retrieve(gameTitle);
+
                         associatedGame.LearningObjectives.Add(learningObjective);
                     }
                 }
             }
+        }
+
+        public void Reset()
+        {
+            learningObjectives.Clear();
+
+            Load();
         }
 
         public LearningObjective Create(string title, Game game)
@@ -46,14 +59,14 @@ namespace TrickedKnowledgeHub.Model.Repo
             using (SqlConnection con = GetConnection())
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("INSERT INTO LEARNINGOBJECTIVE (L_Title, G_Title)" + "VALUES(@L_Title, @G_Title)", con);
+                SqlCommand cmd = new SqlCommand("INSERT INTO LEARNINGOBJECTIVE (LO_Title, G_Title) VALUES (@LO_Title, @G_Title) SELECT @@IDENTITY", con);
 
-                cmd.Parameters.AddWithValue("@L_Title", title);
+                cmd.Parameters.AddWithValue("@LO_Title", title);
                 cmd.Parameters.AddWithValue("@G_Title", game.Title);
 
-                cmd.ExecuteNonQuery();
+                int id = Convert.ToInt32(cmd.ExecuteScalar());
 
-                LearningObjective learningObjective = new(title);
+                LearningObjective learningObjective = new(id, title);
 
                 game.LearningObjectives.Add(learningObjective);
                 learningObjectives.Add(learningObjective);
@@ -62,17 +75,13 @@ namespace TrickedKnowledgeHub.Model.Repo
             }
         }
 
-        public LearningObjective Retrive(string title)
+        public LearningObjective Retrive(int id)
         {
             foreach (LearningObjective learningObjective in learningObjectives)
-            {
-                if (learningObjective.Title == title)
-                {
+                if (learningObjective.ID == id)
                     return learningObjective;
-                }
-            }
 
-            throw new ArgumentException($"No learningObjective with title {title} found.");
+            throw new ArgumentException($"No learningObjective with title {id} found.");
         }
 
         public List<LearningObjective> RetrieveAll()

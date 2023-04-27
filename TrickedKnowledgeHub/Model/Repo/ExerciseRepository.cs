@@ -9,8 +9,10 @@ namespace TrickedKnowledgeHub.Model.Repo
     {
         private List<Exercise> exerciseList = new();
 
-        public ExerciseRepository()
+        public ExerciseRepository(bool isTestRepository = false)
         { 
+            IsTestRepository = isTestRepository;
+
             Load(); 
         }
 

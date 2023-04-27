@@ -5,12 +5,15 @@ namespace TrickedKnowledgeHub.Model
 {
     public class LearningObjective
     {
+        public int ID { get; }
         public string Title { get; set; }
 
         public List<FocusPoint> FocusPoints = new List<FocusPoint>();
 
-        public LearningObjective(string title)
+        public LearningObjective(int id, string title)
         {
+            ID = id;
+
             Title = title;
         }
 
@@ -21,6 +24,7 @@ namespace TrickedKnowledgeHub.Model
         public override string ToString()
         {
             StringBuilder sb = new();
+            sb.Append("ID: " + ID + ", ");
             sb.Append("Title: " + Title + ", ");
             sb.Append("FocusPoints: ");
 

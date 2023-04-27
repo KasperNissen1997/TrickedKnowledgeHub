@@ -38,6 +38,13 @@ namespace TrickedKnowledgeHub.Model.Repo
             }
         }
 
+        public void Reset()
+        {
+            games.Clear();
+
+            Load();
+        }
+
         public Game Create(string title)
         {
             using (SqlConnection con = GetConnection())
