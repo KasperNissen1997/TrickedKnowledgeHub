@@ -24,8 +24,6 @@ namespace TrickedKnowledgeHub
             InitializeComponent();
         }
 
-        
-
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (sender is TextBox tb)
@@ -33,6 +31,11 @@ namespace TrickedKnowledgeHub
                 if (string.IsNullOrEmpty(tb.Text))
                     tb.Text = "Jeg står her når der er tomt.";
             }
+        }
+
+        private void Cancel_Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Visibility = Visibility.Collapsed;
         }
     }
 }

@@ -14,8 +14,10 @@ namespace TrickedKnowledgeHub.Model.Repo
     {
         private List<FocusPoint> _focusPoints = new();
 
-        public FocusPointRepository() 
+        public FocusPointRepository(bool isTestRepository = false) 
         {
+            IsTestRepository = isTestRepository;
+
             Load(); // when the repository is called the load methode runs and makes the list with the focus points
         }
 
@@ -38,14 +40,14 @@ namespace TrickedKnowledgeHub.Model.Repo
                     while (dr.Read()) 
                     {
                         string title = dr["F_Title"].ToString();
-                        string learningObjectiveTitle = dr["LO_Title"].ToString();
+                        int learningObjectiveID = int.Parse(dr["LO_ID"].ToString());
 
-                        FocusPoint focusPoint = new(title);
+                        LearningObjective parent = RepositoryManager.LearningObjectiveRepository.Retrive(learningObjectiveID);
+
+                        FocusPoint focusPoint = new(title, parent);
+
+                        parent.FocusPoints.Add(focusPoint);
                         _focusPoints.Add(focusPoint);
-
-                        // Retrieve the parent LearningObjective, and associate the newly created FocusPoint.
-                        LearningObjective associatedLearningObjective = RepositoryManager.LearningObjectiveRepository.Retrive(learningObjectiveTitle);
-                        associatedLearningObjective.FocusPoints.Add(focusPoint);
                     }
                 }
             }
@@ -73,7 +75,7 @@ namespace TrickedKnowledgeHub.Model.Repo
 
                 cmd.ExecuteNonQuery();
 
-                FocusPoint focusPoint = new(title);
+                FocusPoint focusPoint = new(title, parent);
 
                 // Create the association between the parenting LearningObjective instance and this new FocusPoint instance.
                 parent.FocusPoints.Add(focusPoint);

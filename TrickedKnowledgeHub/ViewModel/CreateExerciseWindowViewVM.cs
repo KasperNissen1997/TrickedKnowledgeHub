@@ -10,12 +10,29 @@ using System.Windows.Media.Media3D;
 using TrickedKnowledgeHub.Model;
 using Microsoft.Office.Interop.Word;
 using TrickedKnowledgeHub.Model.Repo;
-using TrickedKnowledgeHub.Command;
+using TrickedKnowledgeHub.Command.CreateExerciseWindowCommand;
+using TrickedKnowledgeHub.ViewModel.Domain;
 
 namespace TrickedKnowledgeHub.ViewModel
 {
     public class CreateExerciseWindowViewVM : INotifyPropertyChanged
     {
+
+        private EmployeeVM activeUser;
+        public EmployeeVM ActiveUser
+        {
+            get 
+            {
+                return activeUser;
+            }
+
+            set
+            {
+                activeUser = value;
+                OnPropertyChanged(nameof(ActiveUser));
+            }
+        }
+
         public List<Rating> Ratings { get; set; }
 
         private string _title;
@@ -73,9 +90,18 @@ namespace TrickedKnowledgeHub.ViewModel
                 _selectedGame = value;
                 OnPropertyChanged(nameof(SelectedGame));
 
+                if (SelectedLearningObjective != null && !SelectedGame.Objectives.Contains(SelectedLearningObjective))
+                {
+                    SelectedLearningObjective = null;
+                }
+
                 AvailableLearningObjectives = SelectedGame.Objectives;
+
+
+
             }
         }
+
         private ObservableCollection<LearningObjectiveVM> _availableLearningObjectives;
         public ObservableCollection<LearningObjectiveVM> AvailableLearningObjectives
         {
@@ -103,7 +129,17 @@ namespace TrickedKnowledgeHub.ViewModel
                 _selectedLearningObjective = value;
                 OnPropertyChanged(nameof(SelectedLearningObjective));
 
-                AvailableFocusPoints = SelectedLearningObjective.FocusPointVMs;
+                if (SelectedLearningObjective != null)
+                {
+                    AvailableFocusPoints = SelectedLearningObjective.FocusPointVMs;
+                }
+                else
+                {
+                    AvailableFocusPoints = new ObservableCollection<FocusPointVM>();
+                }
+
+                
+
             }
         }
         private ObservableCollection<FocusPointVM> _availableFocusPoints;
@@ -148,8 +184,8 @@ namespace TrickedKnowledgeHub.ViewModel
                 OnPropertyChanged(nameof(SelectedRating));
             }
         }
-        private Document _material;
-        public Document Material
+        private byte[] _material;
+        public byte[] Material
         {
             get
             {
@@ -165,6 +201,7 @@ namespace TrickedKnowledgeHub.ViewModel
 
         #region Commands
         public CreateExerciseCommand CreateExerciseCommand { get; set; } = new();
+        public SelectMaterialCommand SelectMaterialCommand { get; set; } = new();
         #endregion
 
         public CreateExerciseWindowViewVM()

@@ -6,11 +6,11 @@ namespace TrickedKnowledgeHub.Model.Repo
 {
     public class EmployeeRepository : Repository
     {
-        private List<Employee> employees;
+        private List<Employee> employees = new();
 
-        public EmployeeRepository()
+        public EmployeeRepository(bool isTestRepository = false)
         {
-            employees = new();
+            IsTestRepository = isTestRepository;
 
             Load();
         }
@@ -95,7 +95,7 @@ namespace TrickedKnowledgeHub.Model.Repo
                 {
                     return employee; //return selected employee
                 }
-
+                
             }
 
             throw new ArgumentException($"Could not find employee with mail: {email} ");
