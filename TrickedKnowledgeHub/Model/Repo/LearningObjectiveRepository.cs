@@ -6,8 +6,6 @@ namespace TrickedKnowledgeHub.Model.Repo
 {
     public class LearningObjectiveRepository : Repository
     {
-        private GameRepository testGameRepository = new(true);
-
         private List<LearningObjective> learningObjectives = new();
 
         public LearningObjectiveRepository(bool isTestRepository = false)
@@ -39,7 +37,7 @@ namespace TrickedKnowledgeHub.Model.Repo
                         Game associatedGame;
 
                         if (IsTestRepository)
-                            associatedGame = testGameRepository.Retrieve(gameTitle);
+                            associatedGame = RepositoryManager.TestGameRepository.Retrieve(gameTitle);
                         else
                             associatedGame = RepositoryManager.GameRepository.Retrieve(gameTitle);
 
@@ -47,6 +45,13 @@ namespace TrickedKnowledgeHub.Model.Repo
                     }
                 }
             }
+        }
+
+        public void Reset()
+        {
+            learningObjectives.Clear();
+
+            Load();
         }
 
         public LearningObjective Create(string title, Game game)

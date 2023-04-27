@@ -9,8 +9,8 @@ namespace RepositoryTestProject
     {
         private static string connectionString = "Server=10.56.8.36; Database=DB_2023_35; User Id=STUDENT_35; Password=OPENDB_35; TrustServerCertificate=true";
 
-        private GameRepository gameRepo;
-        private LearningObjectiveRepository learningObjectiveRepo;
+        private GameRepository gameRepo = RepositoryManager.TestGameRepository;
+        private LearningObjectiveRepository learningObjectiveRepo = RepositoryManager.TestLearningObjectiveRepository;
 
         [TestInitialize]
         public void TestInitialize()
@@ -42,8 +42,8 @@ namespace RepositoryTestProject
                 cmd.ExecuteNonQuery();
             }
 
-            gameRepo = new(true);
-            learningObjectiveRepo = new(true);
+            gameRepo.Reset();
+            learningObjectiveRepo.Reset();
         }
 
         [TestCleanup]
@@ -101,10 +101,10 @@ namespace RepositoryTestProject
             Game valorantGame = gameRepo.Retrieve("Valorant");
 
             // Act
-            LearningObjective utilityUsageLearningObjective = learningObjectiveRepo.Create(title, valorantGame);
+            learningObjectiveRepo.Create(title, valorantGame);
 
             // Assert
-            Assert.AreEqual("Title: Valorant, FocusPoints: Aim, Team composition, Utility usage", valorantGame.ToString());
+            Assert.AreEqual("Title: Valorant, LearningObjectives: Aim, Team composition, Utility usage", valorantGame.ToString());
         }
 
         [TestMethod]
@@ -114,23 +114,23 @@ namespace RepositoryTestProject
             int passingLearningObjectiveID = 6;
 
             // Act
-            LearningObjective passingLearningObjective = learningObjectiveRepo.Retrive(6);
+            LearningObjective passingLearningObjective = learningObjectiveRepo.Retrive(passingLearningObjectiveID);
 
             // Assert
             Assert.AreEqual("ID: 6, Title: Passing, FocusPoints: ", passingLearningObjective.ToString());
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
         public void Test_Retrieve_WrongID()
         {
             // Arrange
             int invalidID = 0;
 
             // Act
-            LearningObjective passingLearningObjective = learningObjectiveRepo.Retrive(invalidID);
+            learningObjectiveRepo.Retrive(invalidID);
 
             // Assert
-            Assert.IsNull(passingLearningObjective);
         }
 
         [TestMethod]
