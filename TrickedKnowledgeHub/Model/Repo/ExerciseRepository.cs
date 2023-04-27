@@ -9,8 +9,10 @@ namespace TrickedKnowledgeHub.Model.Repo
     {
         private List<Exercise> exerciseList = new();
 
-        public ExerciseRepository()
+        public ExerciseRepository(bool isTestRepository = false)
         { 
+            IsTestRepository = isTestRepository;
+
             Load(); 
         }
 
@@ -33,9 +35,22 @@ namespace TrickedKnowledgeHub.Model.Repo
                         Rating rating = (Rating)Enum.Parse(typeof(Rating), dr["Value"].ToString());
                         string F_Title = dr["F_Title"].ToString();
 
-                        Employee associatedEmployee = RepositoryManager.EmployeeRepository.Retrieve(Mail);
-                        Game associatedGame = RepositoryManager.GameRepository.Retrieve(G_Title);
-                        FocusPoint associatedFocusPoint = RepositoryManager.FocusPointRepository.Retrieve(F_Title);
+                        Employee associatedEmployee;
+                        Game associatedGame;
+                        FocusPoint associatedFocusPoint;
+
+                        if (IsTestRepository)
+                        {
+                            associatedEmployee = RepositoryManager.TestEmployeeRepository.Retrieve(Mail);
+                            associatedGame = RepositoryManager.TestGameRepository.Retrieve(G_Title);
+                            associatedFocusPoint = RepositoryManager.TestFocusPointRepository.Retrieve(F_Title);
+                        }
+                        else
+                        {
+                            associatedEmployee = RepositoryManager.EmployeeRepository.Retrieve(Mail);
+                            associatedGame = RepositoryManager.GameRepository.Retrieve(G_Title);
+                            associatedFocusPoint = RepositoryManager.FocusPointRepository.Retrieve(F_Title);
+                        }
 
                         Exercise exercise = new(Title, description, Material, Time, associatedEmployee, associatedGame, associatedFocusPoint, rating);
 
@@ -64,10 +79,13 @@ namespace TrickedKnowledgeHub.Model.Repo
 
                 exercise.ExerciseID = Convert.ToInt32(cmd.ExecuteScalar());
                 exerciseList.Add(exercise);
-                SqlCommand command = new SqlCommand("INSERT INTO EXERCISE_FOCUSPOINT (ID, F_Title)" + // this code to bind IxerciseID and the selected FocusPoint
-                                                "VALUES(@ID, @F_Title)" + "SELECT @@IDENTITY", con);
-                command.Parameters.Add("@ExerciseID", SqlDbType.Int).Value = exercise.ExerciseID;
+
+
+                SqlCommand command = new SqlCommand("INSERT INTO EXERCISE_FOCUSPOINT (E_ID, F_Title, LO_ID)" + // this code to bind ExerciseID and the selected FocusPoint
+                                                "VALUES(@E_ID, @F_Title @LO_ID)" + "SELECT @@IDENTITY", con);
+                command.Parameters.Add("@E_ID", SqlDbType.Int).Value = exercise.ExerciseID;
                 command.Parameters.Add("@F_Title", SqlDbType.NVarChar).Value = exercise.FocusPoint.Title;
+                command.Parameters.Add("@LO_ID", SqlDbType.Int).Value = ;
                 command.ExecuteNonQuery();
 
                 return exercise;

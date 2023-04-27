@@ -13,7 +13,7 @@ namespace TestEmployeeRepo
     {
         private string connectionString = "Server=10.56.8.36; Database=DB_2023_35; User Id=STUDENT_35; Password=OPENDB_35; TrustServerCertificate=true;";
 
-        ExerciseRepository exerciseRepository = new ExerciseRepository();
+        ExerciseRepository exerciseRepository = new ExerciseRepository(true);
 
         string title = "exerciseTitle";
         string description = "exerciseDesc";
@@ -69,10 +69,39 @@ namespace TestEmployeeRepo
             {
                 con.Open();
 
-                SqlCommand cmd = new("DELETE FROM EMPLOYEE; DELETE FROM TYPE; " +
-                    "DELETE FROM GAME; " +
-                    "DELETE FROM RATING; ", con);
+                SqlCommand cmd = new("DELETE FROM EMPLOYEE;", con);
                 cmd.ExecuteNonQuery();
+
+                //Delete TYPE tabel data
+                cmd.CommandText = "DELETE FROM TYPE;";
+                cmd.ExecuteNonQuery();
+
+                //Delete FOCUSPOINT
+                cmd.CommandText = "DELETE FROM FOCUSPOINT;";
+                cmd.ExecuteNonQuery();
+
+                //Delete LEARNINGOBJECTIVE
+                cmd.CommandText = "DELETE FROM LEARNINGOBJECTIVE";
+                cmd.ExecuteNonQuery();
+
+                //Reset identity for LEARNINGOBJECTIVE
+                cmd.CommandText = "DBCC CHECKIDENT ('LEARNINGOBJECTIVE', RESEED, 0);";
+                cmd.ExecuteNonQuery();
+
+                //Delete GAME tabel data
+                cmd.CommandText = "DELETE FROM GAME";
+                cmd.ExecuteNonQuery();
+
+                //Delete RATING tabel data
+                cmd.CommandText = "DELETE FROM RATING;";
+                cmd.ExecuteNonQuery();
+
+
+                //Delete EXERCISE_FOCUSPOINT & EXERCISE
+                cmd.CommandText = "DELETE FROM EXERCISE_FOCUSPOINT; DELETE FROM EXERCISE;";
+
+
+
 
                 //Insert type
                 cmd.CommandText = "INSERT INTO TYPE (Type) VALUES " +
@@ -92,6 +121,16 @@ namespace TestEmployeeRepo
                 //Insert Rating
                 cmd.CommandText = "INSERT INTO RATING (Value) VALUES " +
                     "(1)";
+                cmd.ExecuteNonQuery();
+
+                //Insert Learningobjective
+                cmd.CommandText = "INSERT INTO LEARNINGOBJECTIVE (LO_Title, G_Title) VALUES " +
+                    "('Aim', 'CS:GO')";
+                cmd.ExecuteNonQuery();
+
+                //Insert Focuspoint
+                cmd.CommandText = "INSERT INTO FOCUSPOINT (F_Title, LO_ID) VALUES " +
+                    "('Spray', 1)";
                 cmd.ExecuteNonQuery();
 
                 //Insert exercises
@@ -131,7 +170,7 @@ namespace TestEmployeeRepo
         public void Test_Create()
         {
             //Arrange
-            Exercise ex1 = new(title, description, material, timestamp, employee, game, focusPoint, Rating.LetØvet);
+            Exercise ex1 = new(title, description, material, timestamp, employee, game, focusPoint, Rating.Begynder);
 
             //Act
             Exercise exercise = exerciseRepository.Create(ex1);

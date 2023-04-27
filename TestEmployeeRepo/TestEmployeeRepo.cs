@@ -17,12 +17,12 @@ namespace TestEmployeeRepo
         public void TestInitialize()
         {
             // create new items
-            employeeRepository.Create("Nikolai", "nikolai@gmail.com", "nikolaikiller123", "donthackmeplz1", EmployeeType.Teacher);
-            employeeRepository.Create("Jonathan", "jonathan@gmail.com", "jonathantheman", "donthackmeplz2", EmployeeType.Teacher);
-            employeeRepository.Create("Kasper", "kasper@gmail.com", "kasperthemaster", "donthackmeplz3", EmployeeType.Teacher);
-            employeeRepository.Create("Casper", "casper@gmail.com", "cappertheslapper", "donthackmeplz4", EmployeeType.Teacher);
-            employeeRepository.Create("Oguz", "oguz@gmail.com", "oguztheboguz", "donthackmeplz5", EmployeeType.Teacher);
-            employeeRepository.Create("Aleksander", "aleksander@gmail.com", "aleksalamander", "donthackmeplz6", EmployeeType.Teacher);
+            employeeRepository.Create("Nikolai", "nikolai@gmail.com", "nikolaikiller123", "donthackmeplz1", EmployeeType.Coach);
+            employeeRepository.Create("Jonathan", "jonathan@gmail.com", "jonathantheman", "donthackmeplz2", EmployeeType.Coach);
+            employeeRepository.Create("Kasper", "kasper@gmail.com", "kasperthemaster", "donthackmeplz3", EmployeeType.Coach);
+            employeeRepository.Create("Casper", "casper@gmail.com", "cappertheslapper", "donthackmeplz4", EmployeeType.Coach);
+            employeeRepository.Create("Oguz", "oguz@gmail.com", "oguztheboguz", "donthackmeplz5", EmployeeType.Coach);
+            employeeRepository.Create("Aleksander", "aleksander@gmail.com", "aleksalamander", "donthackmeplz6", EmployeeType.Coach);
         }
 
         [TestCleanup]
