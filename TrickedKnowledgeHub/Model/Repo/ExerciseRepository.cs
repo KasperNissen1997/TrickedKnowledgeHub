@@ -19,7 +19,7 @@ namespace TrickedKnowledgeHub.Model.Repo
             using (SqlConnection con = GetConnection())
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM EXERCISE INNER JOIN EXERCISE_FOCUSPOINT ON EXERCISE.ExerciseID = EXERCISE_FOCUSPOINT.ExerciseID;", con);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM EXERCISE INNER JOIN EXERCISE_FOCUSPOINT ON EXERCISE.ID = EXERCISE_FOCUSPOINT.E_ID;", con);
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())

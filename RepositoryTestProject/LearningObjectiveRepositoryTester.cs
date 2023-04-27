@@ -7,32 +7,10 @@ namespace RepositoryTestProject
     [TestClass]
     public class LearningObjectiveRepositoryTester
     {
-        private string connectionString = "Server=10.56.8.36; Database=DB_2023_35; User Id=STUDENT_35; Password=OPENDB_35; TrustServerCertificate=true";
+        private static string connectionString = "Server=10.56.8.36; Database=DB_2023_35; User Id=STUDENT_35; Password=OPENDB_35; TrustServerCertificate=true";
 
-        private LearningObjectiveRepository learningObjectiveRepo;
         private GameRepository gameRepo;
-
-        //[ClassInitialize]
-        //public void ClassInitilize()
-        //{
-        //    // Initilize the DB with a bunch of Games.
-        //    using (SqlConnection con = new(connectionString))
-        //    {
-        //        con.Open();
-
-        //        SqlCommand cmd = new("DELETE FROM GAME; DELETE FROM LEARNINGOBJECTIVE;", con);
-
-        //        cmd.ExecuteNonQuery();
-
-        //        cmd.CommandText = "INSERT INTO GAME (G_TITLE) VALUES " +
-        //            "('CS:GO'), " +
-        //            "('Valorant'), " +
-        //            "('FIFA'), " +
-        //            "('Rocket League');";
-
-        //        cmd.ExecuteNonQuery();
-        //    }
-        //}
+        private LearningObjectiveRepository learningObjectiveRepo;
 
         [TestInitialize]
         public void TestInitialize()
@@ -42,7 +20,15 @@ namespace RepositoryTestProject
             {
                 con.Open();
 
-                SqlCommand cmd = new("INSERT INTO LEARNINGOBJECTIVE (LO_Title, G_Title) VALUES " +
+                SqlCommand cmd = new("INSERT INTO GAME (G_TITLE) VALUES " +
+                    "('CS:GO'), " +
+                    "('Valorant'), " +
+                    "('FIFA'), " +
+                    "('Rocket League');", con);
+
+                cmd.ExecuteNonQuery();
+
+                cmd = new("INSERT INTO LEARNINGOBJECTIVE (LO_Title, G_Title) VALUES " +
                     "('Aim', 'CS:GO'), " +
                     "('Utility usage', 'CS:GO'), " +
                     "('Map knowledge', 'CS:GO'), " +
@@ -56,8 +42,8 @@ namespace RepositoryTestProject
                 cmd.ExecuteNonQuery();
             }
 
-            learningObjectiveRepo = new();
-            gameRepo = new();
+            gameRepo = new(true);
+            learningObjectiveRepo = new(true);
         }
 
         [TestCleanup]
@@ -69,6 +55,14 @@ namespace RepositoryTestProject
                 con.Open();
 
                 SqlCommand cmd = new("DELETE FROM LEARNINGOBJECTIVE;", con);
+
+                cmd.ExecuteNonQuery();
+
+                cmd.CommandText = "DELETE FROM GAME;";
+
+                cmd.ExecuteNonQuery();
+
+                cmd.CommandText = "DBCC CHECKIDENT ('LEARNINGOBJECTIVE', RESEED, 0);;";
 
                 cmd.ExecuteNonQuery();
             }
@@ -96,7 +90,7 @@ namespace RepositoryTestProject
             LearningObjective utilityUsageLearningObjective = learningObjectiveRepo.Create(title, valorantGame);
 
             // Assert
-            Assert.AreEqual("Title: Utility usage, FocusPoints: ", utilityUsageLearningObjective.ToString());
+            Assert.AreEqual("ID: 10, Title: Utility usage, FocusPoints: ", utilityUsageLearningObjective.ToString());
         }
 
         [TestMethod]
@@ -117,23 +111,23 @@ namespace RepositoryTestProject
         public void Test_Retrieve()
         {
             // Arrange
-            string title = "Passing";
+            int passingLearningObjectiveID = 6;
 
             // Act
-            LearningObjective passingLearningObjective = learningObjectiveRepo.Retrive(title);
+            LearningObjective passingLearningObjective = learningObjectiveRepo.Retrive(6);
 
             // Assert
-            Assert.AreEqual("Title: Passing, FocusPoints: ", passingLearningObjective.ToString());
+            Assert.AreEqual("ID: 6, Title: Passing, FocusPoints: ", passingLearningObjective.ToString());
         }
 
         [TestMethod]
-        public void Test_Retrieve_WrongTitle()
+        public void Test_Retrieve_WrongID()
         {
             // Arrange
-            string title = "Title that does not exist";
+            int invalidID = 0;
 
             // Act
-            LearningObjective passingLearningObjective = learningObjectiveRepo.Retrive(title);
+            LearningObjective passingLearningObjective = learningObjectiveRepo.Retrive(invalidID);
 
             // Assert
             Assert.IsNull(passingLearningObjective);

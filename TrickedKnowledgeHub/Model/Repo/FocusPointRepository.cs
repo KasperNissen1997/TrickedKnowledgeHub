@@ -28,12 +28,12 @@ namespace TrickedKnowledgeHub.Model.Repo
                     while (dr.Read()) // As long there something to read from the server it runs and save it to the list
                     {
                         string title = dr["F_Title"].ToString();
-                        string learningObjectiveTitle = dr["LO_Title"].ToString();
+                        int learningObjectiveID = int.Parse(dr["LO_ID"].ToString());
 
                         FocusPoint focusPoint = new(title);
                         _focusPoints.Add(focusPoint);
 
-                        LearningObjective associatedLearningObjective = RepositoryManager.LearningObjectiveRepository.Retrive(learningObjectiveTitle);
+                        LearningObjective associatedLearningObjective = RepositoryManager.LearningObjectiveRepository.Retrive(learningObjectiveID);
                         associatedLearningObjective.FocusPoints.Add(focusPoint);
                     }
                 }
