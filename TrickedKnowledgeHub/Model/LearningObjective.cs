@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 
 namespace TrickedKnowledgeHub.Model
 {
@@ -11,6 +12,29 @@ namespace TrickedKnowledgeHub.Model
         public LearningObjective(string title)
         {
             Title = title;
+        }
+
+        /// <summary>
+        /// Provides a string representation of the <see cref="LearningObjective"/> instance.
+        /// </summary>
+        /// <returns>A string representation of the <see cref="LearningObjective"/> instance.</returns>
+        public override string ToString()
+        {
+            StringBuilder sb = new();
+            sb.Append("Title: " + Title + ", ");
+            sb.Append("FocusPoints: ");
+
+            // Iterate over each associated FocusPoint, and add them to the string.
+            for (int i = 0; i < FocusPoints.Count; i++)
+            {
+                // If we are at the last associated FocusPoint, then don't add the comma at the end.
+                if (i == FocusPoints.Count - 1)
+                    sb.Append(FocusPoints[i].Title);
+                else
+                    sb.Append(FocusPoints[i].Title + ", ");
+            }
+
+            return sb.ToString();
         }
     }
 }

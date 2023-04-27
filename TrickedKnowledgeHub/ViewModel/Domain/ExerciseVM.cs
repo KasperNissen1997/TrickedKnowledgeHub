@@ -1,11 +1,11 @@
 ﻿using System;
 using TrickedKnowledgeHub.Model;
 
-namespace TrickedKnowledgeHub.ViewModel
+namespace TrickedKnowledgeHub.ViewModel.Domain
 {
     public class ExerciseVM
     {
-        private Exercise source;
+        public Exercise Source { get; }
 
         public string Title { get; set; }
         public string Description { get; set; }
@@ -19,7 +19,7 @@ namespace TrickedKnowledgeHub.ViewModel
 
         public ExerciseVM(Exercise source)
         {
-            this.source = source;
+            this.Source = source;
 
             Title = source.Title;
             Description = source.Description;

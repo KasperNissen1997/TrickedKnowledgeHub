@@ -1,10 +1,10 @@
 ﻿using TrickedKnowledgeHub.Model;
 
-namespace TrickedKnowledgeHub.ViewModel
+namespace TrickedKnowledgeHub.ViewModel.Domain
 {
     public class EmployeeVM
     {
-        private Employee source;
+        public Employee Source { get; }
 
         public string Name { get; set; }
         public string Mail { get; set; }
@@ -14,7 +14,7 @@ namespace TrickedKnowledgeHub.ViewModel
 
         public EmployeeVM(Employee source)
         {
-            this.source = source;
+            this.Source = source;
 
             Name = source.Name;
             Mail = source.Mail;

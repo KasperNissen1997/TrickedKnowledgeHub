@@ -6,11 +6,12 @@ namespace TrickedKnowledgeHub.Model.Repo
 {
     public class FocusPointRepository : Repository
     {
-        private List<FocusPoint> _focusPoints;
+        private List<FocusPoint> _focusPoints = new();
 
-        public FocusPointRepository() 
+        public FocusPointRepository(bool isTestRepository = false) 
         {
-            _focusPoints = new List<FocusPoint>();
+            IsTestRepository = isTestRepository;
+
             Load(); // when the repository is called the load methode runs and makes the list with the focus points
         }
 
@@ -27,7 +28,7 @@ namespace TrickedKnowledgeHub.Model.Repo
                     while (dr.Read()) // As long there something to read from the server it runs and save it to the list
                     {
                         string title = dr["F_Title"].ToString();
-                        string learningObjectiveTitle = dr["LO_Title"].ToString();
+                        string learningObjectiveTitle = dr["LO_ID"].ToString();
 
                         FocusPoint focusPoint = new(title);
                         _focusPoints.Add(focusPoint);
