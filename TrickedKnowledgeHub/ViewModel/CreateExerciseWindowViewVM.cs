@@ -168,6 +168,8 @@ namespace TrickedKnowledgeHub.ViewModel
             {
                 _selectedFocusPoint = value;
                 OnPropertyChanged(nameof(SelectedFocusPoint));
+                //It fucking works with the code in learning objective hehe
+
             }
         }
         private Rating _selectedRating;
