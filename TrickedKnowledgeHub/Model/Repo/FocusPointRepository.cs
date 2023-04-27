@@ -12,13 +12,14 @@ namespace TrickedKnowledgeHub.Model.Repo
     /// </summary>
     public class FocusPointRepository : Repository
     {
-        private List<FocusPoint> _focusPoints = new();
+        private List<FocusPoint> focusPoints = new();
 
         public FocusPointRepository(bool isTestRepository = false) 
         {
             IsTestRepository = isTestRepository;
 
-            Load(); // when the repository is called the load methode runs and makes the list with the focus points
+            // Load all the focus points from the DB.
+            Load();
         }
 
         /// <summary>
@@ -47,10 +48,17 @@ namespace TrickedKnowledgeHub.Model.Repo
                         FocusPoint focusPoint = new(title, parent);
 
                         parent.FocusPoints.Add(focusPoint);
-                        _focusPoints.Add(focusPoint);
+                        focusPoints.Add(focusPoint);
                     }
                 }
             }
+        }
+
+        public void Reset()
+        {
+            focusPoints.Clear();
+
+            Load();
         }
 
         /// <summary>
@@ -79,7 +87,7 @@ namespace TrickedKnowledgeHub.Model.Repo
 
                 // Create the association between the parenting LearningObjective instance and this new FocusPoint instance.
                 parent.FocusPoints.Add(focusPoint);
-                _focusPoints.Add(focusPoint);
+                focusPoints.Add(focusPoint);
 
                 return focusPoint;
             }
@@ -96,7 +104,7 @@ namespace TrickedKnowledgeHub.Model.Repo
         public FocusPoint Retrieve(string title)
         {
             // Iterate over each FocusPoint instance stored locally, and search for the FocusPoint with a matching title.
-            foreach (FocusPoint focusPoint in _focusPoints)
+            foreach (FocusPoint focusPoint in focusPoints)
                 if (title.Equals(focusPoint.Title))
                     return focusPoint;
 
@@ -109,7 +117,7 @@ namespace TrickedKnowledgeHub.Model.Repo
         /// <returns>A collection of all existing <see cref="FocusPoint"/> instances.</returns>
         public List<FocusPoint> RetrieveAll()
         {
-            return new(_focusPoints);
+            return new(focusPoints);
         }
     }
 }
