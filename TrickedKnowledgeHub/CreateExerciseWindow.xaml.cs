@@ -39,6 +39,11 @@ namespace TrickedKnowledgeHub
         {
             this.Visibility = Visibility.Collapsed;
 
+
+        }
+
+        private void Create_Exercise(object sender, RoutedEventArgs e)
+        {
             string message = "Øvelsen er hermed gemt :)";
             string title = "Gemt Øvelse";
             MessageBox.Show(message, title);
