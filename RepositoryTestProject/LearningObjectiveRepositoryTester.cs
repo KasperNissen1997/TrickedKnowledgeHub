@@ -85,7 +85,7 @@ namespace RepositoryTestProject
             LearningObjective utilityUsageLearningObjective = learningObjectiveRepo.Create(title, valorantGame);
 
             // Assert
-            Assert.AreEqual("ID: 10, Title: Utility usage, FocusPoints: ", utilityUsageLearningObjective.ToString());
+            Assert.AreEqual("ID: 10, Title: Utility usage, Parent: Valorant, FocusPoints: ", utilityUsageLearningObjective.ToString());
         }
 
         [TestMethod]
@@ -112,7 +112,7 @@ namespace RepositoryTestProject
             LearningObjective passingLearningObjective = learningObjectiveRepo.Retrive(passingLearningObjectiveID);
 
             // Assert
-            Assert.AreEqual("ID: 6, Title: Passing, FocusPoints: ", passingLearningObjective.ToString());
+            Assert.AreEqual("ID: 6, Title: Passing, Parent: FIFA, FocusPoints: ", passingLearningObjective.ToString());
         }
 
         [TestMethod]
