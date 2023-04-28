@@ -87,6 +87,13 @@ namespace TrickedKnowledgeHub.Model.Repo
             }
         }
 
+        public void Reset()
+        {
+            employees.Clear();
+
+            Load();
+        }
+
         public Employee Retrieve(string email) //Retrieves Employee based on string parameter
         {
             foreach (Employee employee in employees) //foreach Employee in list
