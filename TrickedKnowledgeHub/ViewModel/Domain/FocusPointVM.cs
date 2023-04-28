@@ -1,16 +1,16 @@
 ﻿using TrickedKnowledgeHub.Model;
 
-namespace TrickedKnowledgeHub.ViewModel
+namespace TrickedKnowledgeHub.ViewModel.Domain
 {
     public class FocusPointVM
     {
-        private FocusPoint source;
+        public FocusPoint Source { get; }
 
         public string Title { get; set; }
 
         public FocusPointVM(FocusPoint source)
         {
-            this.source = source;
+            this.Source = source;
 
             Title = source.Title;
         }

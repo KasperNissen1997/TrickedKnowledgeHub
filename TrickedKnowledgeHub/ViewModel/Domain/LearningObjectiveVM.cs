@@ -1,11 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using TrickedKnowledgeHub.Model;
 
-namespace TrickedKnowledgeHub.ViewModel
+namespace TrickedKnowledgeHub.ViewModel.Domain
 {
     public class LearningObjectiveVM
     {
-        private LearningObjective source;
+        public LearningObjective Source { get; }
 
         public string Title { get; set; }
 
@@ -13,7 +13,7 @@ namespace TrickedKnowledgeHub.ViewModel
 
         public LearningObjectiveVM(LearningObjective source)
         {
-            this.source = source;
+            this.Source = source;
 
             Title = source.Title;
 
