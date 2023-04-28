@@ -13,7 +13,7 @@
 
         public override string ToString()
         {
-            return $"{Title}";
+            return $"Title: {Title}, Parent: {Parent.ID}";
         }
     }
 }

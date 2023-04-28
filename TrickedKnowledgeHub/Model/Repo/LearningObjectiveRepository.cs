@@ -75,7 +75,7 @@ namespace TrickedKnowledgeHub.Model.Repo
             }
         }
 
-        public LearningObjective Retrive(int id)
+        public LearningObjective Retrieve(int id)
         {
             foreach (LearningObjective learningObjective in learningObjectives)
                 if (learningObjective.ID == id)
