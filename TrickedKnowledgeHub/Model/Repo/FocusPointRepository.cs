@@ -28,13 +28,14 @@ namespace TrickedKnowledgeHub.Model.Repo
                     while (dr.Read()) // As long there something to read from the server it runs and save it to the list
                     {
                         string title = dr["F_Title"].ToString();
-                        string learningObjectiveTitle = dr["LO_ID"].ToString();
+                        int learningObjectiveID = int.Parse(dr["LO_ID"].ToString());
 
-                        FocusPoint focusPoint = new(title);
+                        LearningObjective parent = RepositoryManager.LearningObjectiveRepository.Retrive(learningObjectiveID);
+
+                        FocusPoint focusPoint = new(title, parent);
+
+                        parent.FocusPoints.Add(focusPoint);
                         _focusPoints.Add(focusPoint);
-
-                        LearningObjective associatedLearningObjective = RepositoryManager.LearningObjectiveRepository.Retrive(learningObjectiveTitle);
-                        associatedLearningObjective.FocusPoints.Add(focusPoint);
                     }
                 }
             }
@@ -53,7 +54,7 @@ namespace TrickedKnowledgeHub.Model.Repo
 
                 cmd.ExecuteNonQuery();
 
-                FocusPoint focusPoint = new(title);
+                FocusPoint focusPoint = new(title, parent);
 
                 parent.FocusPoints.Add(focusPoint);
                 _focusPoints.Add(focusPoint);

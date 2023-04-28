@@ -17,6 +17,7 @@ namespace TrickedKnowledgeHub.ViewModel
 {
     public class CreateExerciseWindowViewVM : INotifyPropertyChanged
     {
+
         private EmployeeVM activeUser;
         public EmployeeVM ActiveUser
         {
@@ -89,9 +90,18 @@ namespace TrickedKnowledgeHub.ViewModel
                 _selectedGame = value;
                 OnPropertyChanged(nameof(SelectedGame));
 
+                if (SelectedLearningObjective != null && !SelectedGame.Objectives.Contains(SelectedLearningObjective))
+                {
+                    SelectedLearningObjective = null;
+                }
+
                 AvailableLearningObjectives = SelectedGame.Objectives;
+
+
+
             }
         }
+
         private ObservableCollection<LearningObjectiveVM> _availableLearningObjectives;
         public ObservableCollection<LearningObjectiveVM> AvailableLearningObjectives
         {
@@ -119,7 +129,17 @@ namespace TrickedKnowledgeHub.ViewModel
                 _selectedLearningObjective = value;
                 OnPropertyChanged(nameof(SelectedLearningObjective));
 
-                AvailableFocusPoints = SelectedLearningObjective.FocusPointVMs;
+                if (SelectedLearningObjective != null)
+                {
+                    AvailableFocusPoints = SelectedLearningObjective.FocusPointVMs;
+                }
+                else
+                {
+                    AvailableFocusPoints = new ObservableCollection<FocusPointVM>();
+                }
+
+                
+
             }
         }
         private ObservableCollection<FocusPointVM> _availableFocusPoints;
