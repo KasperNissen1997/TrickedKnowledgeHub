@@ -25,14 +25,14 @@ namespace RepositoryTestProject
                 SqlCommand cmd = new SqlCommand("INSERT INTO dbo.TYPE VALUES('Coach'), ('GameCoordinator'), ('Administrator')", con);
 
                 cmd.ExecuteNonQuery();
-                
+
                 cmd = new ("INSERT INTO EMPLOYEE VALUES " +
-                "('Nikolai',    'nikolai@gmail.com',    'nikolaikiller123', 'donthackmeplz1', 'Coach'), " +
-                "('Jonathan',   'jonathan@gmail.com',   'jonathantheman',   'donthackmeplz2', 'Coach'), " +
-                "('Kasper',     'kasper@gmail.com',     'kasperthemaster',  'donthackmeplz3', 'Coach'), " +
-                "('Casper',     'casper@gmail.com',     'cappertheslapper', 'donthackmeplz4', 'Coach'), " +
-                "('Oguz',       'oguz@gmail.com',       'oguztheboguz',     'donthackmeplz5', 'Coach'), " +
-                "('Aleksander', 'aleksander@gmail.com', 'aleksalamander',   'donthackmeplz6', 'Coach')", con);
+                "('nikolai@gmail.com',    'Nikolai',    'nikolaikiller123', 'donthackmeplz1', 'Coach'), " +
+                "('jonathan@gmail.com',   'Jonathan',   'jonathantheman',   'donthackmeplz2', 'Coach'), " +
+                "('kasper@gmail.com',     'Kasper',     'kasperthemaster',  'donthackmeplz3', 'Coach'), " +
+                "('casper@gmail.com',     'Casper',     'cappertheslapper', 'donthackmeplz4', 'Coach'), " +
+                "('oguz@gmail.com',       'Oguz',       'oguztheboguz',     'donthackmeplz5', 'Coach'), " +
+                "('aleksander@gmail.com', 'Aleksander', 'aleksalamander',   'donthackmeplz6', 'Coach')", con);
 
                 cmd.ExecuteNonQuery();
 
@@ -41,7 +41,6 @@ namespace RepositoryTestProject
 
             employeeRepository.Reset();
         }
-
         [TestCleanup]
         public void TestCleanup()
         {
@@ -54,9 +53,11 @@ namespace RepositoryTestProject
 
                 cmd.ExecuteNonQuery();
 
-                cmd = new("DELETE FROM TYPE");
+                cmd = new("DELETE FROM TYPE", con);
 
                 cmd.ExecuteNonQuery();
+
+                con.Close();
             }
         }
 
@@ -70,7 +71,7 @@ namespace RepositoryTestProject
 
             //Assert
             Assert.IsNotNull(newEmp);
-            Assert.AreEqual("Mail: nils@gmail.com, Name: Nils, Nickname: nilstheboss, Password: donthackmeplz7, Type: Coach", newEmp.ToString());
+            Assert.AreEqual("nils@gmail.com, Nils, nilstheboss, donthackmeplz7, Coach", newEmp.ToString());
         }
 
         [TestMethod]
