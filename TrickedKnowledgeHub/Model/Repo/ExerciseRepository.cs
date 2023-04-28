@@ -16,6 +16,7 @@ namespace TrickedKnowledgeHub.Model.Repo
             Load(); 
         }
 
+
         public override void Load()
         {
             using (SqlConnection con = GetConnection())
@@ -26,10 +27,11 @@ namespace TrickedKnowledgeHub.Model.Repo
                 {
                     while (dr.Read())
                     {
+                        int ID = Convert.ToInt32(dr["ID"]);
                         string Title = dr["Title"].ToString();
                         string description = dr["Description"].ToString();
                         byte[] Material = (byte[])dr["Material"];
-                        DateTime Time = DateTime.Parse(dr["Time"].ToString());
+                        DateTime Time = DateTime.Parse(dr["Timestamp"].ToString());
                         string Mail = dr["Mail"].ToString();
                         string G_Title = dr["G_Title"].ToString();
                         Rating rating = (Rating)Enum.Parse(typeof(Rating), dr["Value"].ToString());
@@ -52,12 +54,18 @@ namespace TrickedKnowledgeHub.Model.Repo
                             associatedFocusPoint = RepositoryManager.FocusPointRepository.Retrieve(F_Title);
                         }
 
-                        Exercise exercise = new(Title, description, Material, Time, associatedEmployee, associatedGame, associatedFocusPoint, rating);
+                        Exercise exercise = new(ID, Title, description, Material, Time, associatedEmployee, associatedGame, associatedFocusPoint, rating);
 
                         exerciseList.Add(exercise);
                     }
                 }
             }
+        }
+
+        public void Reset()
+        {
+            exerciseList.Clear();
+            Load();
         }
 
         #region CRUD
@@ -82,10 +90,10 @@ namespace TrickedKnowledgeHub.Model.Repo
 
 
                 SqlCommand command = new SqlCommand("INSERT INTO EXERCISE_FOCUSPOINT (E_ID, F_Title, LO_ID)" + // this code to bind ExerciseID and the selected FocusPoint
-                                                "VALUES(@E_ID, @F_Title @LO_ID)" + "SELECT @@IDENTITY", con);
+                                                "VALUES(@E_ID, @F_Title, @LO_ID)", con);
                 command.Parameters.Add("@E_ID", SqlDbType.Int).Value = exercise.ExerciseID;
                 command.Parameters.Add("@F_Title", SqlDbType.NVarChar).Value = exercise.FocusPoint.Title;
-                command.Parameters.Add("@LO_ID", SqlDbType.Int).Value = ;
+                command.Parameters.Add("@LO_ID", SqlDbType.Int).Value = exercise.FocusPoint.Parent.ID;
                 command.ExecuteNonQuery();
 
                 return exercise;
@@ -101,7 +109,7 @@ namespace TrickedKnowledgeHub.Model.Repo
                     return ex;
                 }
             }
-            return null;
+            throw new ArgumentException($"No Exercise with id {id} found.");
         }
 
         public List<Exercise> RetrieveAll()
