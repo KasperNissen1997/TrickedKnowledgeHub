@@ -10,5 +10,10 @@
             Title = title;
             Parent = parent;
         }
+
+        public override string ToString()
+        {
+            return $"{Title}";
+        }
     }
 }

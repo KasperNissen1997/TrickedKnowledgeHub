@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Data;
 using System.Collections.Generic;
@@ -16,6 +16,7 @@ namespace TrickedKnowledgeHub.Model.Repo
             Load(); 
         }
 
+
         public override void Load()
         {
             using (SqlConnection con = GetConnection())
@@ -26,6 +27,7 @@ namespace TrickedKnowledgeHub.Model.Repo
                 {
                     while (dr.Read())
                     {
+                        int ID = Convert.ToInt32(dr["ID"]);
                         string Title = dr["Title"].ToString();
                         string description = dr["Description"].ToString();
                         byte[] Material = (byte[])dr["Material"];
@@ -52,12 +54,18 @@ namespace TrickedKnowledgeHub.Model.Repo
                             associatedFocusPoint = RepositoryManager.FocusPointRepository.Retrieve(F_Title);
                         }
 
-                        Exercise exercise = new(Title, description, Material, Time, associatedEmployee, associatedGame, associatedFocusPoint, rating);
+                        Exercise exercise = new(ID, Title, description, Material, Time, associatedEmployee, associatedGame, associatedFocusPoint, rating);
 
                         exerciseList.Add(exercise);
                     }
                 }
             }
+        }
+
+        public void Reset()
+        {
+            exerciseList.Clear();
+            Load();
         }
 
         #region CRUD
@@ -66,48 +74,47 @@ namespace TrickedKnowledgeHub.Model.Repo
             using (SqlConnection con = GetConnection())
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("INSERT INTO EXERCISE (Title, Description, Material, Time, Mail, G_Title, Value)" +
-                    "VALUES(@Title, @Description, @Material, @Time, @Mail, @G_Title, @Value)" + "SELECT @@IDENTITY", con);
+                SqlCommand cmd = new SqlCommand("INSERT INTO EXERCISE (Title, Description, Material, Timestamp, Mail, G_Title, Value)" +
+                    "VALUES(@Title, @Description, @Material, @Timestamp, @Mail, @G_Title, @Value)" + "SELECT @@IDENTITY", con);
 
                 cmd.Parameters.Add("@Title", SqlDbType.NVarChar).Value = exercise.Title;
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar).Value = exercise.Description;
                 cmd.Parameters.Add("@Material", SqlDbType.VarBinary).Value = exercise.Material;
-                cmd.Parameters.Add("@Time", SqlDbType.DateTime2).Value = exercise.Timestamp;
+                cmd.Parameters.Add("@Timestamp", SqlDbType.DateTime2).Value = exercise.Timestamp;
                 cmd.Parameters.Add("@Mail", SqlDbType.NVarChar).Value = exercise.Author.Mail;
                 cmd.Parameters.Add("@G_Title", SqlDbType.NVarChar).Value = exercise.Game.Title;
-                cmd.Parameters.Add("@Value", SqlDbType.Int).Value = (int)exercise.Rating;
+                cmd.Parameters.Add("@Value", SqlDbType.Int).Value = (int) exercise.Rating;
 
                 exercise.ExerciseID = Convert.ToInt32(cmd.ExecuteScalar());
                 exerciseList.Add(exercise);
-                SqlCommand command = new SqlCommand("INSERT INTO EXERCISE_FOCUSPOINT (ID, F_Title)" + // this code to bind IxerciseID and the selected FocusPoint
-                                                "VALUES(@ID, @F_Title)" + "SELECT @@IDENTITY", con);
-                command.Parameters.Add("@ExerciseID", SqlDbType.Int).Value = exercise.ExerciseID;
+
+
+                SqlCommand command = new SqlCommand("INSERT INTO EXERCISE_FOCUSPOINT (E_ID, F_Title, LO_ID)" + // this code to bind ExerciseID and the selected FocusPoint
+                                                "VALUES(@E_ID, @F_Title, @LO_ID)", con);
+                command.Parameters.Add("@E_ID", SqlDbType.Int).Value = exercise.ExerciseID;
                 command.Parameters.Add("@F_Title", SqlDbType.NVarChar).Value = exercise.FocusPoint.Title;
+                command.Parameters.Add("@LO_ID", SqlDbType.Int).Value = exercise.FocusPoint.Parent.ID;
                 command.ExecuteNonQuery();
 
                 return exercise;
             }
         }
 
-        public Exercise Retrieve(Exercise exercise)
+        public Exercise Retrieve(int id)
         {
             foreach (Exercise ex in exerciseList)
             {
-                if (exercise.ExerciseID == ex.ExerciseID)
+                if(id == ex.ExerciseID)
                 {
                     return ex;
                 }
             }
-            return null;
+            throw new ArgumentException($"No Exercise with id {id} found.");
         }
 
-        public Exercise RetrieveAll()
+        public List<Exercise> RetrieveAll()
         {
-            foreach (Exercise exercise in exerciseList)
-            {
-                return exercise;
-            }
-            return null;
+            return new(exerciseList);
         }
 
         #endregion

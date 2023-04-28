@@ -38,8 +38,8 @@ namespace TrickedKnowledgeHub.Command.CreateExerciseWindowCommand
         {
             if (parameter is CreateExerciseWindowViewVM vm)
             {
-                Exercise exercise = new(vm.Title, vm.Description, vm.Material, DateTime.Now, vm.ActiveUser.Source, vm.SelectedGame.Source, vm.SelectedFocusPoint.Source, vm.SelectedRating);
-                RepositoryManager.ExerciseRepository.Create(exercise); 
+                //Exercise exercise = new(vm.Title, vm.Description, vm.Material, DateTime.Now, vm.ActiveUser.Source, vm.SelectedGame.Source, vm.SelectedFocusPoint.Source, vm.SelectedRating);
+                //RepositoryManager.ExerciseRepository.Create(exercise); 
             }
             else
                 throw new NotImplementedException();

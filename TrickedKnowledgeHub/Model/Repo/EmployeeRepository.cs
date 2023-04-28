@@ -38,7 +38,7 @@ namespace TrickedKnowledgeHub.Model.Repo
                         switch (danishType)
                         {
                             case "Underviser":
-                                employeeType = EmployeeType.Teacher;
+                                employeeType = EmployeeType.Coach;
                                 break;
 
                             case "Administator":
@@ -50,7 +50,7 @@ namespace TrickedKnowledgeHub.Model.Repo
                                 break;
 
                             default:
-                                employeeType = EmployeeType.Teacher;
+                                employeeType = EmployeeType.Coach;
                                 break;
                         }
 
