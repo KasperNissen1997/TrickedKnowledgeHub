@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
+
 namespace TrickedKnowledgeHub
 {
     /// <summary>
@@ -36,6 +38,15 @@ namespace TrickedKnowledgeHub
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
             this.Visibility = Visibility.Collapsed;
+
+
+        }
+
+        private void Create_Exercise(object sender, RoutedEventArgs e)
+        {
+            string message = "Øvelsen er hermed gemt :)";
+            string title = "Gemt Øvelse";
+            MessageBox.Show(message, title);
         }
     }
 }
