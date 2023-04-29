@@ -65,29 +65,32 @@ namespace TrickedKnowledgeHub.Model.Repo
         public void Reset()
         {
             exerciseList.Clear();
+
             Load();
         }
 
         #region CRUD
-        public Exercise Create(Exercise exercise)
+        public Exercise Create(string title, string description, byte[] material, DateTime timestamp, Employee author, Game? game, FocusPoint? focusPoint, Rating rating)
         {
             using (SqlConnection con = GetConnection())
             {
                 con.Open();
                 SqlCommand cmd = new SqlCommand("INSERT INTO EXERCISE (Title, Description, Material, Timestamp, Mail, G_Title, Value)" +
-                    "VALUES(@Title, @Description, @Material, @Timestamp, @Mail, @G_Title, @Value)" + "SELECT @@IDENTITY", con);
+                    "VALUES(@Title, @Description, @Material, @Timestamp, @Mail, @G_Title, @Value) SELECT @@IDENTITY", con);
 
-                cmd.Parameters.Add("@Title", SqlDbType.NVarChar).Value = exercise.Title;
-                cmd.Parameters.Add("@Description", SqlDbType.NVarChar).Value = exercise.Description;
-                cmd.Parameters.Add("@Material", SqlDbType.VarBinary).Value = exercise.Material;
-                cmd.Parameters.Add("@Timestamp", SqlDbType.DateTime2).Value = exercise.Timestamp;
-                cmd.Parameters.Add("@Mail", SqlDbType.NVarChar).Value = exercise.Author.Mail;
-                cmd.Parameters.Add("@G_Title", SqlDbType.NVarChar).Value = exercise.Game.Title;
-                cmd.Parameters.Add("@Value", SqlDbType.Int).Value = (int) exercise.Rating;
+                cmd.Parameters.Add("@Title", SqlDbType.NVarChar).Value = title;
+                cmd.Parameters.Add("@Description", SqlDbType.NVarChar).Value = description;
+                cmd.Parameters.Add("@Material", SqlDbType.VarBinary).Value = material;
+                cmd.Parameters.Add("@Timestamp", SqlDbType.DateTime2).Value = timestamp;
+                cmd.Parameters.Add("@Mail", SqlDbType.NVarChar).Value = author.Mail;
+                cmd.Parameters.Add("@G_Title", SqlDbType.NVarChar).Value = game.Title;
+                cmd.Parameters.Add("@Value", SqlDbType.Int).Value = (int) rating;
 
-                exercise.ExerciseID = Convert.ToInt32(cmd.ExecuteScalar());
+                int id = Convert.ToInt32(cmd.ExecuteScalar());
+
+                Exercise exercise = new(id, title, description, material, timestamp, author, game, focusPoint, rating);
+
                 exerciseList.Add(exercise);
-
 
                 SqlCommand command = new SqlCommand("INSERT INTO EXERCISE_FOCUSPOINT (E_ID, F_Title, LO_ID)" + // this code to bind ExerciseID and the selected FocusPoint
                                                 "VALUES(@E_ID, @F_Title, @LO_ID)", con);

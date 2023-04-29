@@ -13,110 +13,79 @@ namespace TestEmployeeRepo
     {
         private string connectionString = "Server=10.56.8.36; Database=DB_2023_35; User Id=STUDENT_35; Password=OPENDB_35; TrustServerCertificate=true;";
 
-        ExerciseRepository exerciseRepository = new ExerciseRepository(true);
-
-        int id = 1;
-        string title = "exerciseTitle";
-        string description = "exerciseDesc";
-        Byte[] material = new byte[10];
-        DateTime timestamp = DateTime.Now;
-        Employee employee = new Employee("NameTest", "test@test.com", "NickTest", "PassTest", EmployeeType.Coach);
-        Game game = new Game("CS:GO");
-
+        EmployeeRepository employeeRepo = RepositoryManager.TestEmployeeRepository;
+        GameRepository gameRepo = RepositoryManager.TestGameRepository;
+        LearningObjectiveRepository learningObjectiveRepo = RepositoryManager.TestLearningObjectiveRepository;
+        FocusPointRepository focusPointRepo = RepositoryManager.TestFocusPointRepository;
+        ExerciseRepository exerciseRepo = RepositoryManager.TestExerciseRepository;
 
         [TestInitialize] 
         public void TestInitialize() 
         {
-            //Initialize database with exercises
             using(SqlConnection con = new(connectionString))
             {
                 con.Open();
 
-                //These statements deletes all data from all tables
-                SqlCommand cmd = new("EXEC sp_MSForEachTable 'DISABLE TRIGGER ALL ON ?';", con);
+                // Insert the Type data.
+                SqlCommand cmd = new("INSERT INTO TYPE (Type) VALUES " +
+                    "('Coach')", con);
                 cmd.ExecuteNonQuery();
 
-                cmd.CommandText = "EXEC sp_MSForEachTable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL';";
-                cmd.ExecuteNonQuery();
-
-                cmd.CommandText = "EXEC sp_MSForEachTable 'SET QUOTED_IDENTIFIER ON; DELETE FROM ?';";
-                cmd.ExecuteNonQuery();
-
-                cmd.CommandText = "EXEC sp_MSForEachTable 'ALTER TABLE ? WITH CHECK CHECK CONSTRAINT ALL';";
-                cmd.ExecuteNonQuery();
-
-                cmd.CommandText = "EXEC sp_MSForEachTable 'ENABLE TRIGGER ALL ON ?'";
-                cmd.ExecuteNonQuery();
-
-
-
-                //Reset identity for LEARNINGOBJECTIVE
-                cmd.CommandText = "DBCC CHECKIDENT ('LEARNINGOBJECTIVE', RESEED, 0);";
-                cmd.ExecuteNonQuery();
-
-                //Reset identity for EXERCISE
-                cmd.CommandText = "DBCC CHECKIDENT ('EXERCISE', RESEED, 0);";
-                cmd.ExecuteNonQuery();
-
-
-
-                //Insert type
-                cmd.CommandText = "INSERT INTO TYPE (Type) VALUES " +
-                    "('Coach')";
-                cmd.ExecuteNonQuery();
-
-                //Insert Employee
+                // Insert the dummy Employee data.
                 cmd.CommandText = "INSERT INTO EMPLOYEE (Mail, Name, Nickname, Password, Type) VALUES " +
                     "('test@test.com', 'NameTest', 'NickTest', 'PassTest', 'Coach')";
                 cmd.ExecuteNonQuery();
 
-                //Insert Game
+                // Insert the dummy Game data.
                 cmd.CommandText = "INSERT INTO GAME (G_Title) VALUES " +
                     "('CS:GO')";
                 cmd.ExecuteNonQuery();
 
-                //Insert Rating
+                // Insert the Rating data.
                 cmd.CommandText = "INSERT INTO RATING (Value) VALUES " +
                     "(1)";
                 cmd.ExecuteNonQuery();
 
-                //Insert Learningobjective
+                // Insert the dummy Learningobjective data.
                 cmd.CommandText = "INSERT INTO LEARNINGOBJECTIVE (LO_Title, G_Title) VALUES " +
                     "('Aim', 'CS:GO'), " +
                     "('Utility Usage', 'CS:GO')";
                 cmd.ExecuteNonQuery();
 
-                //Insert Focuspoint
+                // Insert the dummy Focuspoint data.
                 cmd.CommandText = "INSERT INTO FOCUSPOINT (F_Title, LO_ID) VALUES " +
                     "('Spray', 1), " +
                     "('Smokes (D2)', 2)";
                 cmd.ExecuteNonQuery();
 
-                //Insert exercises
+                // Insert the dummy Exercise data.
                 cmd.CommandText = "INSERT INTO EXERCISE (Title, Description, Material, Timestamp, Mail, G_Title, Value) VALUES " +
                     "('TitleTest', 'DescTest', 1101010, '26-04-2023 20:00:00', 'test@test.com', 'CS:GO', 1), " +
                     "('Aim Control', 'How to aim like', 1011010, '25-04-2023 19:15:34', 'test@test.com', 'CS:GO', 1)";
                 cmd.ExecuteNonQuery();
 
-                //Insert Exercise_focuspoint
+                // Insert the dummy Exercise_Focuspoint data.
                 cmd.CommandText = "INSERT INTO EXERCISE_FOCUSPOINT (E_ID, F_Title, LO_ID) VALUES " +
                     "(1, 'Spray', 1), " +
                     "(2, 'Smokes (D2)', 2)";
                 cmd.ExecuteNonQuery();
             }
 
-            exerciseRepository.Reset();
+            employeeRepo.Reset();
+            gameRepo.Reset();
+            learningObjectiveRepo.Reset();
+            focusPointRepo.Reset();
+            exerciseRepo.Reset();
         }
 
         [TestCleanup]
         public void TestCleanUp()
         {
-            //Remove Exercises from database
             using(SqlConnection con = new(connectionString))
             {
                 con.Open();
 
-                //These statements deletes all data from all tables
+                // These statements deletes all the data from all the tables in the DB.
                 SqlCommand cmd = new("EXEC sp_MSForEachTable 'DISABLE TRIGGER ALL ON ?';", con);
                 cmd.ExecuteNonQuery();
 
@@ -132,11 +101,11 @@ namespace TestEmployeeRepo
                 cmd.CommandText = "EXEC sp_MSForEachTable 'ENABLE TRIGGER ALL ON ?'";
                 cmd.ExecuteNonQuery();
 
-                //Reset identity for LEARNINGOBJECTIVE
+                // Reset identity for the LEARNINGOBJECTIVE table.
                 cmd.CommandText = "DBCC CHECKIDENT ('LEARNINGOBJECTIVE', RESEED, 0);";
                 cmd.ExecuteNonQuery();
 
-                //Reset identity for EXERCISE
+                // Reset identity for the EXERCISE table.
                 cmd.CommandText = "DBCC CHECKIDENT ('EXERCISE', RESEED, 0);";
                 cmd.ExecuteNonQuery();
             }
@@ -150,22 +119,38 @@ namespace TestEmployeeRepo
             //Act
 
             //Assert
-            Assert.IsNotNull(exerciseRepository);
+            Assert.IsNotNull(exerciseRepo);
         }
 
         [TestMethod]
         public void Test_Create()
         {
             //Arrange
-            LearningObjective learningObjective = new LearningObjective(1, "Aim", game);
-            FocusPoint focusPoint = new FocusPoint("Spray", learningObjective);
-            Exercise ex1 = new(id, title, description, material, timestamp, employee, game, focusPoint, Rating.Begynder);
+            string title = "testExercise";
+            string description = "This is my test exercise.";
+            byte[] material = new byte[10];
+            DateTime timestamp = new(1, 1, 1);
+            Employee author = employeeRepo.Retrieve("test@test.com");
+            Game game = gameRepo.Retrieve("CS:GO");
+            LearningObjective learningObjective = learningObjectiveRepo.Retrieve(1);
+            FocusPoint focusPoint = focusPointRepo.Retrieve("Spray");
+            Rating rating = Rating.Begynder;
 
             //Act
-            Exercise exercise = exerciseRepository.Create(ex1);
+            Exercise exercise = exerciseRepo.Create(title, description, material, timestamp, author, game, focusPoint, rating);
+
+            // Fuck you if you think multiple asserts are bad - suck my musky cock!!!
+            // https://softwareengineering.stackexchange.com/questions/7823/is-it-ok-to-have-multiple-asserts-in-a-single-unit-test
 
             //Assert
-            Assert.AreEqual(ex1.ToString(), exercise.ToString());
+            Assert.AreEqual(title, exercise.Title);
+            Assert.AreEqual(description, exercise.Description);
+            Assert.AreEqual(material, exercise.Material);
+            Assert.AreEqual(timestamp, exercise.Timestamp);
+            Assert.AreEqual(author, exercise.Author);
+            Assert.AreEqual(game, exercise.Game);
+            Assert.AreEqual(focusPoint, exercise.FocusPoint);
+            Assert.AreEqual(rating, exercise.Rating);
         }
 
         [TestMethod]
@@ -175,10 +160,10 @@ namespace TestEmployeeRepo
             int Id = 1;
 
             //Act
-            Exercise exercise = exerciseRepository.Retrieve(Id);
+            Exercise exercise = exerciseRepo.Retrieve(Id);
 
             //Assert
-            Assert.AreEqual("1, TitleTest, DescTest, System.Byte[], 26-04-2023 20:00:00, test@test.com, NameTest, NickTest, PassTest, Coach, Title: CS:GO, LearningObjectives: Aim, Utility Usage, Spray, Begynder", exercise.ToString());
+            Assert.AreEqual("1, TitleTest, DescTest, System.Byte[], 26-04-2023 20:00:00, test@test.com, NameTest, NickTest, PassTest, Coach, Title: CS:GO, LearningObjectives: Aim, Utility Usage, Title: Spray, Parent: 1, Begynder", exercise.ToString());
         }
 
         [TestMethod]
@@ -188,7 +173,7 @@ namespace TestEmployeeRepo
             List<Exercise> retrievedExercises;
 
             //Act
-            retrievedExercises = exerciseRepository.RetrieveAll();
+            retrievedExercises = exerciseRepo.RetrieveAll();
 
             //Assert
             Assert.IsNotNull(retrievedExercises);
@@ -201,7 +186,7 @@ namespace TestEmployeeRepo
             List<Exercise> retrievedExercises;
 
             //Act
-            retrievedExercises = exerciseRepository.RetrieveAll();
+            retrievedExercises = exerciseRepo.RetrieveAll();
 
             //Assert
             Assert.AreEqual(2, retrievedExercises.Count);
