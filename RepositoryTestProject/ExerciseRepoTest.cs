@@ -1,12 +1,8 @@
-﻿using TrickedKnowledgeHub;
-using TrickedKnowledgeHub.Model.Repo;
+﻿using TrickedKnowledgeHub.Model.Repo;
 using TrickedKnowledgeHub.Model;
-using System.Security.Cryptography.Xml;
 using Microsoft.Data.SqlClient;
-using System.Reflection.Emit;
-using System.Windows.Documents;
 
-namespace TestEmployeeRepo
+namespace RepositoryTestProject
 {
     [TestClass]
     public class ExerciseRepoTest
@@ -60,8 +56,8 @@ namespace TestEmployeeRepo
 
                 // Insert the dummy Exercise data.
                 cmd.CommandText = "INSERT INTO EXERCISE (Title, Description, Material, Timestamp, Mail, G_Title, Value) VALUES " +
-                    "('TitleTest', 'DescTest', 1101010, '26-04-2023 20:00:00', 'test@test.com', 'CS:GO', 1), " +
-                    "('Aim Control', 'How to aim like', 1011010, '25-04-2023 19:15:34', 'test@test.com', 'CS:GO', 1)";
+                    "('TitleTest', 'DescTest', 11010100, '26-04-2023 20:00:00', 'test@test.com', 'CS:GO', 1), " +
+                    "('Aim Control', 'How to aim like', 10110101, '25-04-2023 19:15:34', 'test@test.com', 'CS:GO', 1)";
                 cmd.ExecuteNonQuery();
 
                 // Insert the dummy Exercise_Focuspoint data.
@@ -139,10 +135,12 @@ namespace TestEmployeeRepo
             //Act
             Exercise exercise = exerciseRepo.Create(title, description, material, timestamp, author, game, focusPoint, rating);
 
-            // Fuck you if you think multiple asserts are bad - suck my musky cock!!!
+            // TODO: Remove this before pushing to main...
+            // Fuck you if you think multiple asserts are bad
             // https://softwareengineering.stackexchange.com/questions/7823/is-it-ok-to-have-multiple-asserts-in-a-single-unit-test
 
             //Assert
+            Assert.AreEqual(3, exercise.ExerciseID);
             Assert.AreEqual(title, exercise.Title);
             Assert.AreEqual(description, exercise.Description);
             Assert.AreEqual(material, exercise.Material);
@@ -156,14 +154,35 @@ namespace TestEmployeeRepo
         [TestMethod]
         public void Test_Retrieve()
         {
-            //Arrange
-            int Id = 1;
+            // Arrange
+            int id = 1;
+            string title = "TitleTest";
+            string description = "DescTest";
+            // Don't test on the material, as the byte array is a reference type without an intuitive IsEqual method implemented.
+            // byte[] material = new byte[8]
+            // {
+            //     1, 1, 0, 1, 0, 1, 0, 0
+            // };
+            DateTime timestamp = new(2023, 4, 26, 20, 0, 0);
+            Employee author = employeeRepo.Retrieve("test@test.com");
+            Game game = gameRepo.Retrieve("CS:GO");
+            LearningObjective learningObjective = learningObjectiveRepo.Retrieve(1);
+            FocusPoint focusPoint = focusPointRepo.Retrieve("Spray");
+            Rating rating = Rating.Begynder;
 
-            //Act
-            Exercise exercise = exerciseRepo.Retrieve(Id);
+            // Act
+            Exercise exercise = exerciseRepo.Retrieve(id);
 
-            //Assert
-            Assert.AreEqual("1, TitleTest, DescTest, System.Byte[], 26-04-2023 20:00:00, test@test.com, NameTest, NickTest, PassTest, Coach, Title: CS:GO, LearningObjectives: Aim, Utility Usage, Title: Spray, Parent: 1, Begynder", exercise.ToString());
+            // Assert
+            Assert.AreEqual(1, exercise.ExerciseID);
+            Assert.AreEqual(title, exercise.Title);
+            Assert.AreEqual(description, exercise.Description);
+            // Assert.AreEqual(material, exercise.Material);
+            Assert.AreEqual(timestamp, exercise.Timestamp);
+            Assert.AreEqual(author, exercise.Author);
+            Assert.AreEqual(game, exercise.Game);
+            Assert.AreEqual(focusPoint, exercise.FocusPoint);
+            Assert.AreEqual(rating, exercise.Rating);
         }
 
         [TestMethod]
