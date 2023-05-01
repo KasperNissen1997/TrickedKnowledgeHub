@@ -16,7 +16,7 @@ namespace RepositoryTestProject
         [TestInitialize]
         public void TestInitialize()
         {
-            // Initilize the DB with a bunch of LearningObjectives.
+            // Initilize the DB with a bunch of FocusPoints.
             using (SqlConnection con = new(connectionString))
             {
                 con.Open();
@@ -54,7 +54,7 @@ namespace RepositoryTestProject
         [TestCleanup]
         public void TestCleanup()
         {
-            // Remove all LearningObjective rows in the DB.
+            // Remove all FocusPoint rows in the DB.
             using (SqlConnection con = new(connectionString))
             {
                 con.Open();

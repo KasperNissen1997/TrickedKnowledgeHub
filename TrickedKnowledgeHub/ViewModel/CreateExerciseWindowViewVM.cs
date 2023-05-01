@@ -212,7 +212,7 @@ namespace TrickedKnowledgeHub.ViewModel
             AvailableLearningObjectives = new();
             AvailableFocusPoints = new();
 
-            foreach (Game game in RepositoryManager.GameRepository.RetriveAll())
+            foreach (Game game in RepositoryManager.GameRepository.RetrieveAll())
                 AvailableGames.Add(new(game));
                 
             Ratings = Rating.GetValues<Rating>().ToList();
