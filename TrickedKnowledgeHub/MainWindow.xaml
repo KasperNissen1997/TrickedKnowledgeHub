@@ -13,16 +13,21 @@
 
     <Grid>
         <StackPanel Height="auto" Width="auto"
-            Orientation="Vertical" Background="#e7e7e7">
+            Orientation="Vertical" Background="#e7e7e7" Margin="0,1,0,-1">
         </StackPanel>
-        <Image Source="img/TrickedLog.jpg" Opacity="0.60" />
-            <Button Command="{Binding OpenCreateExerciseViewCmd}" CommandParameter="{Binding}" x:Name="Create_Exercise" Content="Opret øvelse" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="100"  Height="50" Width="150" Background="#FF0CBE94" Foreground="White" FontSize="18" FontWeight="Bold">
-                <Button.Resources>
+        <Image Source="img/TrickedLog.jpg" Opacity="0.60" Margin="0,1,0,-1" />
+        <Button Command="{Binding OpenCreateExerciseViewCmd}" CommandParameter="{Binding}" x:Name="Create_Exercise" Content="Opret øvelse" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,375,0,0"  Height="49" Width="113" Background="#FF0CBE94" Foreground="White" FontSize="18" FontWeight="Bold">
+            <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"></Setter>
                 </Style>
-                </Button.Resources>
-            </Button>
+            </Button.Resources>
+        </Button>
+        <ListBox x:Name="FeedListBox" d:ItemsSource="{d:SampleData ItemCount=5}" Background="{x:Null}" Margin="160,0,113,-1"/>
+        <Rectangle HorizontalAlignment="Left" Height="434" Stroke="Black" VerticalAlignment="Center" Width="160" StrokeThickness="2"/>
+        <Frame Margin="93,-4,67,4"/>
+        <TextBox HorizontalAlignment="Left" Margin="792,10,0,0" TextWrapping="Wrap" Text="Sorter efter:" VerticalAlignment="Top" Width="98"/>
+        <ComboBox x:Name="FeedCombo" HorizontalAlignment="Left" Margin="792,33,0,0" VerticalAlignment="Top" Width="98"/>
 
     </Grid>
 </Window>
