@@ -21,14 +21,14 @@ namespace TrickedKnowledgeHub.Model.Repo
             {
                 con.Open(); //Open connection
 
-                SqlCommand cmd = new SqlCommand("SELECT Name, Mail, Nickname, Password, Type  FROM EMPLOYEE", con); //SQL Query run at execution
+                SqlCommand cmd = new SqlCommand("SELECT Mail, Name, Nickname, Password, Type  FROM EMPLOYEE", con); //SQL Query run at execution
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read()) //While reader reads
                     {
-                        string name = reader["Name"].ToString();
                         string mail = reader["Mail"].ToString();
+                        string name = reader["Name"].ToString();
                         string nickname = reader["Nickname"].ToString();
                         string password = reader["Password"].ToString();
 
@@ -54,7 +54,7 @@ namespace TrickedKnowledgeHub.Model.Repo
                                 break;
                         }
 
-                        Employee employee = new(name, mail, nickname, password, employeeType);
+                        Employee employee = new(mail, name, nickname, password, employeeType);
 
                         employees.Add(employee);
                     }
@@ -75,7 +75,7 @@ namespace TrickedKnowledgeHub.Model.Repo
             {
                 con.Open(); //Open connection
 
-                SqlCommand cmd = new SqlCommand("INSERT INTO EMPLOYEE (Name, Mail, Nickname, Password, Type) " + //SQL query ran at execution
+                SqlCommand cmd = new SqlCommand("INSERT INTO EMPLOYEE (Mail, Name, Nickname, Password, Type) " + //SQL query ran at execution
                                                 "VALUES(@Mail, @Name, @Nickname, @Password, @Type)", con); //values references @ in code block below
                 
                 cmd.Parameters.AddWithValue("@Mail", email); //cmd.Parameters{Get;}.AddWithValue(ParameterName, object value)
@@ -104,7 +104,6 @@ namespace TrickedKnowledgeHub.Model.Repo
                 }
                 
             }
-
             throw new ArgumentException($"Could not find employee with mail: {email} ");
         }
 
