@@ -8,7 +8,7 @@
         public string Password { get; set; }
         public EmployeeType Type { get; set; }
 
-        public Employee(string name, string mail, string nickname, string password, EmployeeType type)
+        public Employee(string mail, string name, string nickname, string password, EmployeeType type)
         {
             Mail = mail;
             Name = name;

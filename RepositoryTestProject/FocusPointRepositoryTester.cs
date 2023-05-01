@@ -5,12 +5,13 @@ using TrickedKnowledgeHub.Model.Repo;
 namespace RepositoryTestProject
 {
     [TestClass]
-    public class LearningObjectiveRepositoryTester
+    public class FocusPointRepositoryTester
     {
         private static string connectionString = "Server=10.56.8.36; Database=DB_2023_35; User Id=STUDENT_35; Password=OPENDB_35; TrustServerCertificate=true";
 
         private GameRepository gameRepo = RepositoryManager.TestGameRepository;
         private LearningObjectiveRepository learningObjectiveRepo = RepositoryManager.TestLearningObjectiveRepository;
+        private FocusPointRepository focusPointRepo = RepositoryManager.TestFocusPointRepository;
 
         [TestInitialize]
         public void TestInitialize()
@@ -22,26 +23,32 @@ namespace RepositoryTestProject
 
                 SqlCommand cmd = new("INSERT INTO GAME (G_TITLE) VALUES " +
                     "('CS:GO'), " +
-                    "('Valorant'), " +
-                    "('FIFA'), " +
-                    "('Rocket League');", con);
+                    "('Valorant');", con);
                 cmd.ExecuteNonQuery();
 
                 cmd = new("INSERT INTO LEARNINGOBJECTIVE (LO_Title, G_Title) VALUES " +
                     "('Aim', 'CS:GO'), " +
                     "('Utility usage', 'CS:GO'), " +
-                    "('Map knowledge', 'CS:GO'), " +
                     "('Aim', 'Valorant'), " +
-                    "('Team composition', 'Valorant'), " +
-                    "('Passing', 'FIFA'), " +
-                    "('Offense & Defense', 'FIFA'), " +
-                    "('Offensive', 'Rocket League'), " +
-                    "('Ball control', 'Rocket League');", con);
+                    "('Team composition', 'Valorant');", con);
+                cmd.ExecuteNonQuery();
+
+                cmd.CommandText = "INSERT INTO FOCUSPOINT (F_Title, LO_ID) VALUES " +
+                    "('Spray', 1), " +
+                    "('Peek', 1), " +
+                    "('Tap', 1), " +
+                    "('Reaction time', 1), " +
+                    "('Smokes (D2)', 2), " +
+                    "('Pop flashes (D2)', 2)," +
+                    "('Spray', 3), " +
+                    "('Tap', 3), " +
+                    "('Roles and Responsibility', 4);";
                 cmd.ExecuteNonQuery();
             }
 
             gameRepo.Reset();
             learningObjectiveRepo.Reset();
+            focusPointRepo.Reset();
         }
 
         [TestCleanup]
@@ -52,7 +59,10 @@ namespace RepositoryTestProject
             {
                 con.Open();
 
-                SqlCommand cmd = new("DELETE FROM LEARNINGOBJECTIVE;", con);
+                SqlCommand cmd = new("DELETE FROM FOCUSPOINT;", con);
+                cmd.ExecuteNonQuery();
+
+                cmd.CommandText = "DELETE FROM LEARNINGOBJECTIVE;";
                 cmd.ExecuteNonQuery();
 
                 cmd.CommandText = "DELETE FROM GAME;";
@@ -71,48 +81,48 @@ namespace RepositoryTestProject
             // Act
 
             // Assert
-            Assert.IsNotNull(learningObjectiveRepo);
+            Assert.IsNotNull(focusPointRepo);
         }
 
         [TestMethod]
         public void Test_Create()
         {
             // Arrange
-            string title = "Utility usage";
-            Game valorantGame = gameRepo.Retrieve("Valorant");
+            string title = "Raw aim";
+            LearningObjective valorantAimLearningObjective = learningObjectiveRepo.Retrieve(3);
 
             // Act
-            LearningObjective utilityUsageLearningObjective = learningObjectiveRepo.Create(title, valorantGame);
+            FocusPoint rawAimFocusPoint = focusPointRepo.Create(title, valorantAimLearningObjective);
 
             // Assert
-            Assert.AreEqual("ID: 10, Title: Utility usage, Parent: Valorant, FocusPoints: ", utilityUsageLearningObjective.ToString());
+            Assert.AreEqual("Title: Raw aim, Parent: 3", rawAimFocusPoint.ToString());
         }
 
         [TestMethod]
-        public void Test_Create_IsAssociatedToGame()
+        public void Test_Create_IsAssociatedToFocusPoint()
         {
             // Arrange
-            string title = "Utility usage";
-            Game valorantGame = gameRepo.Retrieve("Valorant");
+            string title = "Raw aim";
+            LearningObjective csgoAimLearningObjective = learningObjectiveRepo.Retrieve(1);
 
             // Act
-            learningObjectiveRepo.Create(title, valorantGame);
+            FocusPoint newFocusPoint = focusPointRepo.Create(title, csgoAimLearningObjective);
 
             // Assert
-            Assert.AreEqual("Title: Valorant, LearningObjectives: Aim, Team composition, Utility usage", valorantGame.ToString());
+            Assert.AreEqual("ID: 1, Title: Aim, Parent: CS:GO, FocusPoints: Peek, Reaction time, Spray, Tap, Raw aim", csgoAimLearningObjective.ToString());
         }
 
         [TestMethod]
         public void Test_Retrieve()
         {
             // Arrange
-            int passingLearningObjectiveID = 6;
+            string title = "Pop flashes (D2)";
 
             // Act
-            LearningObjective passingLearningObjective = learningObjectiveRepo.Retrieve(passingLearningObjectiveID);
+            FocusPoint popFlashesD2FocusPoint = focusPointRepo.Retrieve(title);
 
             // Assert
-            Assert.AreEqual("ID: 6, Title: Passing, Parent: FIFA, FocusPoints: ", passingLearningObjective.ToString());
+            Assert.AreEqual("Title: Pop flashes (D2), Parent: 2", popFlashesD2FocusPoint.ToString());
         }
 
         [TestMethod]
@@ -145,13 +155,13 @@ namespace RepositoryTestProject
         public void Test_RetrieveAll_CorrectAmount()
         {
             // Arrange
-            List<LearningObjective> retrievedLearningObjectives;
+            List<FocusPoint> retrievedFocusPoints;
 
             // Act
-            retrievedLearningObjectives = learningObjectiveRepo.RetrieveAll();
+            retrievedFocusPoints = focusPointRepo.RetrieveAll();
 
             // Assert
-            Assert.AreEqual(9, retrievedLearningObjectives.Count);
+            Assert.AreEqual(9, retrievedFocusPoints.Count);
         }
     }
 }
