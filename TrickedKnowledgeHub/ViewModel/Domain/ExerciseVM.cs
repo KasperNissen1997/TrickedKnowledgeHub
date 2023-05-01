@@ -14,6 +14,7 @@ namespace TrickedKnowledgeHub.ViewModel.Domain
 
         public EmployeeVM Author { get; set; }
         public GameVM? Game { get; set; }
+        public LearningObjectiveVM? LearningObjective { get; set; }
         public FocusPointVM? FocusPoint { get; set; }
         public Rating Rating { get; set; }
 
@@ -36,9 +37,15 @@ namespace TrickedKnowledgeHub.ViewModel.Domain
 
             // Handle a possible null reference
             if (source.FocusPoint != null)
+            {
                 FocusPoint = new(source.FocusPoint);
+                LearningObjective = new(source.FocusPoint.Parent);
+            }
             else
+            {
                 FocusPoint = null;
+                LearningObjective = null;
+            }
 
             Rating = source.Rating;
         }
