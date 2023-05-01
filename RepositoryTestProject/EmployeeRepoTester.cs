@@ -62,7 +62,7 @@ namespace RepositoryTestProject
             //Arrange
 
             //Act
-            Employee newEmp = employeeRepository.Create("Nils", "nils@gmail.com", "nilstheboss", "donthackmeplz7", EmployeeType.Coach);
+            Employee newEmp = employeeRepository.Create("nils@gmail.com", "Nils", "nilstheboss", "donthackmeplz7", EmployeeType.Coach);
 
             //Assert
             Assert.IsNotNull(newEmp);
