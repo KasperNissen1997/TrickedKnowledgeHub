@@ -62,6 +62,13 @@ namespace TrickedKnowledgeHub.Model.Repo
             }
         }
 
+        public void Reset()
+        {
+            employees.Clear();
+
+            Load();
+        }
+
         public Employee Create(string email, string name, string nickname, string password, EmployeeType type)
         {
             using (SqlConnection con = GetConnection())
@@ -85,13 +92,6 @@ namespace TrickedKnowledgeHub.Model.Repo
 
                 return employee;
             }
-        }
-
-        public void Reset()
-        {
-            employees.Clear();
-
-            Load();
         }
 
         public Employee Retrieve(string email) //Retrieves Employee based on string parameter

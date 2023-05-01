@@ -1,7 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using TrickedKnowledgeHub.Model;
 using TrickedKnowledgeHub.Model.Repo;
 
@@ -125,9 +122,3 @@ namespace RepositoryTestProject
         }
     }
 }
-
-
-
-
-
-
