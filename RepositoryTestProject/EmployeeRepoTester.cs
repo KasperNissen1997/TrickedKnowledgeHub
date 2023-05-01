@@ -35,8 +35,6 @@ namespace RepositoryTestProject
                 "('aleksander@gmail.com', 'Aleksander', 'aleksalamander',   'donthackmeplz6', 'Coach')", con);
 
                 cmd.ExecuteNonQuery();
-
-
             }
 
             employeeRepository.Reset();

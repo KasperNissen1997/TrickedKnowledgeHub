@@ -21,14 +21,14 @@ namespace TrickedKnowledgeHub.Model.Repo
             {
                 con.Open(); //Open connection
 
-                SqlCommand cmd = new SqlCommand("SELECT Name, Mail, Nickname, Password, Type  FROM EMPLOYEE", con); //SQL Query run at execution
+                SqlCommand cmd = new SqlCommand("SELECT Mail, Name, Nickname, Password, Type  FROM EMPLOYEE", con); //SQL Query run at execution
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read()) //While reader reads
                     {
-                        string name = reader["Name"].ToString();
                         string mail = reader["Mail"].ToString();
+                        string name = reader["Name"].ToString();
                         string nickname = reader["Nickname"].ToString();
                         string password = reader["Password"].ToString();
 
