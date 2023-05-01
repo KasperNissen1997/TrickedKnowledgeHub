@@ -5,7 +5,7 @@ using TrickedKnowledgeHub.Model.Repo;
 namespace RepositoryTestProject
 {
     [TestClass]
-    public class EmployeeRepoTester
+    public class EmployeeRepositoryTester
     {
         EmployeeRepository employeeRepository = RepositoryManager.TestEmployeeRepository;
 
