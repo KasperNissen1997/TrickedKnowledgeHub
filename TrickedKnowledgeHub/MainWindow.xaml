@@ -25,35 +25,39 @@
                 </Button.Resources>
             </Button>
         </Grid>
-        <Frame Margin="160,1,0,-1"/>
+        <Frame Margin="160,1,0,0"/>
         <TextBox HorizontalAlignment="Right" Margin="792,10,5,0" TextWrapping="Wrap" Text="Sorter efter:" VerticalAlignment="Top" Width="98"/>
         <ComboBox x:Name="FeedCombo" HorizontalAlignment="Right" Margin="792,33,5,0" VerticalAlignment="Top" Width="98"/>
-        
+
         <ListBox x:Name="FeedListBox" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding ExerciseVMs}" Background="{x:Null}" Margin="160,0,113,0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal" >
+                    <StackPanel HorizontalAlignment="Left">                        
                         <Expander>
+                            <Expander.Header>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}Title:{0}     Beskrivelse:{1}     Spil:{2}">
+                                            <Binding Path="Title"/>
+                                            <Binding Path="Description"/>
+                                            <Binding Path="Game.Title"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Expander.Header>
                             <Expander.Content>
                                 <TextBlock>
                                     <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}Niveau: {0} Focus Point: {1}">
+                                        <MultiBinding StringFormat="{}Author:{0}    Niveau:{1}   LearningObjective:{2}   Focus Point:{3}">
+                                            <Binding Path="Author.Name"/>
+                                            <Binding Path="LearningObjective.Title"/>
+                                            <Binding Path="FocusPoint.Title"/>
                                             <Binding Path="Rating"/>
-                                            <Binding Path="FocusPoint.Title"/>                                            
                                         </MultiBinding>
                                     </TextBlock.Text>
                                 </TextBlock>
                             </Expander.Content>
                         </Expander>
-                        <TextBlock>
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}Title:{0}     Beskrivelse:{1}     Spil:{2}">
-                                    <Binding Path="Title"/>
-                                    <Binding Path="Description"/>
-                                    <Binding Path="Game.Title"/>
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
