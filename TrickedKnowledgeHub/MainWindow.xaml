@@ -13,16 +13,63 @@
 
     <Grid>
         <StackPanel Height="auto" Width="auto"
-            Orientation="Vertical" Background="#e7e7e7">
+            Orientation="Vertical" Background="#e7e7e7" Margin="0,1,0,0">
         </StackPanel>
-        <Image Source="img/TrickedLog.jpg" Opacity="0.60" />
-            <Button Command="{Binding OpenCreateExerciseViewCmd}" CommandParameter="{Binding}" x:Name="Create_Exercise" Content="Opret øvelse" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="100"  Height="50" Width="150" Background="#FF0CBE94" Foreground="White" FontSize="18" FontWeight="Bold">
+        <Image Source="img/TrickedLog.jpg" Opacity="0.60" Margin="0,1,0,0" />
+        <Grid x:Name="ButtonGrid" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="160" Height="68">
+            <Button Command="{Binding OpenCreateExerciseViewCmd}" CommandParameter="{Binding}" x:Name="Create_Exercise" Content="Opret øvelse" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"  Height="49" Width="112" Background="#FF0CBE94" Foreground="White" FontSize="18" FontWeight="Bold">
                 <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"></Setter>
-                </Style>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
                 </Button.Resources>
             </Button>
+        </Grid>
+        <Grid Margin="770,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Top" Height="260" Width="130">
+            <Label Content="Game " HorizontalAlignment="Left" Margin="8,33,0,0" VerticalAlignment="Top"/>
+            <Label Content="Filter" HorizontalAlignment="Left" Margin="32,2,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" RenderTransformOrigin="1.26,0.529"/>
+            <Label Content="LearningObjective" HorizontalAlignment="Left" Margin="5,91,0,0" VerticalAlignment="Top"/>
+            <ComboBox x:Name="ComboBox_Learn" HorizontalAlignment="Left" Margin="5,122,0,0" VerticalAlignment="Top" Width="98"/>
+            <Label Content="FocusPoint" HorizontalAlignment="Left" Margin="5,149,0,0" VerticalAlignment="Top"/>
+            <ComboBox x:Name="ComboBox_Focus" HorizontalAlignment="Left" Margin="5,182,0,0" VerticalAlignment="Top" Width="98"/>
+            <ComboBox x:Name="ComboBox_Skill" HorizontalAlignment="Left" Margin="5,228,0,0" VerticalAlignment="Top" Width="98"/>
+            <Label Content="Skill" HorizontalAlignment="Left" Margin="5,204,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.161,0.539"/>
+            <ComboBox x:Name="FeedCombo" HorizontalAlignment="Right" Margin="5,64,20,0" VerticalAlignment="Top" Width="98"/>
+        </Grid>
+        <Frame Margin="160,1,0,0"/>
 
+        <ListBox x:Name="FeedListBox" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding ExerciseVMs}" Background="{x:Null}" Margin="160,0,130,0">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel HorizontalAlignment="Left">
+                        <Expander>
+                            <Expander.Header>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}Title:{0}     Beskrivelse:{1}     Spil:{2}">
+                                            <Binding Path="Title"/>
+                                            <Binding Path="Description"/>
+                                            <Binding Path="Game.Title"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Expander.Header>
+                            <Expander.Content>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}Author:{0}    Niveau:{1}   LearningObjective:{2}   Focus Point:{3}">
+                                            <Binding Path="Author.Name"/>
+                                            <Binding Path="LearningObjective.Title"/>
+                                            <Binding Path="FocusPoint.Title"/>
+                                            <Binding Path="Rating"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Expander.Content>
+                        </Expander>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Window>

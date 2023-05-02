@@ -4,6 +4,23 @@
              xmlns:local="clr-namespace:TrickedKnowledgeHub"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        
+        <Style x:Key="_ListBoxItemStyle" TargetType="ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Name="_Border"
+                                Padding="2"
+                                BorderBrush="Black"
+                                BorderThickness="2"
+                                SnapsToDevicePixels="true"
+                                Margin="2">
+                            <ContentPresenter />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
     </Application.Resources>
 </Application>
