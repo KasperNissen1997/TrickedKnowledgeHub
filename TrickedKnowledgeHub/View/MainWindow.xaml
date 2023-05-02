@@ -42,7 +42,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel HorizontalAlignment="Left">
-                        <Expander>
+                        <Expander Template="{StaticResource NoIcon}">
                             <Expander.Header>
                                 <TextBlock>
                                     <TextBlock.Text>
