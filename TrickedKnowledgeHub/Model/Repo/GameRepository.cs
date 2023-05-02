@@ -72,7 +72,7 @@ namespace TrickedKnowledgeHub.Model.Repo
             throw new ArgumentException($"No game with title {title} found.");
         }
 
-        public List<Game> RetriveAll()
+        public List<Game> RetrieveAll()
         {
             return new(games);
         }

@@ -5,7 +5,7 @@ using Microsoft.Data.SqlClient;
 namespace RepositoryTestProject
 {
     [TestClass]
-    public class ExerciseRepoTest
+    public class ExerciseRepositoryTest
     {
         private string connectionString = "Server=10.56.8.36; Database=DB_2023_35; User Id=STUDENT_35; Password=OPENDB_35; TrustServerCertificate=true;";
 
