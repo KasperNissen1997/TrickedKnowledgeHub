@@ -52,7 +52,7 @@
                                             <Binding Path="Game.Title"/>
                                         </MultiBinding>
                                     </TextBlock.Text>
-                                  <Button x:Name="Material_Download_Button" Content="Download øvelse" Command="{Binding DownloadMaterialCommand}" CommandParameter="{Binding}"/>
+                                  <Button x:Name="Material_Download_Button" Content="Download øvelse" Command="{Binding DownloadMaterialCommand}" CommandParameter="{Binding Exercise}"/>
                                 </TextBlock>
                             </Expander.Header>
                             <Expander.Content>
