@@ -15,7 +15,7 @@
         <StackPanel Height="auto" Width="auto"
             Orientation="Vertical" Background="#e7e7e7" Margin="0,1,0,0">
         </StackPanel>
-        <Image Source="img/TrickedLog.jpg" Opacity="0.60" Margin="0,1,0,0" />
+        <Image Source="/img/TrickedLog.jpg" Opacity="0.60" Margin="0,1,0,0" />
         <Grid x:Name="ButtonGrid" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="160" Height="68">
             <Button Command="{Binding OpenCreateExerciseViewCmd}" CommandParameter="{Binding}" x:Name="Create_Exercise" Content="Opret øvelse" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"  Height="49" Width="112" Background="#FF0CBE94" Foreground="White" FontSize="18" FontWeight="Bold">
                 <Button.Resources>

@@ -26,7 +26,7 @@
         </Grid.RowDefinitions>
 
 
-        <Image Source="Img/TrickedLog.jpg" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <Image Source="/Img/TrickedLog.jpg" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
         <Button x:Name="Cancel_Button" Content="Annullér" Width="150" Height="50" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"    Foreground="White"  Background="#FFB70F0F"  FontWeight="Bold" FontStyle="Italic" Click="Cancel_Button_Click">
             <Button.Resources>
