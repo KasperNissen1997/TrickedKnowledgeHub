@@ -34,7 +34,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <ToggleButton 
+                    <ToggleButton
                         x:Name="ExpanderButton"
                         IsChecked="{Binding Path=IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
                         Content="{TemplateBinding Header}" 
