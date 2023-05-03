@@ -6,6 +6,7 @@
     <Application.Resources>
         
         <Style x:Key="_ListBoxItemStyle" TargetType="ListBoxItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="Template">    
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
@@ -40,7 +41,7 @@
                         Content="{TemplateBinding Header}" 
                         ContentTemplate="{TemplateBinding HeaderTemplate}"
                         Grid.Row="0"
-                        HorizontalAlignment="Left"
+                        HorizontalAlignment="Stretch"
                         Background="Transparent"
                         BorderBrush="Transparent"
                         BorderThickness="0">

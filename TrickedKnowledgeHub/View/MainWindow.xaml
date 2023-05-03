@@ -41,8 +41,8 @@
         <ListBox x:Name="FeedListBox" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding ExerciseVMs}" Background="{x:Null}" Margin="160,0,130,0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel HorizontalAlignment="Left">
-                        <Expander Template="{StaticResource NoIcon}">
+                    <StackPanel HorizontalAlignment="Stretch">
+                        <Expander Template="{StaticResource NoIcon}" ExpandDirection="Right">
                             <Expander.Header>
                                 <TextBlock>
                                     <TextBlock.Text>
