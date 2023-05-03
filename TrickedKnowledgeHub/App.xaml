@@ -29,7 +29,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <ToggleButton 
+                    <ToggleButton
                         x:Name="ExpanderButton"
                         IsChecked="{Binding Path=IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
                         Content="{TemplateBinding Header}" 
@@ -38,7 +38,23 @@
                         HorizontalAlignment="Left"
                         Background="Transparent"
                         BorderBrush="Transparent"
-                        BorderThickness="0"/>
+                        BorderThickness="2"
+                        FocusVisualStyle="{x:Null}">
+                        <ToggleButton.Style>
+                            <Style TargetType="ToggleButton">
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                    </Trigger>
+                                    <Trigger Property="IsChecked" Value="True">
+                                        <Setter Property="Background" Value="White"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ToggleButton.Style>
+                    </ToggleButton>
                     <Border 
                 x:Name="ExpanderContentBorder"
                 Grid.Row="1"
