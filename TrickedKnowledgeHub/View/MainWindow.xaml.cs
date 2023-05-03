@@ -28,15 +28,5 @@ namespace TrickedKnowledgeHub
 
             DataContext = new MainWindowViewVM();
         }
-
-        private void Close(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (Debugger.IsAttached)
-            {
-                
-                Debugger.Log(0, "Info", "Application closed\n");
-            }
-            Application.Current.Shutdown();
-        }
     }
 }

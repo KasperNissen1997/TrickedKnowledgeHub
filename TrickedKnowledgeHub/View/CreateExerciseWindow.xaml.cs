@@ -37,9 +37,9 @@ namespace TrickedKnowledgeHub
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Visibility = Visibility.Collapsed;
+            // this.Visibility = Visibility.Collapsed;
 
-
+            Close();
         }
 
         private void Create_Exercise(object sender, RoutedEventArgs e)

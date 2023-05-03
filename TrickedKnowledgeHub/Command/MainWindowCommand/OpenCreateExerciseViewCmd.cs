@@ -21,11 +21,11 @@ namespace TrickedKnowledgeHub.Command.MainWindowCommand
         {
             if (parameter is MainWindowViewVM vm)
             {
-                if (vm.create_exercise_window.DataContext is CreateExerciseWindowViewVM createExerciseVM)
-                    createExerciseVM.ActiveUser = vm.ActiveUser;
+                vm.CreateExerciseWindowVM.ActiveUser = vm.ActiveUser;
 
-                vm.create_exercise_window.Show();
-                
+                Create_exercise_window createExerciseWindow = new();
+                createExerciseWindow.DataContext = vm.CreateExerciseWindowVM;
+                createExerciseWindow.Show();
             }
             else
                 throw new NotImplementedException();

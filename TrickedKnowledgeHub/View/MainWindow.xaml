@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TrickedKnowledgeHub"
         xmlns:vm="clr-namespace:TrickedKnowledgeHub.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow"  WindowState="Maximized" d:DesignHeight="450" d:DesignWidth="900" Closing="Close">
+        Title="MainWindow"  WindowState="Maximized" d:DesignHeight="450" d:DesignWidth="900">
     <Window.DataContext>
         <vm:MainWindowViewVM/>
     </Window.DataContext>
