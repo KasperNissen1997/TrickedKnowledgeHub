@@ -1,4 +1,5 @@
 ﻿using System;
+using TrickedKnowledgeHub.Command.MainWindowCommand;
 using TrickedKnowledgeHub.Model;
 
 namespace TrickedKnowledgeHub.ViewModel.Domain
@@ -17,6 +18,8 @@ namespace TrickedKnowledgeHub.ViewModel.Domain
         public LearningObjectiveVM? LearningObjective { get; set; }
         public FocusPointVM? FocusPoint { get; set; }
         public Rating Rating { get; set; }
+
+        public DownloadMaterialCommand DownloadMaterialCommand { get; set; } = new();
 
         public ExerciseVM(Exercise source)
         {
