@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TrickedKnowledgeHub.Model;
 using TrickedKnowledgeHub.ViewModel;
 
 namespace TrickedKnowledgeHub
@@ -26,6 +27,11 @@ namespace TrickedKnowledgeHub
             InitializeComponent();
 
             DataContext = new MainWindowViewVM();
+        }
+
+        private void Material_Download_Button_Click(object sender, RoutedEventArgs e)
+        {
+        
         }
     }
 }

@@ -43,21 +43,19 @@ namespace TrickedKnowledgeHub.Command.MainWindowCommand
             Exercise exercise = parameter as Exercise;
 
             // Download the material for the specific exercise
-            //exercise = exerciseRepository.Retrieve(exercise.ExerciseID);
             selectedByte = exerciseRepository.GetMaterial(exercise.ExerciseID); //selectedByte becomes the byte given from the exercise id.
 
             if (selectedByte != null)
             {
                 fileName = exercise.Title;
 
-                // Get the path to the user's Downloads folder
-                string downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads";
+                string downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads"; //Get the path to the user's Downloads folder
 
-                string filePath = Path.Combine(downloadsPath, fileName + ".docx");
 
-                File.WriteAllBytes(filePath, selectedByte);
+                string filePath = Path.Combine(downloadsPath, fileName + ".docx"); //Combine the path with the specified file name to make a new file.
+
+                File.WriteAllBytes(filePath, selectedByte); //Creates file on specified path and name, using specified byte
             }
-
         }
     }
 }
