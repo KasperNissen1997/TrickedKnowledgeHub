@@ -38,11 +38,11 @@
         </Grid>
         <Frame Margin="160,1,0,0"/>
 
-        <ListBox x:Name="FeedListBox" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding ExerciseVMs}" Background="{x:Null}" Margin="160,0,130,0">
+        <ListBox x:Name="FeedListBox" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding ExerciseVMs}" Background="{x:Null}" Margin="160,0,130,0" BorderBrush="Black">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel HorizontalAlignment="Stretch" Background="Black">
-                        <Expander Template="{StaticResource NoIcon}" ExpandDirection="Right" Background="#e7e7e7">
+                    <StackPanel HorizontalAlignment="Stretch">
+                        <Expander Template="{StaticResource NoIcon}" ExpandDirection="Right">
                             <Expander.Header>
                                 <TextBlock>
                                     <TextBlock.Text>
