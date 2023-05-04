@@ -12,8 +12,6 @@
                     <ControlTemplate TargetType="ListBoxItem">
                         <Border Name="_Border"
                                 Padding="2"
-                                BorderBrush="Black"
-                                BorderThickness="2"
                                 SnapsToDevicePixels="true"
                                 Margin="2">
                             <ContentPresenter />
