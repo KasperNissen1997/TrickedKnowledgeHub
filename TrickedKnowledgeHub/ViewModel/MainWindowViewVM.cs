@@ -13,6 +13,9 @@ namespace TrickedKnowledgeHub.ViewModel
     public class MainWindowViewVM
     {
         public EmployeeVM ActiveUser { get; set; }
+
+        public CreateExerciseWindowViewVM CreateExerciseWindowVM { get; set; }
+
         public OpenCreateExerciseViewCmd OpenCreateExerciseViewCmd { get; set; } = new OpenCreateExerciseViewCmd();
 
         public DownloadMaterialCommand DownloadMaterialCommand { get; set; }
@@ -42,6 +45,8 @@ namespace TrickedKnowledgeHub.ViewModel
         {
             //You need to enter the email of a active user in the database, so be sure the email is in the database.
             ActiveUser = new(RepositoryManager.EmployeeRepository.Retrieve("nikolai@gmail.com"));
+
+            CreateExerciseWindowVM = new();
 
             ExerciseVMs = new();
             foreach (Exercise exercise in RepositoryManager.ExerciseRepository.RetrieveAll())
