@@ -9,6 +9,7 @@ using TrickedKnowledgeHub.Model;
 using TrickedKnowledgeHub.Model.Repo;
 using TrickedKnowledgeHub.ViewModel;
 using Microsoft.Win32;
+using TrickedKnowledgeHub.ViewModel.Domain;
 
 namespace TrickedKnowledgeHub.Command.MainWindowCommand
 {
@@ -23,7 +24,7 @@ namespace TrickedKnowledgeHub.Command.MainWindowCommand
 
         public void Execute(object parameter)
         {
-            if (parameter is ViewModel.Domain.ExerciseVM vm) //If parameter is the VM
+            if (parameter is ExerciseVM exerciseVM)
             {
                 SaveFileDialog saveFileDialog = new(); //New dialog
 
@@ -34,7 +35,7 @@ namespace TrickedKnowledgeHub.Command.MainWindowCommand
 
                 if (saveFileDialog.ShowDialog() == true)
                 {
-                    byte[] material = RepositoryManager.ExerciseRepository.GetMaterial(vm.Source.ExerciseID); //Material equals material returned from GetMaterial method using the selected exercise ID from ExerciseVM
+                    byte[] material = RepositoryManager.ExerciseRepository.GetMaterial(exerciseVM.Source.ExerciseID); //Material equals material returned from GetMaterial method using the selected exercise ID from ExerciseVM
 
                     string filePath = saveFileDialog.FileName + "";
 
