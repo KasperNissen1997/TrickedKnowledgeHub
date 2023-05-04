@@ -42,26 +42,22 @@ namespace TrickedKnowledgeHub.Command.MainWindowCommand
             // Cast the parameter to the Exercise type
             Exercise exercise = parameter as Exercise;
 
-            // Access the exercise object
-            if (exercise != null)
+            // Download the material for the specific exercise
+            //exercise = exerciseRepository.Retrieve(exercise.ExerciseID);
+            selectedByte = exerciseRepository.GetMaterial(exercise.ExerciseID); //selectedByte becomes the byte given from the exercise id.
+
+            if (selectedByte != null)
             {
-                // Download the material for the specific exercise
-                exercise = exerciseRepository.Retrieve(exercise.ExerciseID);
+                fileName = exercise.Title;
 
-                if (exercise.Material != null)
-                {
-                    selectedByte = exercise.Material;
+                // Get the path to the user's Downloads folder
+                string downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads";
 
-                    fileName = exercise.Title;
+                string filePath = Path.Combine(downloadsPath, fileName + ".docx");
 
-                    // Get the path to the user's Downloads folder
-                    string downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads";
-
-                    string filePath = Path.Combine(downloadsPath, fileName + ".docx");
-
-                    File.WriteAllBytes(filePath, selectedByte);
-                }
+                File.WriteAllBytes(filePath, selectedByte);
             }
+
         }
     }
 }
