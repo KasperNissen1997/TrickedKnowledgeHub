@@ -28,10 +28,5 @@ namespace TrickedKnowledgeHub
 
             DataContext = new MainWindowViewVM();
         }
-
-        private void Material_Download_Button_Click(object sender, RoutedEventArgs e)
-        {
-        
-        }
     }
 }

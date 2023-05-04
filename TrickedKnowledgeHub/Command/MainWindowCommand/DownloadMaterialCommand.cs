@@ -7,6 +7,8 @@ using System.IO;
 using System.Windows.Input;
 using TrickedKnowledgeHub.Model;
 using TrickedKnowledgeHub.Model.Repo;
+using TrickedKnowledgeHub.ViewModel;
+using Microsoft.Win32;
 
 namespace TrickedKnowledgeHub.Command.MainWindowCommand
 {
@@ -21,47 +23,49 @@ namespace TrickedKnowledgeHub.Command.MainWindowCommand
 
         public event EventHandler CanExecuteChanged;
 
-        private Exercise exercise;
-
-        public ExerciseRepository exerciseRepository = RepositoryManager.ExerciseRepository; //Needed for calling methods in repo
-
-        byte[] selectedByte; //Field for material
-
-        string fileName; //File name
-
-        public DownloadMaterialCommand(Exercise exercise)
+        public bool CanExecute(object parameter)
         {
-            this.exercise = exercise;
-        }
-
-        public bool CanExecute(object parameter) //Makes sure the command cannot execute in case there is no exercise being passed
-        {
-            if (this.exercise == null) { return false; }
-            else
-            {
-                return true;
-            }
+            return true;
 
         }
 
         public void Execute(object parameter)
         {
             // Cast the parameter to the Exercise type
-            Exercise exercise = parameter as Exercise;
+            //Exercise exercise = parameter as Exercise;
 
-            // Download the material for the specific exercise
-            selectedByte = exerciseRepository.GetMaterial(exercise.ExerciseID); //selectedByte becomes the byte given from the exercise id.
+            //// Download the material for the specific exercise
+            //selectedByte = exerciseRepository.GetMaterial(exercise.ExerciseID); //selectedByte becomes the byte given from the exercise id.
 
-            if (selectedByte != null)
+            //if (selectedByte != null)
+            //{
+            //    fileName = exercise.Title;
+
+            //    string downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads"; //Get the path to the user's Downloads folder
+
+
+            //    string filePath = Path.Combine(downloadsPath, fileName + ".docx"); //Combine the path with the specified file name to make a new file.
+
+            //    File.WriteAllBytes(filePath, selectedByte); //Creates file on specified path and name, using specified byte
+            //}
+
+            // -----------------------------------------------------------
+
+            if (parameter is MainWindowViewVM vm) //If parameter is the VM
             {
-                fileName = exercise.Title;
+                SaveFileDialog saveFileDialog = new(); //New dialog
 
-                string downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads"; //Get the path to the user's Downloads folder
+                saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory); //Initial directory equals the specified folder path
+                                                                                                                         //given from GetFolderPath method which returns a string of a path
 
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    byte[] material = RepositoryManager.ExerciseRepository.GetMaterial(vm.SelectedExerciseVM.Source.ExerciseID); //Material equals material returned from GetMaterial method using the selected exercise ID from ExerciseVM
 
-                string filePath = Path.Combine(downloadsPath, fileName + ".docx"); //Combine the path with the specified file name to make a new file.
+                    string filePath = saveFileDialog.FileName;
 
-                File.WriteAllBytes(filePath, selectedByte); //Creates file on specified path and name, using specified byte
+                    File.WriteAllBytes(filePath, material); //Creates file on specified path and name, using specified byte
+                }
             }
         }
     }

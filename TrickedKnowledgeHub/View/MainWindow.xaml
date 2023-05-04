@@ -38,7 +38,7 @@
         </Grid>
         <Frame Margin="160,1,0,0"/>
 
-        <ListBox x:Name="FeedListBox" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding ExerciseVMs}" Background="{x:Null}" Margin="160,0,130,0">
+        <ListBox x:Name="FeedListBox" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding ExerciseVMs}" SelectedItem="{Binding SelectedExerciseVM}" Background="{x:Null}" Margin="160,0,130,0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel HorizontalAlignment="Stretch" Background="Black">
@@ -52,7 +52,7 @@
                                             <Binding Path="Game.Title"/>
                                         </MultiBinding>
                                     </TextBlock.Text>
-                                  <Button x:Name="Material_Download_Button" Content="Download øvelse" Command="{Binding DownloadMaterialCommand}" CommandParameter="{Binding Exercise}" Click="Material_Download_Button_Click" />
+                                  <Button x:Name="Material_Download_Button" Content="Download øvelse" Command="{Binding DownloadMaterialCommand}" CommandParameter="{Binding}" />
                                 </TextBlock>
                             </Expander.Header>
                             <Expander.Content>
