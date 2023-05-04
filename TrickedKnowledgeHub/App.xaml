@@ -13,12 +13,15 @@
                         <Border Name="_Border"
                                 Padding="2"
                                 SnapsToDevicePixels="true"
-                                Margin="2">
+                                Margin="2"
+                                BorderBrush="Black"
+                                BorderThickness="2"
+                                Background="#e7e7e7">
                             <ContentPresenter />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="true">
-                                <Setter TargetName="_Border" Property="Background" Value="Transparent"/>
+                                <Setter TargetName="_Border" Property="Background" Value="#e7e7e7"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -27,7 +30,7 @@
         </Style>
 
         <ControlTemplate x:Key="NoIcon" TargetType="{x:Type Expander}">
-            <Border Background="Transparent">
+            <Border Background="#e7e7e7">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -40,8 +43,8 @@
                         ContentTemplate="{TemplateBinding HeaderTemplate}"
                         Grid.Row="0"
                         HorizontalAlignment="Stretch"
-                        Background="Transparent"
-                        BorderBrush="Transparent"
+                        Background="#e7e7e7"
+                        BorderBrush="#e7e7e7"
                         BorderThickness="0">
                         <ToggleButton.Style>
                             <Style TargetType="ToggleButton">
@@ -49,16 +52,16 @@
                                     <Setter.Value>
                                         <ControlTemplate TargetType="ToggleButton">
                                             <Grid>
-                                                <Border x:Name="border" Background="Transparent">
+                                                <Border x:Name="border" Background="#e7e7e7">
                                                     <ContentPresenter />
                                                 </Border>
                                             </Grid>
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="border" Property="Background" Value="Transparent" />
+                                                    <Setter TargetName="border" Property="Background" Value="#e7e7e7" />
                                                 </Trigger>
                                                 <Trigger Property="IsChecked" Value="True">
-                                                    <Setter TargetName="border" Property="Background" Value="Transparent" />
+                                                    <Setter TargetName="border" Property="Background" Value="#e7e7e7" />
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
@@ -70,7 +73,7 @@
                     <Border 
                 x:Name="ExpanderContentBorder"
                 Grid.Row="1"
-                Background="Transparent">
+                Background="#e7e7e7">
                         <ContentPresenter 
                     x:Name="ExpanderContent" 
                     ContentSource="Content"/>
