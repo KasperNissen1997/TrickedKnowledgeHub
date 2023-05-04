@@ -38,7 +38,7 @@
         </Grid>
         <Frame Margin="160,1,0,0"/>
 
-        <ListBox x:Name="FeedListBox" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding ExerciseVMs}" Background="{x:Null}" Margin="160,0,130,0">
+        <ListBox x:Name="FeedListBox" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding ExerciseVMs}" Background="{x:Null}" Margin="160,0,130,0" SelectedItem="{Binding SelectedExerciseVM}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel HorizontalAlignment="Stretch">

@@ -73,13 +73,12 @@ namespace TrickedKnowledgeHub.Model.Repo
             {
                 con.Open();
                 SqlCommand cmd = new SqlCommand($"SELECT MATERIAL FROM EXERCISE WHERE ID = @ID", con);
+                cmd.Parameters.Add(@"ID", SqlDbType.Int).Value = id; //Adds parametized value to query
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
-                        cmd.Parameters.Add(@"ID", SqlDbType.Int).Value = id; //Adds parametized value to query
-
-                        material = (byte[])dr["Material"]; 
+                        material = (byte[]) dr["Material"]; 
 
                         return material; //What happens if this is null?
                     }

@@ -18,7 +18,7 @@ namespace TrickedKnowledgeHub.ViewModel
 
         public OpenCreateExerciseViewCmd OpenCreateExerciseViewCmd { get; set; } = new OpenCreateExerciseViewCmd();
 
-        public DownloadMaterialCommand DownloadMaterialCommand { get; set; }
+        
 
         private List<ExerciseVM> _exerciseVM;
         public List<ExerciseVM> ExerciseVMs
