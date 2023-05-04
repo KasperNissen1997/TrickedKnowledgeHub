@@ -12,6 +12,13 @@ namespace TrickedKnowledgeHub.Command.MainWindowCommand
 {
     public class DownloadMaterialCommand : ICommand
     {
+        // TODO: 
+        // Use the correct filename - should be in ExerciseViewModel in latest dev version
+        // Use the correct folder - you can't write to the users folder, get the path to the downloads folder some other way 😎
+        // Take the viewModel as the parameter, and then only take the material of the selected exercise
+        // CanExecute should always return true
+        // In future iterations, prompt the user for where to save the material 
+
         public event EventHandler CanExecuteChanged;
 
         private Exercise exercise;
