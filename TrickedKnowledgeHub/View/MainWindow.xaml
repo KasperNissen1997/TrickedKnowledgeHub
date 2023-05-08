@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TrickedKnowledgeHub"
         xmlns:vm="clr-namespace:TrickedKnowledgeHub.ViewModel"
+        xmlns:v="clr-namespace:TrickedKnowledgeHub.View"
         mc:Ignorable="d"
         Title="MainWindow"  WindowState="Maximized" d:DesignHeight="600" d:DesignWidth="1000" MinHeight="600" MinWidth="1000">
     <Window.DataContext>
@@ -60,36 +61,23 @@
             <ComboBox x:Name="ComboBox_Skill" HorizontalAlignment="Left" Margin="10,250,20,0" VerticalAlignment="Top" Width="95"/>
 
         </Grid>
+        <Frame Grid.Column="1" Grid.RowSpan="3" Source="ExercisePage.xaml" Visibility="Collapsed">
+        </Frame>
 
-        <ListBox  Grid.Row="1" Grid.Column="1" x:Name="FeedListBox" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding ExerciseVMs}" Background="{x:Null}">
+        <ListBox  Grid.Row="1" Grid.Column="1" x:Name="FeedListBox"
+                  ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding ExerciseVMs}" Background="{x:Null}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel HorizontalAlignment="Stretch">
-                        <Expander Background="#e7e7e7">
-                            <Expander.Header>
-                                <TextBlock>
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}Title:{0}     Beskrivelse:{1}     Spil:{2}">
-                                            <Binding Path="Title"/>
-                                            <Binding Path="Description"/>
-                                            <Binding Path="Game.Title"/>
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                            </Expander.Header>
-                            <Expander.Content>
-                                <TextBlock>
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}Author:{0}    Niveau:{1}   LearningObjective:{2}   Focus Point:{3}">
-                                            <Binding Path="Author.Name"/>
-                                            <Binding Path="LearningObjective.Title"/>
-                                            <Binding Path="FocusPoint.Title"/>
-                                            <Binding Path="Rating"/>
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                            </Expander.Content>
-                        </Expander>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}Title: {0}     Beskrivelse: {1}     Spil: {2}">
+                                    <Binding Path="Title"/>
+                                    <Binding Path="Description"/>
+                                    <Binding Path="Game.Title"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
