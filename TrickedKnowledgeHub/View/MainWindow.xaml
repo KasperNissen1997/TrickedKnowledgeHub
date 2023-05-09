@@ -5,19 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TrickedKnowledgeHub"
         xmlns:vm="clr-namespace:TrickedKnowledgeHub.ViewModel"
+        xmlns:v="clr-namespace:TrickedKnowledgeHub.View"
         mc:Ignorable="d"
-        Title="MainWindow"  WindowState="Maximized" d:DesignHeight="450" d:DesignWidth="900">
+        Title="MainWindow"  WindowState="Maximized" d:DesignHeight="600" d:DesignWidth="1000" MinHeight="600" MinWidth="1000">
     <Window.DataContext>
         <vm:MainWindowViewVM/>
     </Window.DataContext>
 
+    <Window.Background>
+        <SolidColorBrush Color="White" />
+    </Window.Background>
+
+
     <Grid>
-        <StackPanel Height="auto" Width="auto"
-            Orientation="Vertical" Background="#e7e7e7" Margin="0,1,0,0">
-        </StackPanel>
-        <Image Source="/img/TrickedLog.jpg" Opacity="0.60" Margin="0,1,0,0" />
-        <Grid x:Name="ButtonGrid" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="160" Height="68">
-            <Button Command="{Binding OpenCreateExerciseViewCmd}" CommandParameter="{Binding}" x:Name="Create_Exercise" Content="Opret øvelse" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"  Height="49" Width="112" Background="#FF0CBE94" Foreground="White" FontSize="18" FontWeight="Bold">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Img/TrickedLog.jpg" Stretch="Uniform" Opacity="0.1"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+
+
+        <Grid x:Name="ButtonGrid" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="160" Height="70">
+            <Button Command="{Binding OpenCreateExerciseViewCmd}" CommandParameter="{Binding}" x:Name="Create_Exercise" 
+                    Content="Opret øvelse" HorizontalAlignment="Center" VerticalAlignment="Top"   Height="70" Width="160" 
+                    Background="#FF0CBE94" Foreground="White" FontSize="24" FontWeight="Bold">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="10"/>
@@ -25,49 +44,40 @@
                 </Button.Resources>
             </Button>
         </Grid>
-        <Grid Margin="770,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Top" Height="260" Width="130">
-            <Label Content="Game " HorizontalAlignment="Left" Margin="8,33,0,0" VerticalAlignment="Top"/>
-            <Label Content="Filter" HorizontalAlignment="Left" Margin="32,2,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" RenderTransformOrigin="1.26,0.529"/>
-            <Label Content="LearningObjective" HorizontalAlignment="Left" Margin="5,91,0,0" VerticalAlignment="Top"/>
-            <ComboBox x:Name="ComboBox_Learn" HorizontalAlignment="Left" Margin="5,122,0,0" VerticalAlignment="Top" Width="98"/>
-            <Label Content="FocusPoint" HorizontalAlignment="Left" Margin="5,149,0,0" VerticalAlignment="Top"/>
-            <ComboBox x:Name="ComboBox_Focus" HorizontalAlignment="Left" Margin="5,182,0,0" VerticalAlignment="Top" Width="98"/>
-            <ComboBox x:Name="ComboBox_Skill" HorizontalAlignment="Left" Margin="5,228,0,0" VerticalAlignment="Top" Width="98"/>
-            <Label Content="Skill" HorizontalAlignment="Left" Margin="5,204,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.161,0.539"/>
-            <ComboBox x:Name="FeedCombo" HorizontalAlignment="Right" Margin="5,64,20,0" VerticalAlignment="Top" Width="98"/>
-        </Grid>
-        <Frame Margin="160,1,0,0"/>
 
-        <ListBox x:Name="FeedListBox" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding ExerciseVMs}" Background="{x:Null}" Margin="160,0,130,0" SelectedItem="{Binding SelectedExerciseVM}">
+        <Grid Grid.Row=" 1" Grid.Column="2">
+            <Label Content="Filter" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" />
+
+            <Label Content="Game " HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" FontSize="20"/>
+            <ComboBox x:Name="FeedCombo" HorizontalAlignment="Left" Margin="10,70,20,0" VerticalAlignment="Top" Width="95"/>
+
+            <Label Content="LearningObjective" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" FontSize="20"/>
+            <ComboBox x:Name="ComboBox_Learn" HorizontalAlignment="Left" Margin="10,130,20,0" VerticalAlignment="Top" Width="95"/>
+
+            <Label Content="FocusPoint" HorizontalAlignment="Left" Margin="10,160,0,0" VerticalAlignment="Top" FontSize="20"/>
+            <ComboBox x:Name="ComboBox_Focus" HorizontalAlignment="Left" Margin="10,190,20,0" VerticalAlignment="Top" Width="95"/>
+
+            <Label Content="Skill" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" FontSize="20"/>
+            <ComboBox x:Name="ComboBox_Skill" HorizontalAlignment="Left" Margin="10,250,20,0" VerticalAlignment="Top" Width="95"/>
+
+        </Grid>
+        <Frame Grid.Column="1" Grid.RowSpan="3" Source="ExercisePage.xaml" Visibility="Collapsed"/>
+
+        <ListBox  Grid.Row="1" Grid.Column="1" x:Name="FeedListBox"
+                  ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding ExerciseVMs}" Background="{x:Null}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel HorizontalAlignment="Stretch">
-                        <Expander Template="{StaticResource NoIcon}" ExpandDirection="Right">
-                            <Expander.Header>
-                                <TextBlock>
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}Title:{0}     Beskrivelse:{1}     Spil:{2}">
-                                            <Binding Path="Title"/>
-                                            <Binding Path="Description"/>
-                                            <Binding Path="Game.Title"/>
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                  <Button x:Name="Material_Download_Button" Content="Download øvelse" Command="{Binding DownloadMaterialCommand}" CommandParameter="{Binding}" />
-                                </TextBlock>
-                            </Expander.Header>
-                            <Expander.Content>
-                                <TextBlock>
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}Author:{0}    Niveau:{1}   LearningObjective:{2}   Focus Point:{3}">
-                                            <Binding Path="Author.Name"/>
-                                            <Binding Path="LearningObjective.Title"/>
-                                            <Binding Path="FocusPoint.Title"/>
-                                            <Binding Path="Rating"/>
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                            </Expander.Content>
-                        </Expander>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}Title: {0}     Beskrivelse: {1}     Spil: {2}">
+                                    <Binding Path="Title"/>
+                                    <Binding Path="Description"/>
+                                    <Binding Path="Game.Title"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
