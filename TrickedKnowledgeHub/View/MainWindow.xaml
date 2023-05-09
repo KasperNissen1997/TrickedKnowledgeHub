@@ -17,6 +17,7 @@
 
 
     <Grid>
+        <!-- Outer Grid -->
         <Grid.Background>
             <ImageBrush ImageSource="/Img/TrickedLog.jpg" Stretch="Uniform" Opacity="0.1"/>
         </Grid.Background>
@@ -31,6 +32,45 @@
             <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
 
+        <!-- Outer Grid -->
+        <Grid Grid.Row="1" Grid.Column="0" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+
+            <Label Grid.Row="0" Content="Filter" FontWeight="Bold" FontSize="24" 
+                   HorizontalAlignment="Center"/>
+
+            <Label Grid.Row="1" Content="Game" FontSize="18" 
+                   HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <ComboBox Grid.Row="1" x:Name="FeedCombo" Width="95" Height="20"
+                      HorizontalAlignment="Center" VerticalAlignment="Center"
+                      Style="{StaticResource ComboBoxStyle}"/>
+
+            <Label Grid.Row="2" Content="LearningObjective" FontSize="18" 
+                   HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <ComboBox Grid.Row="2" x:Name="ComboBox_Learn" Width="95" Height="20"
+                      HorizontalAlignment="Center" VerticalAlignment="Center"
+                      Style="{StaticResource ComboBoxStyle}"/>
+
+            <Label Grid.Row="3" Content="FocusPoint" FontSize="18" 
+                   HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <ComboBox Grid.Row="3" x:Name="ComboBox_Focus" Width="95" Height="20"
+                      HorizontalAlignment="Center" VerticalAlignment="Center"
+                      Style="{StaticResource ComboBoxStyle}"/>
+
+            <Label Grid.Row="4" Content="Skill" FontSize="18" 
+                   HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <ComboBox Grid.Row="4" x:Name="ComboBox_Skill" Width="95" Height="20"
+                      HorizontalAlignment="Center" VerticalAlignment="Center"
+                      Style="{StaticResource ComboBoxStyle}"/>
+        </Grid>
 
         <Grid x:Name="ButtonGrid" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="160" Height="70">
             <Button Command="{Binding OpenCreateExerciseViewCmd}" CommandParameter="{Binding}" x:Name="Create_Exercise" 
@@ -44,22 +84,6 @@
             </Button>
         </Grid>
 
-        <Grid Grid.Row=" 1" Grid.Column="2">
-            <Label Content="Filter" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" RenderTransformOrigin="1.26,0.529"/>
-
-            <Label Content="Game " HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" FontSize="20"/>
-            <ComboBox x:Name="FeedCombo" HorizontalAlignment="Left" Margin="10,70,20,0" VerticalAlignment="Top" Width="95"/>
-
-            <Label Content="LearningObjective" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" FontSize="20"/>
-            <ComboBox x:Name="ComboBox_Learn" HorizontalAlignment="Left" Margin="10,130,20,0" VerticalAlignment="Top" Width="95"/>
-
-            <Label Content="FocusPoint" HorizontalAlignment="Left" Margin="10,160,0,0" VerticalAlignment="Top" FontSize="20"/>
-            <ComboBox x:Name="ComboBox_Focus" HorizontalAlignment="Left" Margin="10,190,20,0" VerticalAlignment="Top" Width="95"/>
-
-            <Label Content="Skill" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" FontSize="20"/>
-            <ComboBox x:Name="ComboBox_Skill" HorizontalAlignment="Left" Margin="10,250,20,0" VerticalAlignment="Top" Width="95"/>
-
-        </Grid>
 
         <ListBox  Grid.Row="1" Grid.Column="1" x:Name="FeedListBox" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding ExerciseVMs}" Background="{x:Null}">
             <ListBox.ItemTemplate>
