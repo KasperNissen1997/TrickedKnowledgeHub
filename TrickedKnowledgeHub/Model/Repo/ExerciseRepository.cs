@@ -4,18 +4,19 @@ using System.Data;
 using System.Collections.Generic;
 using System.Windows.Media.Media3D;
 using System.Linq.Expressions;
+using System.Collections.ObjectModel;
 
 namespace TrickedKnowledgeHub.Model.Repo
 {
     public class ExerciseRepository : Repository
     {
-        private List<Exercise> exerciseList = new();
+        private ObservableCollection<Exercise> exerciseList = new();
 
         public ExerciseRepository(bool isTestRepository = false)
         { 
             IsTestRepository = isTestRepository;
 
-            Load(); 
+            Load();
         }
 
 

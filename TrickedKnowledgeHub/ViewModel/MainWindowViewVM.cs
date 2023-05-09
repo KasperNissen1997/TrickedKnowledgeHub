@@ -7,10 +7,12 @@ using TrickedKnowledgeHub.Command.MainWindowCommand;
 using TrickedKnowledgeHub.Model.Repo;
 using TrickedKnowledgeHub.ViewModel.Domain;
 using TrickedKnowledgeHub.Model;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace TrickedKnowledgeHub.ViewModel
 {
-    public class MainWindowViewVM
+    public class MainWindowViewVM : INotifyPropertyChanged
     {
         public EmployeeVM ActiveUser { get; set; }
 
@@ -20,11 +22,18 @@ namespace TrickedKnowledgeHub.ViewModel
 
         
 
-        private List<ExerciseVM> _exerciseVM;
-        public List<ExerciseVM> ExerciseVMs
+        private ObservableCollection<ExerciseVM> _exerciseVM;
+        public ObservableCollection<ExerciseVM> ExerciseVMs
         {
-            get { return _exerciseVM; }
-            set { _exerciseVM = value; }
+            get 
+            { 
+                return _exerciseVM; 
+            }
+            set 
+            { 
+                _exerciseVM = value; 
+                OnPropertyChanged(nameof(ExerciseVMs));
+            }
         }
 
         private ExerciseVM _selectedExerciseVM;
@@ -53,5 +62,15 @@ namespace TrickedKnowledgeHub.ViewModel
                 ExerciseVMs.Add(new ExerciseVM(exercise));
 
         }
+
+        #region OnChanged Events
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
     }
 }
