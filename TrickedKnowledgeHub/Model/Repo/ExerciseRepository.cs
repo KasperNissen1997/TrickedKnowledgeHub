@@ -36,12 +36,12 @@ namespace TrickedKnowledgeHub.Model.Repo
                         byte[] Material = (byte[])dr["Material"];
                         DateTime Time = DateTime.Parse(dr["Timestamp"].ToString());
                         string Mail = dr["Mail"].ToString();
-                        string G_Title = dr["G_Title"].ToString();
-                        Rating rating = (Rating)Enum.Parse(typeof(Rating), dr["Value"].ToString());
+                        string? G_Title = dr["G_Title"].ToString();
+                        Rating? rating = (Rating)Enum.Parse(typeof(Rating), dr["Value"].ToString());
                         string F_Title = dr["F_Title"].ToString();
 
                         Employee associatedEmployee;
-                        Game associatedGame;
+                        Game? associatedGame;
                         FocusPoint associatedFocusPoint;
 
                         if (IsTestRepository)
@@ -96,7 +96,7 @@ namespace TrickedKnowledgeHub.Model.Repo
         }
 
         #region CRUD
-        public Exercise Create(string title, string description, byte[] material, DateTime timestamp, Employee author, Game? game, FocusPoint? focusPoint, Rating rating)
+        public Exercise Create(string title, string description, byte[] material, DateTime timestamp, Employee author, Game? game, FocusPoint focusPoint, Rating? rating)
         {
             using (SqlConnection con = GetConnection())
             {
