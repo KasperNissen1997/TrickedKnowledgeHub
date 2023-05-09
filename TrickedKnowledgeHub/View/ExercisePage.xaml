@@ -1,0 +1,69 @@
+﻿<Page x:Class="TrickedKnowledgeHub.View.ExercisePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TrickedKnowledgeHub.View"
+      xmlns:vm="clr-namespace:TrickedKnowledgeHub.ViewModel"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ExercisePage">
+    <Page.DataContext>
+        <vm:ExercisePageVM/>
+    </Page.DataContext>
+
+    <Page.Background>
+        <SolidColorBrush Color="White"/>
+    </Page.Background>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        
+        <Grid Grid.Row="0"><!--Row one-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="/Img/TrickedLog.jpg"/>
+            <TextBlock Grid.Column="1" Text="{Binding SelectedExercise.Author.Name}" FontSize="20" />
+            <TextBlock Grid.Column="2" Text="{Binding SelectedExercise.Author.Type}" FontSize="20"/>
+        </Grid>
+        <Grid Grid.Row="1"><!--Row two-->
+            <TextBlock Text="{Binding SelectedExercise.Title}" FontSize=" 20"/>
+        </Grid>
+        <Grid Grid.Row="2"><!--Row three-->
+            <TextBlock Text="{Binding SelectedExercise.Description}" FontSize="20"/>
+        </Grid>
+        <Grid Grid.Row="3"><!--Row four-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{Binding SelectedExercise.Game.Title}" FontSize="20" Grid.Column="0"/>
+            <TextBlock Text="{Binding SelectedExercise.LearningObjective.Title}" FontSize="20" Grid.Column="1"/>
+            <TextBlock Text="{Binding SelectedExercise.FocusPoint.Title}" FontSize="20" Grid.Column="2"/>
+        </Grid>
+        <Grid Grid.Row="4"><!--Row five-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{Binding SelectedExercise.Rating}" FontSize="20" Grid.Column="0"/>
+            <TextBlock Text="Filens navn" FontSize="20" Grid.Column="1"/>
+            <Button Content="download" Grid.Column="3"/>
+        </Grid>
+
+
+    </Grid>
+</Page>

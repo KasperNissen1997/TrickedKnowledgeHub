@@ -8,11 +8,11 @@ namespace TrickedKnowledgeHub.Model
         public int ID { get; }
 
         public string Title { get; set; }
-        public Game Parent { get; set; }
+        public Game? Parent { get; set; }
 
         public List<FocusPoint> FocusPoints = new List<FocusPoint>();
 
-        public LearningObjective(int id, string title, Game parent)
+        public LearningObjective(int id, string title, Game? parent)
         {
             ID = id;
 

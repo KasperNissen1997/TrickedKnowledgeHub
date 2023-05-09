@@ -12,14 +12,9 @@ using System.ComponentModel;
 
 namespace TrickedKnowledgeHub.ViewModel
 {
-    public class MainWindowViewVM : INotifyPropertyChanged
+    public class MainWindowViewVM
     {
-        public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         public EmployeeVM ActiveUser { get; set; }
 
@@ -29,11 +24,18 @@ namespace TrickedKnowledgeHub.ViewModel
 
         
 
-        private List<ExerciseVM> _exerciseVM;
-        public List<ExerciseVM> ExerciseVMs
+        private ObservableCollection<ExerciseVM> _exerciseVM;
+        public ObservableCollection<ExerciseVM> ExerciseVMs
         {
-            get { return _exerciseVM; }
-            set { _exerciseVM = value; }
+            get 
+            { 
+                return _exerciseVM; 
+            }
+            set 
+            { 
+                _exerciseVM = value; 
+                OnPropertyChanged(nameof(ExerciseVMs));
+            }
         }
 
         private ExerciseVM _selectedExerciseVM;
@@ -49,29 +51,6 @@ namespace TrickedKnowledgeHub.ViewModel
                 SelectedExerciseVM = value;
             }
         }
-
-        public MainWindowViewVM()
-        {
-            //You need to enter the email of a active user in the database, so be sure the email is in the database.
-            ActiveUser = new(RepositoryManager.EmployeeRepository.Retrieve("nikolai@gmail.com"));
-
-            CreateExerciseWindowVM = new();
-            AvailableGames = new();
-            AvailableLearningObjectives = new();
-            AvailableFocusPoints = new();
-
-            foreach (Game game in RepositoryManager.GameRepository.RetrieveAll())
-                AvailableGames.Add(new(game));
-
-            Ratings = Rating.GetValues<Rating>().ToList();
-
-            ExerciseVMs = new();
-            foreach (Exercise exercise in RepositoryManager.ExerciseRepository.RetrieveAll())
-                ExerciseVMs.Add(new ExerciseVM(exercise));
-
-        }
-
-        public List<Rating> Ratings { get; set; }
 
         private ObservableCollection<GameVM> _availableGames;
         public ObservableCollection<GameVM> AvailableGames
@@ -111,7 +90,6 @@ namespace TrickedKnowledgeHub.ViewModel
 
             }
         }
-
         private ObservableCollection<LearningObjectiveVM> _availableLearningObjectives;
         public ObservableCollection<LearningObjectiveVM> AvailableLearningObjectives
         {
@@ -147,11 +125,9 @@ namespace TrickedKnowledgeHub.ViewModel
                 {
                     AvailableFocusPoints = new ObservableCollection<FocusPointVM>();
                 }
-
-
-
             }
         }
+
         private ObservableCollection<FocusPointVM> _availableFocusPoints;
         public ObservableCollection<FocusPointVM> AvailableFocusPoints
         {
@@ -182,19 +158,49 @@ namespace TrickedKnowledgeHub.ViewModel
 
             }
         }
-        private Rating _selectedRating;
-        public Rating SelectedRating
+        private string _title;
+        public string Title
         {
             get
             {
-                return _selectedRating;
+                return _title;
             }
 
             set
             {
-                _selectedRating = value;
-                OnPropertyChanged(nameof(SelectedRating));
+                _title = value;
+                OnPropertyChanged(nameof(Title));
             }
         }
+
+        public MainWindowViewVM()
+        {
+            //You need to enter the email of a active user in the database, so be sure the email is in the database.
+            ActiveUser = new(RepositoryManager.EmployeeRepository.Retrieve("nikolai@gmail.com"));
+
+            CreateExerciseWindowVM = new();
+            AvailableGames = new();
+
+            foreach (Game game in RepositoryManager.GameRepository.RetrieveAll())
+                AvailableGames.Add(new(game));
+
+
+            ExerciseVMs = new();
+            foreach (Exercise exercise in RepositoryManager.ExerciseRepository.RetrieveAll())
+                ExerciseVMs.Add(new ExerciseVM(exercise));
+
+        }
+
+
+
+        #region OnChanged Events
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
     }
 }
