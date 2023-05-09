@@ -38,9 +38,12 @@ namespace TrickedKnowledgeHub.Model.Repo
                         else
                             parent = RepositoryManager.GameRepository.Retrieve(gameTitle);
 
-                        LearningObjective learningObjective = new(id, title, parent);
 
+                        LearningObjective learningObjective = new(id, title, parent);
+                        
+                        if(parent != null)
                         parent.LearningObjectives.Add(learningObjective);
+
                         learningObjectives.Add(learningObjective);
                     }
                 }
