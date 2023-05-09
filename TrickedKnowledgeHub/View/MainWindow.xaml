@@ -46,7 +46,7 @@
         </Grid>
 
         <Grid Grid.Row=" 1" Grid.Column="2">
-            <Label Content="Filter" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" RenderTransformOrigin="1.26,0.529"/>
+            <Label Content="Filter" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" />
 
             <Label Content="Game " HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" FontSize="20"/>
             <ComboBox x:Name="FeedCombo" HorizontalAlignment="Left" Margin="10,70,20,0" VerticalAlignment="Top" Width="95"/>
@@ -61,8 +61,7 @@
             <ComboBox x:Name="ComboBox_Skill" HorizontalAlignment="Left" Margin="10,250,20,0" VerticalAlignment="Top" Width="95"/>
 
         </Grid>
-        <Frame Grid.Column="1" Grid.RowSpan="3" Source="ExercisePage.xaml" Visibility="Collapsed">
-        </Frame>
+        <Frame Grid.Column="1" Grid.RowSpan="3" Source="ExercisePage.xaml" Visibility="Collapsed"/>
 
         <ListBox  Grid.Row="1" Grid.Column="1" x:Name="FeedListBox"
                   ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding ExerciseVMs}" Background="{x:Null}">
