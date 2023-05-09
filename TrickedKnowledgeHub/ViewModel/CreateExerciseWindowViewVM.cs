@@ -220,6 +220,16 @@ namespace TrickedKnowledgeHub.ViewModel
             // Initialize AvailableLearningObjectives to contain the standard learning objectives.
         }
 
+        private string _fileName;
+        public string FileName
+        {
+            get { return _fileName; }
+            set { _fileName = value; 
+                OnPropertyChanged(nameof(FileName)); }
+
+
+        }
+
         #region OnChanged Events
         public event PropertyChangedEventHandler? PropertyChanged;
 

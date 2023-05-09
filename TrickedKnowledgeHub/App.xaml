@@ -6,19 +6,32 @@
     <Application.Resources>
         
         <Style x:Key="_ListBoxItemStyle" TargetType="ListBoxItem">
-            <Setter Property="Template">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Template">    
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
                         <Border Name="_Border"
                                 Padding="2"
                                 SnapsToDevicePixels="true"
-                                Margin="2">
+
+                                Margin="2"
+                                BorderBrush="Black"
+                                BorderThickness="2"
+                                Background="#e7e7e7">
+
                             <ContentPresenter />
                         </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter TargetName="_Border" Property="Background" Value="#e7e7e7"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
+      
+
     </Application.Resources>
 </Application>
