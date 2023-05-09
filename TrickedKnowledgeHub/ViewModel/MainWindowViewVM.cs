@@ -180,6 +180,8 @@ namespace TrickedKnowledgeHub.ViewModel
 
             CreateExerciseWindowVM = new();
             AvailableGames = new();
+            AvailableLearningObjectives = new();
+            AvailableFocusPoints = new();
 
             foreach (Game game in RepositoryManager.GameRepository.RetrieveAll())
                 AvailableGames.Add(new(game));
