@@ -78,6 +78,7 @@
                                 </MultiBinding>
                             </TextBlock.Text>
                         </TextBlock>
+
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
