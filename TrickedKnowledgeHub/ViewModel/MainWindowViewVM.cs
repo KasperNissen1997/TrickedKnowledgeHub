@@ -18,11 +18,27 @@ namespace TrickedKnowledgeHub.ViewModel
 
         public OpenCreateExerciseViewCmd OpenCreateExerciseViewCmd { get; set; } = new OpenCreateExerciseViewCmd();
 
+        
+
         private List<ExerciseVM> _exerciseVM;
         public List<ExerciseVM> ExerciseVMs
         {
             get { return _exerciseVM; }
             set { _exerciseVM = value; }
+        }
+
+        private ExerciseVM _selectedExerciseVM;
+        public ExerciseVM SelectedExerciseVM
+        {
+            get
+            {
+                return _selectedExerciseVM;
+            }
+
+            set
+            {
+                SelectedExerciseVM = value;
+            }
         }
 
         public MainWindowViewVM()

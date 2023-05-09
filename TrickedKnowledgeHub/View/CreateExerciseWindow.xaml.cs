@@ -47,6 +47,9 @@ namespace TrickedKnowledgeHub
             string message = "Øvelsen er hermed gemt :)";
             string title = "Gemt Øvelse";
             MessageBox.Show(message, title);
+            Close();
         }
+
+
     }
 }

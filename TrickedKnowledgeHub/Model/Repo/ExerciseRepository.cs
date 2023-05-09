@@ -2,6 +2,8 @@ using Microsoft.Data.SqlClient;
 using System;
 using System.Data;
 using System.Collections.Generic;
+using System.Windows.Media.Media3D;
+using System.Linq.Expressions;
 
 namespace TrickedKnowledgeHub.Model.Repo
 {
@@ -58,6 +60,29 @@ namespace TrickedKnowledgeHub.Model.Repo
 
                         exerciseList.Add(exercise);
                     }
+                }
+            }
+        }
+
+        public byte[] GetMaterial(int id)
+        {
+
+            byte[] material;
+
+            using (SqlConnection con = GetConnection())
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand($"SELECT MATERIAL FROM EXERCISE WHERE ID = @ID", con);
+                cmd.Parameters.Add(@"ID", SqlDbType.Int).Value = id; //Adds parametized value to query
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        material = (byte[]) dr["Material"]; 
+
+                        return material; //What happens if this is null?
+                    }
+                    throw new ArgumentException($"Exercise with given id: {id}, can not be found."); //Not sure if this exception handling is good enough
                 }
             }
         }

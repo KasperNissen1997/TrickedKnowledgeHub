@@ -37,6 +37,8 @@ namespace TrickedKnowledgeHub.Command.CreateExerciseWindowCommand
                 {
                     Trace.WriteLine("Chose file " + openFileDialog.FileName);
                     vm.Material = File.ReadAllBytes(openFileDialog.FileName);
+
+                    vm.FileName = Path.GetFileName(openFileDialog.FileName);
                 }
             }
         }
