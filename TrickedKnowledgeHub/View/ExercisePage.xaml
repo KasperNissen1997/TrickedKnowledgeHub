@@ -34,7 +34,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Image Source="/Img/TrickedLog.jpg"/>
-            <TextBlock Grid.Column="1" Text="{Binding SelectedExercise.Author.Name}" FontSize="20" />
+            <TextBlock Grid.Column="1" Text="{Binding SelectedExercise.Author.Name, UpdateSourceTrigger=PropertyChanged}" FontSize="20" />
             <TextBlock Grid.Column="2" Text="{Binding SelectedExercise.Author.Type}" FontSize="20"/>
         </Grid>
         <Grid Grid.Row="1"><!--Row two-->

@@ -20,18 +20,18 @@ namespace TrickedKnowledgeHub.ViewModel
 
         public OpenCreateExerciseViewCmd OpenCreateExerciseViewCmd { get; set; } = new OpenCreateExerciseViewCmd();
 
-        
+
 
         private ObservableCollection<ExerciseVM> _exerciseVM;
         public ObservableCollection<ExerciseVM> ExerciseVMs
         {
-            get 
-            { 
-                return _exerciseVM; 
+            get
+            {
+                return _exerciseVM;
             }
-            set 
-            { 
-                _exerciseVM = value; 
+            set
+            {
+                _exerciseVM = value;
                 OnPropertyChanged(nameof(ExerciseVMs));
             }
         }
@@ -47,6 +47,23 @@ namespace TrickedKnowledgeHub.ViewModel
             set
             {
                 SelectedExerciseVM = value;
+                OnPropertyChanged(nameof(SelectedExerciseVM));
+
+                ExercisePageVM.SelectedExercise = SelectedExerciseVM;
+            }
+        }
+        private ExercisePageVM _exercisePageVM;
+
+        public ExercisePageVM ExercisePageVM
+        {
+            get
+            {
+                return _exercisePageVM;
+            }
+            set
+            {
+                _exercisePageVM = value;
+                OnPropertyChanged(nameof(ExercisePageVM));
             }
         }
 

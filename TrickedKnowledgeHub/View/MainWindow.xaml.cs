@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using TrickedKnowledgeHub.Model;
 using TrickedKnowledgeHub.Model.Repo;
+using TrickedKnowledgeHub.View;
 using TrickedKnowledgeHub.ViewModel;
 using TrickedKnowledgeHub.ViewModel.Domain;
 
@@ -20,13 +21,20 @@ namespace TrickedKnowledgeHub
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ExercisePage ExercisePage { get; set; } = new();
+
         public MainWindow()
         {
+            MainWindowViewVM vm = new();
+
             InitializeComponent();
 
-            DataContext = new MainWindowViewVM();
+            DataContext = vm;
 
-            DBUpdate();
+            ExercisePage.DataContext = vm.ExercisePageVM;
+            FrameExercise.Content = ExercisePage;
+
+            //DBUpdate();
         }
 
 
@@ -50,6 +58,13 @@ namespace TrickedKnowledgeHub
 
                 mainWindowViewVM.ExerciseVMs = exerciseVMs;
             }
+        }
+
+        private void FeedListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            ExerciseVM selectedItem = FeedListBox.SelectedItem as ExerciseVM;
+            FrameExercise.DataContext = selectedItem;
+            FrameExercise.Visibility = Visibility.Visible;
         }
     }
 }

@@ -61,10 +61,12 @@
             <ComboBox x:Name="ComboBox_Skill" HorizontalAlignment="Left" Margin="10,250,20,0" VerticalAlignment="Top" Width="95"/>
 
         </Grid>
-        <Frame Grid.Column="1" Grid.RowSpan="3" Source="ExercisePage.xaml" Visibility="Collapsed"/>
+        <Frame x:Name="FrameExercise" Grid.Column="1" Grid.RowSpan="3" 
+               Visibility="Collapsed" Background="White" Panel.ZIndex="1"/>
 
         <ListBox  Grid.Row="1" Grid.Column="1" x:Name="FeedListBox"
-                  ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding ExerciseVMs}" Background="{x:Null}">
+                  ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding ExerciseVMs}" Background="{x:Null}"
+                  SelectionChanged="FeedListBox_SelectionChanged" SelectionMode="Single">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel HorizontalAlignment="Stretch">
