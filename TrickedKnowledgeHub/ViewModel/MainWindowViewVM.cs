@@ -46,10 +46,14 @@ namespace TrickedKnowledgeHub.ViewModel
 
             set
             {
-                SelectedExerciseVM = value;
-                OnPropertyChanged(nameof(SelectedExerciseVM));
 
-                ExercisePageVM.SelectedExercise = SelectedExerciseVM;
+                if (value != null)
+                {
+                    _selectedExerciseVM = value;
+                    OnPropertyChanged(nameof(SelectedExerciseVM));
+
+                    ExercisePageVM.SelectedExercise = _selectedExerciseVM;
+                }
             }
         }
         private ExercisePageVM _exercisePageVM;
@@ -58,6 +62,10 @@ namespace TrickedKnowledgeHub.ViewModel
         {
             get
             {
+                if (_exercisePageVM == null)
+                {
+                    _exercisePageVM= new ExercisePageVM();
+                }
                 return _exercisePageVM;
             }
             set

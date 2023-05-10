@@ -7,7 +7,8 @@
         xmlns:vm="clr-namespace:TrickedKnowledgeHub.ViewModel"
         xmlns:v="clr-namespace:TrickedKnowledgeHub.View"
         mc:Ignorable="d"
-        Title="MainWindow"  WindowState="Maximized" d:DesignHeight="600" d:DesignWidth="1000" MinHeight="600" MinWidth="1000">
+        Title="MainWindow"  WindowState="Maximized" d:DesignHeight="600" d:DesignWidth="1000" MinHeight="600" MinWidth="1000"
+        PreviewMouseDown="Window_PreviewMouseDown">
     <Window.DataContext>
         <vm:MainWindowViewVM/>
     </Window.DataContext>
@@ -66,7 +67,7 @@
 
         <ListBox  Grid.Row="1" Grid.Column="1" x:Name="FeedListBox"
                   ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding ExerciseVMs}" Background="{x:Null}"
-                  SelectionChanged="FeedListBox_SelectionChanged" SelectionMode="Single">
+                  SelectionChanged="FeedListBox_SelectionChanged" SelectionMode="Single" SelectedItem="{Binding SelectedExerciseVM}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel HorizontalAlignment="Stretch">

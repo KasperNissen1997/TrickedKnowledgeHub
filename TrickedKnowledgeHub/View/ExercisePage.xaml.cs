@@ -24,5 +24,16 @@ namespace TrickedKnowledgeHub.View
         {
             InitializeComponent();
         }
+
+        private void Frame_Collapsed_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = (MainWindow)Window.GetWindow(this);
+
+            // Find the Frame control in the MainWindow using its name
+            Frame frameExercise = (Frame)mainWindow.FindName("FrameExercise");
+
+            // Set the Visibility property of the Frame control to Collapsed
+            frameExercise.Visibility = Visibility.Collapsed;    
+        }
     }
 }
