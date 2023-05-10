@@ -31,7 +31,33 @@
             </Setter>
         </Style>
 
-      
-
+        <!-- Herunder ses designet for ComboBoxene. I stedet for at give hver combobox sine egne værdier, så er det
+        samlet her.-->
+        
+        <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Border Background="Transparent" 
+                                BorderBrush="Black" 
+                                BorderThickness="1"
+                                Height="25"
+                                Width="100"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                >
+                            <ContentPresenter/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+            
+        <!-- Herunder er customizations lavet for label. -->
+        <Style x:Key="CostumLabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
     </Application.Resources>
 </Application>

@@ -32,6 +32,30 @@
             <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
 
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Filter" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20"/>
+
+            <Label Content="Game" Style="{StaticResource CostumLabelStyle}" Grid.Row="1"/>
+            <ComboBox x:Name="FeedCombo" Style="{StaticResource ComboBoxStyle}" Grid.Row="1"/>
+
+            <Label Content="LearningObjective" Style="{StaticResource CostumLabelStyle}" Grid.Row="2"/>
+            <ComboBox x:Name="ComboBox_Learn" Style="{StaticResource ComboBoxStyle}" Grid.Row="2"/>
+
+            <Label Content="FocusPoint" Style="{StaticResource CostumLabelStyle}" Grid.Row="3"/>
+            <ComboBox x:Name="ComboBox_Focus" Style="{StaticResource ComboBoxStyle}" Grid.Row="3"/>
+
+            <Label Content="Skill" Style="{StaticResource CostumLabelStyle}" Grid.Row="4"/>
+            <ComboBox x:Name="ComboBox_Skill" Style="{StaticResource ComboBoxStyle}" Grid.Row="4"/>
+
+        </Grid>
 
         <Grid x:Name="ButtonGrid" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="160" Height="70">
             <Button Command="{Binding OpenCreateExerciseViewCmd}" CommandParameter="{Binding}" x:Name="Create_Exercise" 
@@ -45,22 +69,6 @@
             </Button>
         </Grid>
 
-        <Grid Grid.Row=" 1" Grid.Column="2">
-            <Label Content="Filter" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" />
-
-            <Label Content="Game " HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" FontSize="20"/>
-            <ComboBox x:Name="FeedCombo" HorizontalAlignment="Left" Margin="10,70,20,0" VerticalAlignment="Top" Width="95"/>
-
-            <Label Content="LearningObjective" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" FontSize="20"/>
-            <ComboBox x:Name="ComboBox_Learn" HorizontalAlignment="Left" Margin="10,130,20,0" VerticalAlignment="Top" Width="95"/>
-
-            <Label Content="FocusPoint" HorizontalAlignment="Left" Margin="10,160,0,0" VerticalAlignment="Top" FontSize="20"/>
-            <ComboBox x:Name="ComboBox_Focus" HorizontalAlignment="Left" Margin="10,190,20,0" VerticalAlignment="Top" Width="95"/>
-
-            <Label Content="Skill" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" FontSize="20"/>
-            <ComboBox x:Name="ComboBox_Skill" HorizontalAlignment="Left" Margin="10,250,20,0" VerticalAlignment="Top" Width="95"/>
-
-        </Grid>
         <Frame Grid.Column="1" Grid.RowSpan="3" Source="ExercisePage.xaml" Visibility="Collapsed"/>
 
         <ListBox  Grid.Row="1" Grid.Column="1" x:Name="FeedListBox"
