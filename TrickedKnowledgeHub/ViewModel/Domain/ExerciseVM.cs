@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using TrickedKnowledgeHub.Command.MainWindowCommand;
 using TrickedKnowledgeHub.Model;
 
@@ -9,7 +10,18 @@ namespace TrickedKnowledgeHub.ViewModel.Domain
         public Exercise Source { get; }
 
         public string Title { get; set; }
-        public string Description { get; set; }
+        public string Description {get; set;}
+        public string ShortDesription 
+        { 
+            get
+            { 
+                if (Description.Length > 40)
+                {
+                    return Description.Substring(0, 40) + "...";
+                }
+                return Description;
+            } 
+        }
         public byte[] Material { get; set; }
         public DateTime Timestamp { get; set; }
 
@@ -62,3 +74,4 @@ namespace TrickedKnowledgeHub.ViewModel.Domain
         }
     }
 }
+

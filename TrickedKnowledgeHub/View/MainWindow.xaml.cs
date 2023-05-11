@@ -8,8 +8,10 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using TrickedKnowledgeHub.Model;
 using TrickedKnowledgeHub.Model.Repo;
+using TrickedKnowledgeHub.View;
 using TrickedKnowledgeHub.ViewModel;
 using TrickedKnowledgeHub.ViewModel.Domain;
 
@@ -20,11 +22,18 @@ namespace TrickedKnowledgeHub
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ExercisePage ExercisePage { get; set; } =new();
+
         public MainWindow()
         {
+            MainWindowViewVM vm = new();
+
             InitializeComponent();
 
-            DataContext = new MainWindowViewVM();
+            DataContext = vm;
+
+            ExercisePage.DataContext = vm.ExercisePageVM;
+            FrameExercise.Content = ExercisePage;
 
             DBUpdate();
         }
@@ -51,5 +60,20 @@ namespace TrickedKnowledgeHub
                 mainWindowViewVM.ExerciseVMs = exerciseVMs;
             }
         }
+
+        private void FeedListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            FrameExercise.Visibility = Visibility.Visible;
+            FeedListBox.SelectedIndex= -1;
+        }
+
+        private void Window_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!FrameExercise.IsMouseOver)
+            {
+                FrameExercise.Visibility = Visibility.Collapsed;
+            }
+        }
+
     }
 }
