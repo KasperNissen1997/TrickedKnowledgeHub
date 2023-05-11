@@ -27,23 +27,27 @@
         </Grid.RowDefinitions>
         
         
-        <Grid Grid.Row="0"><!--Row one-->
+        <Grid Grid.Row="0"><!--Row one author name and type-->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <Image Source="/Img/TrickedLog.jpg"/>
-            <TextBlock Grid.Column="1" Text="{Binding SelectedExercise.Author.Name}" FontSize="20" />
+            <TextBlock Grid.Column="1" Text="{Binding SelectedExercise.Author.Name, UpdateSourceTrigger=PropertyChanged}" FontSize="20" />
             <TextBlock Grid.Column="2" Text="{Binding SelectedExercise.Author.Type}" FontSize="20"/>
+            <Button x:Name="Frame_Collapsed" Grid.Column="3" Click="Frame_Collapsed_Click">
+                <Image Source="/Img/closeicon.jpg" Width="auto" Height="auto"/>
+            </Button>
         </Grid>
-        <Grid Grid.Row="1"><!--Row two-->
+        <Grid Grid.Row="1"><!--Row two Title for exercise-->
             <TextBlock Text="{Binding SelectedExercise.Title}" FontSize=" 20"/>
         </Grid>
-        <Grid Grid.Row="2"><!--Row three-->
-            <TextBlock Text="{Binding SelectedExercise.Description}" FontSize="20"/>
+        <Grid Grid.Row="2"><!--Row three Description-->
+            <TextBlock Text="{Binding SelectedExercise.Description}" TextWrapping="Wrap" FontSize="20"/>
         </Grid>
-        <Grid Grid.Row="3"><!--Row four-->
+        <Grid Grid.Row="3" Margin="0,2"><!--Row four game LO FP-->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -53,14 +57,15 @@
             <TextBlock Text="{Binding SelectedExercise.LearningObjective.Title}" FontSize="20" Grid.Column="1"/>
             <TextBlock Text="{Binding SelectedExercise.FocusPoint.Title}" FontSize="20" Grid.Column="2"/>
         </Grid>
-        <Grid Grid.Row="4"><!--Row five-->
+        <Grid Grid.Row="4"><!--Row five Rating and missing filename downloadButton-->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="{Binding SelectedExercise.Rating}" FontSize="20" Grid.Column="0"/>
-            <TextBlock Text="Filens navn" FontSize="20" Grid.Column="1"/>
+            <TextBlock Text="Filens navn(Filename er kun sat op i CreateExerciseWindow)"
+                       TextWrapping="Wrap" FontSize="20" Grid.Column="1"/>
             <Button Content="download" Grid.Column="3"/>
         </Grid>
 
