@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Img\closeicon.jpg" />
     <None Remove="Img\TrickedLog.jpg" />
   </ItemGroup>
 
@@ -24,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Img\closeicon.jpg" />
     <Resource Include="Img\TrickedLog.jpg" />
   </ItemGroup>
 

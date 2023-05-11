@@ -7,7 +7,8 @@
         xmlns:vm="clr-namespace:TrickedKnowledgeHub.ViewModel"
         xmlns:v="clr-namespace:TrickedKnowledgeHub.View"
         mc:Ignorable="d"
-        Title="MainWindow"  WindowState="Maximized" d:DesignHeight="600" d:DesignWidth="1000" MinHeight="600" MinWidth="1000">
+        Title="MainWindow"  WindowState="Maximized" d:DesignHeight="600" d:DesignWidth="1000" MinHeight="600" MinWidth="1000"
+        PreviewMouseDown="Window_PreviewMouseDown">
     <Window.DataContext>
         <vm:MainWindowViewVM/>
     </Window.DataContext>
@@ -61,23 +62,24 @@
             <ComboBox x:Name="ComboBox_Skill" HorizontalAlignment="Left" Margin="10,250,20,0" VerticalAlignment="Top" Width="95"/>
 
         </Grid>
-        <Frame Grid.Column="1" Grid.RowSpan="3" Source="ExercisePage.xaml" Visibility="Collapsed"/>
+        <Frame x:Name="FrameExercise" Grid.Column="1" Grid.RowSpan="3" 
+               Visibility="Collapsed" Background="White" Panel.ZIndex="1"/>
 
         <ListBox  Grid.Row="1" Grid.Column="1" x:Name="FeedListBox"
-                  ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding ExerciseVMs}" Background="{x:Null}">
+                  ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding ExerciseVMs}" Background="{x:Null}"
+                  SelectionChanged="FeedListBox_SelectionChanged" SelectionMode="Single" SelectedItem="{Binding SelectedExerciseVM}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel HorizontalAlignment="Stretch">
                         <TextBlock>
                             <TextBlock.Text>
-                                <MultiBinding StringFormat="{}Title: {0}     Beskrivelse: {1}     Spil: {2}">
+                                <MultiBinding StringFormat="Title: {0}     Game: {1}     Describtion: {2}">
                                     <Binding Path="Title"/>
-                                    <Binding Path="Description"/>
                                     <Binding Path="Game.Title"/>
+                                    <Binding Path="ShortDesription"/>
                                 </MultiBinding>
                             </TextBlock.Text>
                         </TextBlock>
-
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
