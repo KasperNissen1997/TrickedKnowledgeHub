@@ -110,9 +110,24 @@ namespace TrickedKnowledgeHub.Model.Repo
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar).Value = description;
                 cmd.Parameters.Add("@Material", SqlDbType.VarBinary).Value = material;
                 cmd.Parameters.Add("@Timestamp", SqlDbType.DateTime2).Value = timestamp;
-                cmd.Parameters.Add("@Mail", SqlDbType.NVarChar).Value = author.Mail;
-                cmd.Parameters.Add("@G_Title", SqlDbType.NVarChar).Value = game.Title;
-                cmd.Parameters.Add("@Value", SqlDbType.Int).Value = (int)rating;
+                cmd.Parameters.Add("@Mail", SqlDbType.NVarChar).Value = author.Mail;   
+                if (game == null)
+                {
+                    cmd.Parameters.Add("@G_Title", SqlDbType.NVarChar).Value = DBNull.Value;
+                }
+                else
+                {
+                    cmd.Parameters.Add("@G_Title", SqlDbType.NVarChar).Value = game.Title;
+                }
+
+                if (rating  == 0 || rating == null)
+                {
+                    cmd.Parameters.Add("@Value", SqlDbType.Int).Value = DBNull.Value;
+                }
+                else
+                {
+                    cmd.Parameters.Add("@Value", SqlDbType.Int).Value = (int)rating;
+                }
 
                 int id = Convert.ToInt32(cmd.ExecuteScalar());
 

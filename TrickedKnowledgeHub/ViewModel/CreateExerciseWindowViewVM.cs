@@ -17,11 +17,10 @@ namespace TrickedKnowledgeHub.ViewModel
 {
     public class CreateExerciseWindowViewVM : INotifyPropertyChanged
     {
-
         private EmployeeVM activeUser;
         public EmployeeVM ActiveUser
         {
-            get 
+            get
             {
                 return activeUser;
             }
@@ -138,7 +137,7 @@ namespace TrickedKnowledgeHub.ViewModel
                     AvailableFocusPoints = new ObservableCollection<FocusPointVM>();
                 }
 
-                
+
 
             }
         }
@@ -214,18 +213,27 @@ namespace TrickedKnowledgeHub.ViewModel
 
             foreach (Game game in RepositoryManager.GameRepository.RetrieveAll())
                 AvailableGames.Add(new(game));
-                
-            Ratings = Rating.GetValues<Rating>().ToList();
 
-            // Initialize AvailableLearningObjectives to contain the standard learning objectives.
+            foreach (LearningObjective learningObjective in RepositoryManager.LearningObjectiveRepository.RetrieveAll())
+                if (learningObjective.Parent == null)
+                    AvailableLearningObjectives.Add(new(learningObjective));
+
+            foreach (FocusPoint focusPoint in RepositoryManager.FocusPointRepository.RetrieveAll())
+                if (focusPoint.Parent.Parent == null)
+                    AvailableFocusPoints.Add(new(focusPoint));
+
+            Ratings = Rating.GetValues<Rating>().ToList();
         }
 
         private string _fileName;
         public string FileName
         {
             get { return _fileName; }
-            set { _fileName = value; 
-                OnPropertyChanged(nameof(FileName)); }
+            set
+            {
+                _fileName = value;
+                OnPropertyChanged(nameof(FileName));
+            }
 
 
         }
