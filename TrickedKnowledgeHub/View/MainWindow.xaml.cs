@@ -33,7 +33,7 @@ namespace TrickedKnowledgeHub
             DataContext = vm;
 
             ExercisePage.DataContext = vm.ExercisePageVM;
-            FrameExercise.Content = ExercisePage;
+
 
             DBUpdate();
         }
@@ -63,6 +63,7 @@ namespace TrickedKnowledgeHub
 
         private void FeedListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
+            FrameExercise.Content = ExercisePage;
             // this sets the selcteditem to -1 as the listboxitems that are visible starts at 0
             // this makes it possible to select the same exercise over and over again
             FeedListBox.SelectedIndex= -1;
