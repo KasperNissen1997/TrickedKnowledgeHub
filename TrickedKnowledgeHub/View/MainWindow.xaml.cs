@@ -63,10 +63,14 @@ namespace TrickedKnowledgeHub
 
         private void FeedListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            FrameExercise.Visibility = Visibility.Visible;
             // this sets the selcteditem to -1 as the listboxitems that are visible starts at 0
             // this makes it possible to select the same exercise over and over again
             FeedListBox.SelectedIndex= -1;
+
+            FrameExercise.Visibility = Visibility.Visible;
+            Blackoutleft.Visibility= Visibility.Visible;
+            Overlayleft.Visibility= Visibility.Visible;
+
         }
 
         private void Window_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -75,6 +79,9 @@ namespace TrickedKnowledgeHub
             if (!FrameExercise.IsMouseOver)
             {
                 FrameExercise.Visibility = Visibility.Collapsed;
+                Blackoutleft.Visibility = Visibility.Collapsed;
+                Overlayleft.Visibility = Visibility.Collapsed;
+
             }
         }
 
