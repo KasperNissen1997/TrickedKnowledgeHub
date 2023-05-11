@@ -35,7 +35,7 @@ namespace TrickedKnowledgeHub
             ExercisePage.DataContext = vm.ExercisePageVM;
             FrameExercise.Content = ExercisePage;
 
-            //DBUpdate();
+            DBUpdate();
         }
 
 
