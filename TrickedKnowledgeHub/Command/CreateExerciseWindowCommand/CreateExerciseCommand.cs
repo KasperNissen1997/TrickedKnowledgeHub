@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using TrickedKnowledgeHub.Model;
 using TrickedKnowledgeHub.Model.Repo;
@@ -38,15 +39,19 @@ namespace TrickedKnowledgeHub.Command.CreateExerciseWindowCommand
         {
             if (parameter is CreateExerciseWindowViewVM vm)
             {
+                
+                MainWindowViewVM mwv = new MainWindowViewVM();
+                ExerciseVM exercise;
+
                 if (vm.SelectedGame == null)
                 {
-                    RepositoryManager.ExerciseRepository.Create(vm.Title, vm.Description, vm.Material, DateTime.Now, vm.ActiveUser.Source, null, vm.SelectedFocusPoint.Source, vm.SelectedRating);
-
+                    exercise = new ExerciseVM(RepositoryManager.ExerciseRepository.Create(vm.Title, vm.Description, vm.Material, DateTime.Now, vm.ActiveUser.Source, null, vm.SelectedFocusPoint.Source, vm.SelectedRating));
                 }
                 else
                 {
-                    RepositoryManager.ExerciseRepository.Create(vm.Title, vm.Description, vm.Material, DateTime.Now, vm.ActiveUser.Source, vm.SelectedGame.Source, vm.SelectedFocusPoint.Source, vm.SelectedRating);
+                    exercise = new ExerciseVM(RepositoryManager.ExerciseRepository.Create(vm.Title, vm.Description, vm.Material, DateTime.Now, vm.ActiveUser.Source, vm.SelectedGame.Source, vm.SelectedFocusPoint.Source, vm.SelectedRating));
                 }
+                mwv.ExerciseVMs.Add(exercise);
             }
             else
                 throw new NotImplementedException();

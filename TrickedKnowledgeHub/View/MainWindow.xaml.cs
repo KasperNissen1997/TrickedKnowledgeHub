@@ -32,7 +32,7 @@ namespace TrickedKnowledgeHub
 
         public async void DBUpdate()
         {
-            var timer = new PeriodicTimer(TimeSpan.FromSeconds(1));
+            var timer = new PeriodicTimer(TimeSpan.FromSeconds(5));
             MainWindowViewVM mainWindowViewVM = (MainWindowViewVM)DataContext;
             
             ObservableCollection<ExerciseVM> exerciseVMs;
