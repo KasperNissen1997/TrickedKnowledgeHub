@@ -27,7 +27,7 @@
         </Grid.RowDefinitions>
         
         
-        <Grid Grid.Row="0"><!--Row one author name and position-->
+        <Grid Grid.Row="0"><!--Row one author name and type-->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>

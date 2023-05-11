@@ -73,14 +73,13 @@
                     <StackPanel HorizontalAlignment="Stretch">
                         <TextBlock>
                             <TextBlock.Text>
-                                <MultiBinding StringFormat="{}Title: {0}     Beskrivelse: {1}     Spil: {2}">
+                                <MultiBinding StringFormat="Title: {0}     Game: {1}     Describtion: {2}">
                                     <Binding Path="Title"/>
-                                    <Binding Path="Description"/>
                                     <Binding Path="Game.Title"/>
+                                    <Binding Path="ShortDesription"/>
                                 </MultiBinding>
                             </TextBlock.Text>
                         </TextBlock>
-
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
