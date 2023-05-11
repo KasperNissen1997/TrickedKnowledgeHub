@@ -62,7 +62,7 @@
             <ComboBox x:Name="ComboBox_Skill" HorizontalAlignment="Left" Margin="10,250,20,0" VerticalAlignment="Top" Width="95"/>
 
         </Grid>
-        <Frame x:Name="FrameExercise" Grid.Column="1" Grid.RowSpan="3" 
+        <Frame x:Name="FrameExercise" Grid.Column="1" Grid.Row="1"
                Visibility="Collapsed" Background="White" Panel.ZIndex="1"/>
         <Grid x:Name="Blackoutleft" Grid.ColumnSpan="3" Grid.RowSpan="3"  Background="black" Opacity="0.5" Visibility="Collapsed">
             <Rectangle x:Name="Overlayleft" Fill="Transparent" Visibility="Collapsed"/>
