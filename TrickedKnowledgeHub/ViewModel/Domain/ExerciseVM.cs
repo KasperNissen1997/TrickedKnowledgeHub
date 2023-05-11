@@ -17,7 +17,7 @@ namespace TrickedKnowledgeHub.ViewModel.Domain
         public GameVM? Game { get; set; }
         public LearningObjectiveVM? LearningObjective { get; set; }
         public FocusPointVM? FocusPoint { get; set; }
-        public Rating Rating { get; set; }
+        public Rating? Rating { get; set; }
 
         public DownloadMaterialCommand DownloadMaterialCommand { get; set; } = new();
 
@@ -50,7 +50,15 @@ namespace TrickedKnowledgeHub.ViewModel.Domain
                 LearningObjective = null;
             }
 
-            Rating = source.Rating;
+            // Handle a possible null reference
+            if (source.Rating != null)
+            {
+                Rating = source.Rating;
+            }
+            else
+            {
+                Rating = null;
+            }
         }
     }
 }

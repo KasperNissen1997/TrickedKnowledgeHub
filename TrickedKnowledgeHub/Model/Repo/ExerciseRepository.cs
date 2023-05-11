@@ -4,18 +4,19 @@ using System.Data;
 using System.Collections.Generic;
 using System.Windows.Media.Media3D;
 using System.Linq.Expressions;
+using System.Collections.ObjectModel;
 
 namespace TrickedKnowledgeHub.Model.Repo
 {
     public class ExerciseRepository : Repository
     {
-        private List<Exercise> exerciseList = new();
+        private ObservableCollection<Exercise> exerciseList = new();
 
         public ExerciseRepository(bool isTestRepository = false)
-        { 
+        {
             IsTestRepository = isTestRepository;
 
-            Load(); 
+            Load();
         }
 
 
@@ -35,12 +36,14 @@ namespace TrickedKnowledgeHub.Model.Repo
                         byte[] Material = (byte[])dr["Material"];
                         DateTime Time = DateTime.Parse(dr["Timestamp"].ToString());
                         string Mail = dr["Mail"].ToString();
-                        string G_Title = dr["G_Title"].ToString();
-                        Rating rating = (Rating)Enum.Parse(typeof(Rating), dr["Value"].ToString());
+                        string? G_Title = dr["G_Title"].ToString();
+                        string? ratingString = dr["Value"].ToString();
+                        Rating? rating = null;
+                        if (!string.IsNullOrEmpty(ratingString)) { rating = (Rating)Enum.Parse(typeof(Rating), ratingString); } //If the ratingString is not null then set the rating to the converted Enum type
                         string F_Title = dr["F_Title"].ToString();
 
                         Employee associatedEmployee;
-                        Game associatedGame;
+                        Game? associatedGame;
                         FocusPoint associatedFocusPoint;
 
                         if (IsTestRepository)
@@ -78,7 +81,7 @@ namespace TrickedKnowledgeHub.Model.Repo
                 {
                     while (dr.Read())
                     {
-                        material = (byte[]) dr["Material"]; 
+                        material = (byte[])dr["Material"];
 
                         return material; //What happens if this is null?
                     }
@@ -95,7 +98,7 @@ namespace TrickedKnowledgeHub.Model.Repo
         }
 
         #region CRUD
-        public Exercise Create(string title, string description, byte[] material, DateTime timestamp, Employee author, Game? game, FocusPoint? focusPoint, Rating rating)
+        public Exercise Create(string title, string description, byte[] material, DateTime timestamp, Employee author, Game? game, FocusPoint focusPoint, Rating? rating)
         {
             using (SqlConnection con = GetConnection())
             {
@@ -109,7 +112,7 @@ namespace TrickedKnowledgeHub.Model.Repo
                 cmd.Parameters.Add("@Timestamp", SqlDbType.DateTime2).Value = timestamp;
                 cmd.Parameters.Add("@Mail", SqlDbType.NVarChar).Value = author.Mail;
                 cmd.Parameters.Add("@G_Title", SqlDbType.NVarChar).Value = game.Title;
-                cmd.Parameters.Add("@Value", SqlDbType.Int).Value = (int) rating;
+                cmd.Parameters.Add("@Value", SqlDbType.Int).Value = (int)rating;
 
                 int id = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -132,7 +135,7 @@ namespace TrickedKnowledgeHub.Model.Repo
         {
             foreach (Exercise ex in exerciseList)
             {
-                if(id == ex.ExerciseID)
+                if (id == ex.ExerciseID)
                 {
                     return ex;
                 }

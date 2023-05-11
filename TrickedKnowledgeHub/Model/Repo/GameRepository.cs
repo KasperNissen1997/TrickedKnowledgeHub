@@ -9,11 +9,11 @@ namespace TrickedKnowledgeHub.Model.Repo
     {
         private List<Game> games = new();
 
-        public GameRepository(bool isTestRepository = false) 
-        { 
+        public GameRepository(bool isTestRepository = false)
+        {
             IsTestRepository = isTestRepository;
 
-            Load(); 
+            Load();
         }
 
         public override void Load()
@@ -63,13 +63,14 @@ namespace TrickedKnowledgeHub.Model.Repo
             return game;
         }
 
-        public Game Retrieve(string title)
+        public Game? Retrieve(string title)
         {
             foreach (Game game in games)
                 if (game.Title == title)
+                {
                     return game;
-
-            throw new ArgumentException($"No game with title {title} found.");
+                }
+            return null;
         }
 
         public List<Game> RetrieveAll()

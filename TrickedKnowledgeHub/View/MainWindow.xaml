@@ -13,7 +13,7 @@
     </Window.DataContext>
 
     <Window.Background>
-        <SolidColorBrush Color="White" />
+        <SolidColorBrush Color="#e7e7e7"/>
     </Window.Background>
 
 
@@ -32,6 +32,20 @@
             <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
 
+        <Grid Grid.Row="0" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Overvej om Nickname skal vises i AllCaps? -->
+            <TextBlock x:Name="nicknameTextblock" Text="{Binding ActiveUser.Nickname}" FontSize="24" FontWeight="ExtraBold" Grid.Row="1" Grid.Column="0"/>
+            <TextBlock x:Name="typeTextblock" Text="{Binding ActiveUser.Type}" FontSize="15"  FontStyle="Italic" Grid.Row="2" Grid.Column="0" />
+
+        </Grid>
+
         <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
@@ -44,16 +58,21 @@
             <Label Content="Filter" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20"/>
 
             <Label Content="Game" Style="{StaticResource CostumLabelStyle}" Grid.Row="1"/>
-            <ComboBox x:Name="FeedCombo" Style="{StaticResource ComboBoxStyle}" Grid.Row="1"/>
+            <ComboBox x:Name="GameCombo" Style="{StaticResource CustomComboBoxStyle}" Grid.Row="1">
+                <!--Følgende items skal slettes inden pull request!-->
+                <ComboBoxItem>CSGO</ComboBoxItem>
+                <ComboBoxItem>Fifa</ComboBoxItem>
+                <ComboBoxItem>Valorant</ComboBoxItem>
+            </ComboBox>
 
             <Label Content="LearningObjective" Style="{StaticResource CostumLabelStyle}" Grid.Row="2"/>
-            <ComboBox x:Name="ComboBox_Learn" Style="{StaticResource ComboBoxStyle}" Grid.Row="2"/>
+            <ComboBox x:Name="ComboBox_Learn" Style="{StaticResource CustomComboBoxStyle}" Grid.Row="2"/>
 
             <Label Content="FocusPoint" Style="{StaticResource CostumLabelStyle}" Grid.Row="3"/>
-            <ComboBox x:Name="ComboBox_Focus" Style="{StaticResource ComboBoxStyle}" Grid.Row="3"/>
+            <ComboBox x:Name="ComboBox_Focus" Style="{StaticResource CustomComboBoxStyle}" Grid.Row="3"/>
 
             <Label Content="Skill" Style="{StaticResource CostumLabelStyle}" Grid.Row="4"/>
-            <ComboBox x:Name="ComboBox_Skill" Style="{StaticResource ComboBoxStyle}" Grid.Row="4"/>
+            <ComboBox x:Name="ComboBox_Skill" Style="{StaticResource CustomComboBoxStyle}" Grid.Row="4"/>
 
         </Grid>
 
