@@ -13,7 +13,7 @@ namespace TrickedKnowledgeHub.Model.Repo
         private ObservableCollection<Exercise> exerciseList = new();
 
         public ExerciseRepository(bool isTestRepository = false)
-        { 
+        {
             IsTestRepository = isTestRepository;
 
             Load();
@@ -37,7 +37,9 @@ namespace TrickedKnowledgeHub.Model.Repo
                         DateTime Time = DateTime.Parse(dr["Timestamp"].ToString());
                         string Mail = dr["Mail"].ToString();
                         string? G_Title = dr["G_Title"].ToString();
-                        Rating? rating = (Rating)Enum.Parse(typeof(Rating), dr["Value"].ToString());
+                        string? ratingString = dr["Value"].ToString();
+                        Rating? rating = null;
+                        if (!string.IsNullOrEmpty(ratingString)) { rating = (Rating)Enum.Parse(typeof(Rating), ratingString); } //If the ratingString is not null then set the rating to the converted Enum type
                         string F_Title = dr["F_Title"].ToString();
 
                         Employee associatedEmployee;
@@ -79,7 +81,7 @@ namespace TrickedKnowledgeHub.Model.Repo
                 {
                     while (dr.Read())
                     {
-                        material = (byte[]) dr["Material"]; 
+                        material = (byte[])dr["Material"];
 
                         return material; //What happens if this is null?
                     }
@@ -108,9 +110,24 @@ namespace TrickedKnowledgeHub.Model.Repo
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar).Value = description;
                 cmd.Parameters.Add("@Material", SqlDbType.VarBinary).Value = material;
                 cmd.Parameters.Add("@Timestamp", SqlDbType.DateTime2).Value = timestamp;
-                cmd.Parameters.Add("@Mail", SqlDbType.NVarChar).Value = author.Mail;
-                cmd.Parameters.Add("@G_Title", SqlDbType.NVarChar).Value = game.Title;
-                cmd.Parameters.Add("@Value", SqlDbType.Int).Value = (int) rating;
+                cmd.Parameters.Add("@Mail", SqlDbType.NVarChar).Value = author.Mail;   
+                if (game == null)
+                {
+                    cmd.Parameters.Add("@G_Title", SqlDbType.NVarChar).Value = DBNull.Value;
+                }
+                else
+                {
+                    cmd.Parameters.Add("@G_Title", SqlDbType.NVarChar).Value = game.Title;
+                }
+
+                if (rating  == 0 || rating == null)
+                {
+                    cmd.Parameters.Add("@Value", SqlDbType.Int).Value = DBNull.Value;
+                }
+                else
+                {
+                    cmd.Parameters.Add("@Value", SqlDbType.Int).Value = (int)rating;
+                }
 
                 int id = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -133,7 +150,7 @@ namespace TrickedKnowledgeHub.Model.Repo
         {
             foreach (Exercise ex in exerciseList)
             {
-                if(id == ex.ExerciseID)
+                if (id == ex.ExerciseID)
                 {
                     return ex;
                 }
