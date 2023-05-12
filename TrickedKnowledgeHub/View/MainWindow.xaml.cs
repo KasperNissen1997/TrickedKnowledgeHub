@@ -69,8 +69,8 @@ namespace TrickedKnowledgeHub
             FeedListBox.SelectedIndex= -1;
 
             FrameExercise.Visibility = Visibility.Visible;
-            Blackoutleft.Visibility= Visibility.Visible;
-            Overlayleft.Visibility= Visibility.Visible;
+            Blackout.Visibility= Visibility.Visible;
+            overlayBlack.Visibility= Visibility.Visible;
 
         }
 
@@ -80,8 +80,8 @@ namespace TrickedKnowledgeHub
             if (!FrameExercise.IsMouseOver)
             {
                 FrameExercise.Visibility = Visibility.Collapsed;
-                Blackoutleft.Visibility = Visibility.Collapsed;
-                Overlayleft.Visibility = Visibility.Collapsed;
+                Blackout.Visibility = Visibility.Collapsed;
+                overlayBlack.Visibility = Visibility.Collapsed;
 
             }
         }
