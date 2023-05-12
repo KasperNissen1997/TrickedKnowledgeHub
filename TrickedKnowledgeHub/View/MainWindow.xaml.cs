@@ -6,8 +6,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Xml.Linq;
 using System.Windows.Input;
 using TrickedKnowledgeHub.Model;
 using TrickedKnowledgeHub.Model.Repo;
@@ -43,21 +45,30 @@ namespace TrickedKnowledgeHub
         {
             var timer = new PeriodicTimer(TimeSpan.FromSeconds(1));
             MainWindowViewVM mainWindowViewVM = (MainWindowViewVM)DataContext;
-            
-            ObservableCollection<ExerciseVM> exerciseVMs;
+
+            ObservableCollection<ExerciseVM> exerciseVMs = new ObservableCollection<ExerciseVM>();
+            List<Exercise> temp = new List<Exercise>();
+
 
             while (await timer.WaitForNextTickAsync())
             {
-                exerciseVMs = new ObservableCollection<ExerciseVM>();
-                RepositoryManager.ExerciseRepository.Reset();
                 List<Exercise> exercises = RepositoryManager.ExerciseRepository.RetrieveAll();
 
-                foreach (var exercise in exercises)
+                if (!exercises.SequenceEqual(temp))
                 {
-                    exerciseVMs.Add(new ExerciseVM(exercise));
-                }
+                    exerciseVMs.Clear();
+                    foreach (var exercise in exercises)
+                    {
+                        exerciseVMs.Add(new ExerciseVM(exercise));
+                    }
 
-                mainWindowViewVM.ExerciseVMs = exerciseVMs;
+                    mainWindowViewVM.ExerciseVMs = exerciseVMs;
+                    temp = exercises;
+                }
+                else
+                {
+                    RepositoryManager.ExerciseRepository.Reset();
+                }
             }
         }
 
@@ -88,3 +99,4 @@ namespace TrickedKnowledgeHub
 
     }
 }
+
