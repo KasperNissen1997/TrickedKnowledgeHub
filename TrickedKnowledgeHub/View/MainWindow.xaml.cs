@@ -70,29 +70,50 @@ namespace TrickedKnowledgeHub
 
                     // Get the selected game from the GameCombo, and add a null check
                     GameVM selectedGame = mainWindowViewVM.SelectedGame;
-                    if (mainWindowViewVM.selectedGame != null)
+                    if (mainWindowViewVM.SelectedGame != null)
                     {
 
                         foreach (var exercise in exercises)
                         {
                             // Only add exercises that match the selected game
-                            if (exercise.Game == selectedGame)
+                            if (exercise.Game.Equals(selectedGame) && mainWindowViewVM.SelectedGame != null)
                             {
-                                exerciseVMs.Add(new ExerciseVM(exercise));
+                                //Make it so that only the exercises with the selected game will be shown
+                                //exerciseVMs.Add(new ExerciseVM(exercise));
                             }
                         }
 
                         if (mainWindowViewVM.SelectedLearningObjective != null)
                         {
+                            foreach (var exercise in exercises)
+                            {
+                                if (exercise.FocusPoint.Parent.Equals(mainWindowViewVM.SelectedLearningObjective) && mainWindowViewVM.SelectedLearningObjective != null)
+                                {
 
+                                }
+                            }
 
 
                             if (mainWindowViewVM.SelectedFocusPoint != null)
                             {
 
+                                foreach (var exercise in exercises)
+                                {
+                                    if (exercise.FocusPoint.Equals(mainWindowViewVM.SelectedFocusPoint) && mainWindowViewVM.SelectedFocusPoint != null)
+                                    {
+
+                                    }
+                                }
+
                                 if (mainWindowViewVM.SelectedRating != null)
                                 {
+                                    foreach (var exercise in exercises)
+                                    {
+                                        if (exercise.Rating.Equals(mainWindowViewVM.SelectedRating) && mainWindowViewVM.SelectedRating != null)
+                                        {
 
+                                        }
+                                    }
 
 
                                 }
