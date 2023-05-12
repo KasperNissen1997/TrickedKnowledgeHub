@@ -29,6 +29,9 @@ namespace TrickedKnowledgeHub.Command.CreateExerciseWindowCommand
                 if (vm.Material == null)
                     return false;
 
+                if (vm.Description == null)
+                    return false;
+
                 return true;
             }
 
@@ -55,6 +58,7 @@ namespace TrickedKnowledgeHub.Command.CreateExerciseWindowCommand
             }
             else
                 throw new NotImplementedException();
+
         }
     }
 }
