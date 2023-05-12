@@ -58,12 +58,7 @@
             <Label Content="Filter" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20"/>
 
             <Label Content="Game" Style="{StaticResource CostumLabelStyle}" Grid.Row="1"/>
-            <ComboBox x:Name="GameCombo" Style="{StaticResource CustomComboBoxStyle}" Grid.Row="1">
-                <!--Følgende items skal slettes inden pull request!-->
-                <ComboBoxItem>CSGO</ComboBoxItem>
-                <ComboBoxItem>Fifa</ComboBoxItem>
-                <ComboBoxItem>Valorant</ComboBoxItem>
-            </ComboBox>
+            <ComboBox x:Name="GameCombo" Style="{StaticResource CustomComboBoxStyle}" Grid.Row="1"/> 
 
             <Label Content="LearningObjective" Style="{StaticResource CostumLabelStyle}" Grid.Row="2"/>
             <ComboBox x:Name="ComboBox_Learn" Style="{StaticResource CustomComboBoxStyle}" Grid.Row="2"/>
