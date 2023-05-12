@@ -62,25 +62,27 @@
             <ComboBox x:Name="ComboBox_Skill" HorizontalAlignment="Left" Margin="10,250,20,0" VerticalAlignment="Top" Width="95"/>
 
         </Grid>
-        <Frame x:Name="FrameExercise" Grid.Column="1" Grid.RowSpan="3" 
+        <Frame x:Name="FrameExercise" Grid.Column="1" Grid.Row="1" NavigationUIVisibility="Hidden"
                Visibility="Collapsed" Background="White" Panel.ZIndex="1"/>
+        <Grid x:Name="Blackout" Grid.ColumnSpan="3" Grid.RowSpan="3"  Background="black" Opacity="0.5" Visibility="Collapsed">
+            <Rectangle x:Name="overlayBlack" Fill="Transparent" Visibility="Collapsed"/>
+        </Grid>
 
         <ListBox  Grid.Row="1" Grid.Column="1" x:Name="FeedListBox"
                   ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding ExerciseVMs}" Background="{x:Null}"
                   SelectionChanged="FeedListBox_SelectionChanged" SelectionMode="Single" SelectedItem="{Binding SelectedExerciseVM}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel HorizontalAlignment="Stretch">
-                        <TextBlock>
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="Title: {0}     Game: {1}     Describtion: {2}">
-                                    <Binding Path="Title"/>
-                                    <Binding Path="Game.Title"/>
-                                    <Binding Path="ShortDesription"/>
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
+                    <Grid>
+                    <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+                        <TextBlock Text="Title: "/>
+                        <TextBlock Text="{Binding Title}"/>
+                        <TextBlock Text="     Game: "/>
+                        <TextBlock Text="{Binding Game.Title ,FallbackValue='No Game'}"/>
+                        <TextBlock Text="    Description: "/>
+                        <TextBlock Text="{Binding ShortDesription}"/>
                     </StackPanel>
+                    </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

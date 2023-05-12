@@ -30,10 +30,16 @@ namespace TrickedKnowledgeHub.View
             MainWindow mainWindow = (MainWindow)Window.GetWindow(this);
 
             // Find the Frame control in the MainWindow using its name
-            Frame frameExercise = (Frame)mainWindow.FindName("FrameExercise");
+            Frame frameExercise = mainWindow.FrameExercise;
+            Grid grid = mainWindow.Blackout;
 
+            Rectangle rec = mainWindow.overlayBlack;
             // Set the Visibility property of the Frame control to Collapsed
-            frameExercise.Visibility = Visibility.Collapsed;    
+            frameExercise.Visibility = Visibility.Collapsed;
+
+            grid.Visibility = Visibility.Collapsed;
+            rec.Visibility = Visibility.Collapsed;
+
         }
     }
 }

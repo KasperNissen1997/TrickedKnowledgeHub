@@ -13,7 +13,7 @@
     </Page.DataContext>
 
     <Page.Background>
-        <SolidColorBrush Color="White"/>
+        <SolidColorBrush Color="#e7e7e7"/>
     </Page.Background>
 
     <Grid>
