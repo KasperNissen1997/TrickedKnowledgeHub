@@ -5,6 +5,7 @@
              StartupUri="View/MainWindow.xaml">
     <Application.Resources>
         
+        <!-- ListBoxItem customization-->
         <Style x:Key="_ListBoxItemStyle" TargetType="ListBoxItem">
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="Template">    
@@ -13,6 +14,7 @@
                         <Border Name="_Border"
                                 Padding="2"
                                 SnapsToDevicePixels="true"
+                                
 
                                 Margin="2"
                                 BorderBrush="Black"
@@ -31,7 +33,22 @@
             </Setter>
         </Style>
 
-      
+        <!-- ComboBox customization-->
+        <Style x:Key="CustomComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="IsEditable" Value="True"/>
+            <Setter Property="IsTextSearchCaseSensitive" Value="False"/>
+        </Style>
+        
 
+        <!-- Label customization -->
+        <Style x:Key="CostumLabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
     </Application.Resources>
 </Application>

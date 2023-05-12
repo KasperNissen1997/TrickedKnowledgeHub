@@ -12,7 +12,7 @@ using System.ComponentModel;
 
 namespace TrickedKnowledgeHub.ViewModel
 {
-    public class MainWindowViewVM
+    public class MainWindowViewVM : INotifyPropertyChanged
     {
 
 
@@ -172,6 +172,21 @@ namespace TrickedKnowledgeHub.ViewModel
                 OnPropertyChanged(nameof(Title));
             }
         }
+        public List<Rating> Ratings { get; set; }
+        private Rating _selectedRating;
+        public Rating SelectedRating
+        {
+            get
+            {
+                return _selectedRating;
+            }
+
+            set
+            {
+                _selectedRating = value;
+                OnPropertyChanged(nameof(SelectedRating));
+            }
+        }
 
         public MainWindowViewVM()
         {
@@ -185,6 +200,8 @@ namespace TrickedKnowledgeHub.ViewModel
 
             foreach (Game game in RepositoryManager.GameRepository.RetrieveAll())
                 AvailableGames.Add(new(game));
+
+            Ratings = Rating.GetValues<Rating>().ToList();
 
 
             ExerciseVMs = new();
