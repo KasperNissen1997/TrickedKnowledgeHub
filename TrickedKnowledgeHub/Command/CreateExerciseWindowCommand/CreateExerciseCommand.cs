@@ -42,10 +42,8 @@ namespace TrickedKnowledgeHub.Command.CreateExerciseWindowCommand
         {
             if (parameter is CreateExerciseWindowViewVM vm)
             {
-                
-                MainWindowViewVM mwv = new MainWindowViewVM();
                 ExerciseVM exercise;
-
+                
                 if (vm.SelectedGame == null)
                 {
                     exercise = new ExerciseVM(RepositoryManager.ExerciseRepository.Create(vm.Title, vm.Description, vm.Material, DateTime.Now, vm.ActiveUser.Source, null, vm.SelectedFocusPoint.Source, vm.SelectedRating));
@@ -54,7 +52,7 @@ namespace TrickedKnowledgeHub.Command.CreateExerciseWindowCommand
                 {
                     exercise = new ExerciseVM(RepositoryManager.ExerciseRepository.Create(vm.Title, vm.Description, vm.Material, DateTime.Now, vm.ActiveUser.Source, vm.SelectedGame.Source, vm.SelectedFocusPoint.Source, vm.SelectedRating));
                 }
-                mwv.ExerciseVMs.Add(exercise);
+                vm.MainWindowViewVM.ExerciseVMs.Add(exercise);
             }
             else
                 throw new NotImplementedException();

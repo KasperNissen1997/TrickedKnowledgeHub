@@ -24,7 +24,7 @@ namespace TrickedKnowledgeHub
     /// </summary>
     public partial class MainWindow : Window
     {
-        public ExercisePage ExercisePage { get; set; } =new();
+        public ExercisePage ExercisePage { get; set; } = new();
 
         public MainWindow()
         {
@@ -46,7 +46,7 @@ namespace TrickedKnowledgeHub
             var timer = new PeriodicTimer(TimeSpan.FromSeconds(5));
             MainWindowViewVM mainWindowViewVM = (MainWindowViewVM)DataContext;
 
-            ObservableCollection<ExerciseVM> exerciseVMs = new ObservableCollection<ExerciseVM>();
+            //ObservableCollection<ExerciseVM> exerciseVMs = new ObservableCollection<ExerciseVM>();
             List<Exercise> temp = new List<Exercise>();
 
 
@@ -56,13 +56,13 @@ namespace TrickedKnowledgeHub
 
                 if (!exercises.SequenceEqual(temp))
                 {
-                    exerciseVMs.Clear();
+                    mainWindowViewVM.ExerciseVMs.Clear();
                     foreach (var exercise in exercises)
                     {
-                        exerciseVMs.Add(new ExerciseVM(exercise));
+                        mainWindowViewVM.ExerciseVMs.Add(new ExerciseVM(exercise));
                     }
 
-                    mainWindowViewVM.ExerciseVMs = exerciseVMs;
+                    //mainWindowViewVM.ExerciseVMs = exerciseVMs;
                     temp = exercises;
                 }
                 else
@@ -75,7 +75,7 @@ namespace TrickedKnowledgeHub
         private void FeedListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             FrameExercise.Visibility = Visibility.Visible;
-            FeedListBox.SelectedIndex= -1;
+            FeedListBox.SelectedIndex = -1;
         }
 
         private void Window_PreviewMouseDown(object sender, MouseButtonEventArgs e)
