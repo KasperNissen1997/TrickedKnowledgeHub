@@ -27,6 +27,8 @@ namespace TrickedKnowledgeHub
             DataContext = new MainWindowViewVM();
 
             DBUpdate();
+
+            Filter();
         }
 
         
@@ -76,10 +78,10 @@ namespace TrickedKnowledgeHub
                         foreach (var exercise in exercises)
                         {
                             // Only add exercises that match the selected game
-                            if (exercise.Game.Equals(selectedGame) && mainWindowViewVM.SelectedGame != null)
+                            if (selectedGame != null && exercise.Game != null && exercise.Game.Equals(selectedGame) && mainWindowViewVM.SelectedGame != null)
                             {
                                 //Make it so that only the exercises with the selected game will be shown
-                                //exerciseVMs.Add(new ExerciseVM(exercise));
+                                exerciseVMs.Add(new ExerciseVM(exercise));
                             }
                         }
 
