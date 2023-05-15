@@ -2,7 +2,6 @@
 {
     public enum Rating
     {
-        Blank = 0,
         Begynder = 1,
         LetØvet = 2,
         Øvet = 3,
