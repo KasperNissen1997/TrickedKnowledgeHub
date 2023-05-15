@@ -77,6 +77,8 @@ namespace TrickedKnowledgeHub
             FrameExercise.Content = ExercisePage;
             FrameExercise.Visibility = Visibility.Visible;
             FeedListBox.SelectedIndex = -1;
+            Blackout.Visibility = Visibility.Visible;
+            overlayBlack.Visibility = Visibility.Visible;
 
         }
         private void Window_PreviewMouseDown(object sender, MouseButtonEventArgs e)
