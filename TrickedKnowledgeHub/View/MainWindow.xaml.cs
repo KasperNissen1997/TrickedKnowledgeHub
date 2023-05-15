@@ -26,7 +26,7 @@ namespace TrickedKnowledgeHub
 
             DataContext = new MainWindowViewVM();
 
-            DBUpdate();
+            //DBUpdate();
 
             //Filter();
         }
