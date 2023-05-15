@@ -39,7 +39,7 @@
             </VisualBrush.Transform>
             <VisualBrush.Visual>
                 <Grid>
-                    <TextBlock FontStyle="Italic" Foreground="Black" Opacity="0.5" Text="Indtast beskrivelse til øvelsen"/>
+                    <TextBlock FontStyle="Italic" Foreground="Black" Opacity="0.5" Text="Enter a description for the exercise"/>
                 </Grid>
             </VisualBrush.Visual>
         </VisualBrush>
@@ -50,7 +50,7 @@
                 <TranslateTransform X="5" Y="0"/>
             </VisualBrush.Transform>
             <VisualBrush.Visual>
-                <TextBlock FontStyle="Italic" Foreground="black" Opacity="0.5" Text="Indtast title til øvelsen"/>
+                <TextBlock FontStyle="Italic" Foreground="black" Opacity="0.5" Text="Enter a title for the exercise"/>
             </VisualBrush.Visual>
         </VisualBrush>
 
