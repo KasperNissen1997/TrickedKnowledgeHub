@@ -99,6 +99,7 @@ namespace TrickedKnowledgeHub
             vm.CreateExerciseWindowVM.ActiveUser = vm.ActiveUser;
 
             create_Exercise.DataContext = vm.CreateExerciseWindowVM;
+
             // this sets the selcteditem to -1 as the listboxitems that are visible starts at 0
             // this makes it possible to select the same exercise over and over again
             FeedListBox.SelectedIndex = -1;
@@ -106,7 +107,6 @@ namespace TrickedKnowledgeHub
             FrameExercise.Visibility = Visibility.Visible;
             Blackout.Visibility = Visibility.Visible;
             overlayBlack.Visibility = Visibility.Visible;
-
 
         }
     }

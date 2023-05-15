@@ -58,6 +58,7 @@ namespace TrickedKnowledgeHub
             string message = "Øvelsen er hermed gemt :)";
             string title = "Gemt Øvelse";
             MessageBox.Show(message, title);
+
             MainWindow mainWindow = (MainWindow)Window.GetWindow(this);
 
             // Find the Frame control in the MainWindow using its name
@@ -72,7 +73,5 @@ namespace TrickedKnowledgeHub
             rec.Visibility = Visibility.Collapsed;
 
         }
-
-
     }
 }
