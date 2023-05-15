@@ -14,7 +14,7 @@
     </Window.DataContext>
 
     <Window.Background>
-        <SolidColorBrush Color="White" />
+        <SolidColorBrush Color="#e7e7e7"/>
     </Window.Background>
 
 
@@ -33,6 +33,69 @@
             <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
 
+        <Grid Grid.Row="0" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Overvej om Nickname skal vises i AllCaps? -->
+            <TextBlock x:Name="nicknameTextblock" Text="{Binding ActiveUser.Nickname}" FontSize="24" FontWeight="ExtraBold" Grid.Row="1" Grid.Column="0"/>
+            <TextBlock x:Name="typeTextblock" Text="{Binding ActiveUser.Type}" FontSize="15"  FontStyle="Italic" Grid.Row="2" Grid.Column="0" />
+
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Filter" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20"/>
+
+            <Label Content="Game" Style="{StaticResource CostumLabelStyle}" Grid.Row="1"/>
+            <ComboBox x:Name="GameCombo" Style="{StaticResource CustomComboBoxStyle}" Grid.Row="1" ItemsSource="{Binding AvailableGames}" SelectedItem="{Binding SelectedGameFilter}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding Title}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Label Content="LearningObjective" Style="{StaticResource CostumLabelStyle}" Grid.Row="2"/>
+            <ComboBox x:Name="ComboBox_Learn" Style="{StaticResource CustomComboBoxStyle}" Grid.Row="2" ItemsSource="{Binding AvailableLearningObjectives}" SelectedItem="{Binding SelectedLearningObjectiveFilter}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding Title}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Label Content="FocusPoint" Style="{StaticResource CostumLabelStyle}" Grid.Row="3"/>
+            <ComboBox x:Name="ComboBox_Focus" Style="{StaticResource CustomComboBoxStyle}" Grid.Row="3" ItemsSource="{Binding AvailableFocusPoints}" SelectedItem="{Binding SelectedFocusPointFilter}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding Title}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Label Content="Skill" Style="{StaticResource CostumLabelStyle}" Grid.Row="4"/>
+            <ComboBox x:Name="ComboBox_Skill" Style="{StaticResource CustomComboBoxStyle}" Grid.Row="4" ItemsSource="{Binding Ratings}" SelectedItem="{Binding SelectedRatingFilter}"/>
+            <!-- Commented this out, as it seemed to create more trouble than good @KN d. 15/05-2023 -->
+            <!--<ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding Title}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>-->
+
+        </Grid>
 
         <Grid x:Name="ButtonGrid" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="160" Height="70">
             <Button x:Name="Create_Exercise" Click="Create_Exercise_Click"
@@ -46,22 +109,6 @@
             </Button>
         </Grid>
 
-        <Grid Grid.Row=" 1" Grid.Column="2">
-            <Label Content="Filter" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" />
-
-            <Label Content="Game " HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" FontSize="20"/>
-            <ComboBox x:Name="FeedCombo" HorizontalAlignment="Left" Margin="10,70,20,0" VerticalAlignment="Top" Width="95"/>
-
-            <Label Content="LearningObjective" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" FontSize="20"/>
-            <ComboBox x:Name="ComboBox_Learn" HorizontalAlignment="Left" Margin="10,130,20,0" VerticalAlignment="Top" Width="95"/>
-
-            <Label Content="FocusPoint" HorizontalAlignment="Left" Margin="10,160,0,0" VerticalAlignment="Top" FontSize="20"/>
-            <ComboBox x:Name="ComboBox_Focus" HorizontalAlignment="Left" Margin="10,190,20,0" VerticalAlignment="Top" Width="95"/>
-
-            <Label Content="Skill" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top" FontSize="20"/>
-            <ComboBox x:Name="ComboBox_Skill" HorizontalAlignment="Left" Margin="10,250,20,0" VerticalAlignment="Top" Width="95"/>
-
-        </Grid>
         <Frame x:Name="FrameExercise" Grid.Column="1" Grid.Row="1" NavigationUIVisibility="Hidden"
                Visibility="Collapsed" Background="White" Panel.ZIndex="1"/>
         <Grid x:Name="Blackout" Grid.ColumnSpan="3" Grid.RowSpan="3"  Background="black" Opacity="0.5" Visibility="Collapsed">
@@ -69,7 +116,7 @@
         </Grid>
 
         <ListBox  Grid.Row="1" Grid.Column="1" x:Name="FeedListBox"
-                  ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding ExerciseVMs}" Background="{x:Null}"
+                  ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding VisibleExercises}" Background="{x:Null}"
                   SelectionChanged="FeedListBox_SelectionChanged" SelectionMode="Single" SelectedItem="{Binding SelectedExerciseVM}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
