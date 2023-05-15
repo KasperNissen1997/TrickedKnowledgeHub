@@ -23,6 +23,9 @@ namespace TrickedKnowledgeHub.View
         public ExercisePage()
         {
             InitializeComponent();
+        
+
+        
         }
 
         private void Frame_Collapsed_Click(object sender, RoutedEventArgs e)

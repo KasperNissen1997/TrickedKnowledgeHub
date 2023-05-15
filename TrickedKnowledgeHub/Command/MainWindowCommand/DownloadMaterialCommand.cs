@@ -24,7 +24,7 @@ namespace TrickedKnowledgeHub.Command.MainWindowCommand
 
         public void Execute(object parameter)
         {
-            if (parameter is ExerciseVM exerciseVM)
+            if (parameter is ExercisePageVM exercisePage)
             {
                 SaveFileDialog saveFileDialog = new(); //New dialog
 
@@ -35,7 +35,7 @@ namespace TrickedKnowledgeHub.Command.MainWindowCommand
 
                 if (saveFileDialog.ShowDialog() == true)
                 {
-                    byte[] material = RepositoryManager.ExerciseRepository.GetMaterial(exerciseVM.Source.ExerciseID); //Material equals material returned from GetMaterial method using the selected exercise ID from ExerciseVM
+                    byte[] material = RepositoryManager.ExerciseRepository.GetMaterial(exercisePage.SelectedExercise.Source.ExerciseID); //material equals the byte returned from the GetMaterial method using ExerciseID from the selected Exercise
 
                     string filePath = saveFileDialog.FileName + "";
 

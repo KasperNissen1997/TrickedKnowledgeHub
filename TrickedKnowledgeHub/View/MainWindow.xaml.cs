@@ -24,7 +24,7 @@ namespace TrickedKnowledgeHub
     /// </summary>
     public partial class MainWindow : Window
     {
-        public ExercisePage ExercisePage { get; set; } =new();
+        public ExercisePage ExercisePage { get; set; } = new();
 
         public MainWindow()
         {
@@ -43,10 +43,10 @@ namespace TrickedKnowledgeHub
 
         public async void DBUpdate()
         {
-            var timer = new PeriodicTimer(TimeSpan.FromSeconds(1));
+            var timer = new PeriodicTimer(TimeSpan.FromSeconds(5));
             MainWindowViewVM mainWindowViewVM = (MainWindowViewVM)DataContext;
 
-            ObservableCollection<ExerciseVM> exerciseVMs = new ObservableCollection<ExerciseVM>();
+            //ObservableCollection<ExerciseVM> exerciseVMs = new ObservableCollection<ExerciseVM>();
             List<Exercise> temp = new List<Exercise>();
 
 
@@ -56,13 +56,13 @@ namespace TrickedKnowledgeHub
 
                 if (!exercises.SequenceEqual(temp))
                 {
-                    exerciseVMs.Clear();
+                    mainWindowViewVM.ExerciseVMs.Clear();
                     foreach (var exercise in exercises)
                     {
-                        exerciseVMs.Add(new ExerciseVM(exercise));
+                        mainWindowViewVM.ExerciseVMs.Add(new ExerciseVM(exercise));
                     }
 
-                    mainWindowViewVM.ExerciseVMs = exerciseVMs;
+                    //mainWindowViewVM.ExerciseVMs = exerciseVMs;
                     temp = exercises;
                 }
                 else
@@ -74,16 +74,10 @@ namespace TrickedKnowledgeHub
 
         private void FeedListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            FrameExercise.Content = ExercisePage;
-            // this sets the selcteditem to -1 as the listboxitems that are visible starts at 0
-            // this makes it possible to select the same exercise over and over again
-            FeedListBox.SelectedIndex= -1;
-
+            when-a-new-exercise-is-created-it-doesnt-appear-in-the-exercise-feed
             FrameExercise.Visibility = Visibility.Visible;
-            Blackout.Visibility= Visibility.Visible;
-            overlayBlack.Visibility= Visibility.Visible;
+            FeedListBox.SelectedIndex = -1;
 
-        }
 
         private void Window_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
