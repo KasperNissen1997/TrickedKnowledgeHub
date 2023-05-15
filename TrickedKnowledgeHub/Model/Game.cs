@@ -40,6 +40,15 @@ namespace TrickedKnowledgeHub.Model
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Compares the current instance with <paramref name="obj"/>. <br/>
+        /// Specifically overriden to enable precise comparison of different <see cref="Game"/> objects.
+        /// </summary>
+        /// <param name="obj">The object that this should be compared with.</param>
+        /// <returns>
+        /// If <paramref name="obj"/> is of type <see cref="Game"/>, then <see langword="true"/> if the <see cref="Game.Title"/>s of the two match. If not, then <see langword="false"/><br/>
+        /// Otherwise, it uses the default comparer.
+        /// </returns>
         public override bool Equals(object? obj)
         {
             if (obj is Game otherGame)

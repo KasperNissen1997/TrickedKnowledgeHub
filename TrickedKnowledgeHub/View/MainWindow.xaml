@@ -86,6 +86,7 @@
 
             <Label Content="Skill" Style="{StaticResource CostumLabelStyle}" Grid.Row="4"/>
             <ComboBox x:Name="ComboBox_Skill" Style="{StaticResource CustomComboBoxStyle}" Grid.Row="4" ItemsSource="{Binding Ratings}" SelectedItem="{Binding SelectedRatingFilter}"/>
+            <!-- Commented this out, as it seemed to create more trouble than good @KN d. 15/05-2023 -->
             <!--<ComboBox.ItemTemplate>
                     <DataTemplate>
                         <Label Content="{Binding Title}"/>

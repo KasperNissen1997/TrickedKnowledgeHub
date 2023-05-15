@@ -34,32 +34,15 @@ namespace TrickedKnowledgeHub.ViewModel
             }
         }
 
+        /// <summary>
+        /// This is the collection of <see cref="ExerciseVM"/>s that the user can see in the UI. <br/>
+        /// It is essentially a filtered copy of <see cref="ExerciseVMs"/>, using <see cref="FilterExercises(IEnumerable{ExerciseVM})"/>.
+        /// </summary>
         public ObservableCollection<ExerciseVM> VisibleExercises
         {
             get
             {
-                IEnumerable<ExerciseVM> visibleExercises = ExerciseVMs;
-
-                if (SelectedGameFilter != null)
-                    visibleExercises = visibleExercises
-                        .Where(exercise => exercise.Game != null)
-                        .Where(exercise => exercise.Game.Equals(SelectedGameFilter)).ToList();
-
-                if (SelectedLearningObjectiveFilter != null)
-                    visibleExercises = visibleExercises
-                        .Where(exercise => exercise.LearningObjective != null)
-                        .Where(exercise => exercise.LearningObjective.Equals(SelectedLearningObjectiveFilter)).ToList();
-
-                if (SelectedFocusPointFilter != null)
-                    visibleExercises = visibleExercises
-                        .Where(exercise => exercise.FocusPoint != null)
-                        .Where(exercise => exercise.FocusPoint.Equals(SelectedFocusPointFilter)).ToList();
-
-                if (SelectedRatingFilter != 0)
-                    visibleExercises = visibleExercises
-                        .Where(exercise => exercise.Rating.Equals(SelectedRatingFilter)).ToList();
-
-                return new(visibleExercises);
+                return FilterExercises(ExerciseVMs);
             }
         }
 
@@ -78,6 +61,9 @@ namespace TrickedKnowledgeHub.ViewModel
         }
 
         private ObservableCollection<GameVM> _availableGames;
+        /// <summary>
+        /// The games that the system can fetch from the database. Whichever game is selected here is used when filtering the exercises, see <see cref="SelectedGameFilter"/>.
+        /// </summary>
         public ObservableCollection<GameVM> AvailableGames
         {
             get
@@ -92,6 +78,9 @@ namespace TrickedKnowledgeHub.ViewModel
             }
         }
         private GameVM? _selectedGameFilter;
+        /// <summary>
+        /// The selected game, that is being used when filtering exercises.
+        /// </summary>
         public GameVM? SelectedGameFilter
         {
             get
@@ -230,7 +219,43 @@ namespace TrickedKnowledgeHub.ViewModel
             ExerciseVMs = new();
             foreach (Exercise exercise in RepositoryManager.ExerciseRepository.RetrieveAll())
                 ExerciseVMs.Add(new ExerciseVM(exercise));
+        }
 
+        /// <summary>
+        /// Filters all <see cref="ExerciseVM"/>s within <paramref name="availableExercises"/>.
+        /// </summary>
+        /// <param name="availableExercises">The collection that should be filtered. Should ideally be all available exercises.</param>
+        /// <returns>A filtered collection of <see cref="ExerciseVM"/>s.</returns>
+        private ObservableCollection<ExerciseVM> FilterExercises(IEnumerable<ExerciseVM> availableExercises)
+        {
+            // If a game has been selected in the MainWindow, we only include exercises associated with that game.
+            // Currently we don't support filtering for only exercises with no associated game.
+            if (SelectedGameFilter != null)
+                availableExercises = availableExercises
+                    .Where(exercise => exercise.Game != null)
+                    .Where(exercise => exercise.Game.Equals(SelectedGameFilter)).ToList();
+
+            // If a learning objective has been selected for filtering, we only include exercises associated with that learning objective.
+            // We still dont support filtering for any null values.
+            if (SelectedLearningObjectiveFilter != null)
+                availableExercises = availableExercises
+                    .Where(exercise => exercise.LearningObjective != null)
+                    .Where(exercise => exercise.LearningObjective.Equals(SelectedLearningObjectiveFilter)).ToList();
+
+            // Same as above, but for focus points.
+            if (SelectedFocusPointFilter != null)
+                availableExercises = availableExercises
+                    .Where(exercise => exercise.FocusPoint != null)
+                    .Where(exercise => exercise.FocusPoint.Equals(SelectedFocusPointFilter)).ToList();
+
+            // And finally for ratings. Here we know the rating is never null, since an enum value will always have some value associated.
+            // When no rating is selected, the rating is set to be 0. This also means that we, like the other places, don't supoprt filtering for no rating associated.
+            if (SelectedRatingFilter != 0)
+                availableExercises = availableExercises
+                    .Where(exercise => exercise.Rating.Equals(SelectedRatingFilter)).ToList();
+
+            // Return a new ObservableCollection<ExerciseVM> instead of a List<ExerciseVM>.
+            return new(availableExercises);
         }
 
         #region OnChanged Events
