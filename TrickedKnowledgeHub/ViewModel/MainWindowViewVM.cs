@@ -82,6 +82,8 @@ namespace TrickedKnowledgeHub.ViewModel
 
             CreateExerciseWindowVM = new();
 
+            CreateExerciseWindowVM.MainWindowViewVM = this;
+
             ExerciseVMs = new();
             foreach (Exercise exercise in RepositoryManager.ExerciseRepository.RetrieveAll())
                 ExerciseVMs.Add(new ExerciseVM(exercise));

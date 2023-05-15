@@ -24,18 +24,17 @@ namespace TrickedKnowledgeHub
     /// </summary>
     public partial class MainWindow : Window
     {
-        public ExercisePage ExercisePage { get; set; } =new();
-
+        public ExercisePage ExercisePage { get; set; } = new();
+        MainWindowViewVM vm = new();
         public MainWindow()
         {
-            MainWindowViewVM vm = new();
 
             InitializeComponent();
 
             DataContext = vm;
 
             ExercisePage.DataContext = vm.ExercisePageVM;
-            FrameExercise.Content = ExercisePage;
+
 
             DBUpdate();
         }
@@ -43,10 +42,10 @@ namespace TrickedKnowledgeHub
 
         public async void DBUpdate()
         {
-            var timer = new PeriodicTimer(TimeSpan.FromSeconds(1));
+            var timer = new PeriodicTimer(TimeSpan.FromSeconds(5));
             MainWindowViewVM mainWindowViewVM = (MainWindowViewVM)DataContext;
 
-            ObservableCollection<ExerciseVM> exerciseVMs = new ObservableCollection<ExerciseVM>();
+            //ObservableCollection<ExerciseVM> exerciseVMs = new ObservableCollection<ExerciseVM>();
             List<Exercise> temp = new List<Exercise>();
 
 
@@ -56,13 +55,13 @@ namespace TrickedKnowledgeHub
 
                 if (!exercises.SequenceEqual(temp))
                 {
-                    exerciseVMs.Clear();
+                    mainWindowViewVM.ExerciseVMs.Clear();
                     foreach (var exercise in exercises)
                     {
-                        exerciseVMs.Add(new ExerciseVM(exercise));
+                        mainWindowViewVM.ExerciseVMs.Add(new ExerciseVM(exercise));
                     }
 
-                    mainWindowViewVM.ExerciseVMs = exerciseVMs;
+                    //mainWindowViewVM.ExerciseVMs = exerciseVMs;
                     temp = exercises;
                 }
                 else
@@ -74,18 +73,42 @@ namespace TrickedKnowledgeHub
 
         private void FeedListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
+            FrameExercise.Content = ExercisePage;
             FrameExercise.Visibility = Visibility.Visible;
-            FeedListBox.SelectedIndex= -1;
-        }
+            FeedListBox.SelectedIndex = -1;
+            Blackout.Visibility = Visibility.Visible;
+            overlayBlack.Visibility = Visibility.Visible;
 
+        }
         private void Window_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            // this makes it possible when click outside the frame it closes the window
             if (!FrameExercise.IsMouseOver)
             {
                 FrameExercise.Visibility = Visibility.Collapsed;
+                Blackout.Visibility = Visibility.Collapsed;
+                overlayBlack.Visibility = Visibility.Collapsed;
+
             }
         }
 
+        private void Create_Exercise_Click(object sender, RoutedEventArgs e)
+        {
+            Create_exercise_window create_Exercise = new();
+            FrameExercise.Content = create_Exercise;
+            vm.CreateExerciseWindowVM.ActiveUser = vm.ActiveUser;
+
+            create_Exercise.DataContext = vm.CreateExerciseWindowVM;
+
+            // this sets the selcteditem to -1 as the listboxitems that are visible starts at 0
+            // this makes it possible to select the same exercise over and over again
+            FeedListBox.SelectedIndex = -1;
+
+            FrameExercise.Visibility = Visibility.Visible;
+            Blackout.Visibility = Visibility.Visible;
+            overlayBlack.Visibility = Visibility.Visible;
+
+        }
     }
 }
 

@@ -200,6 +200,8 @@ namespace TrickedKnowledgeHub.ViewModel
             }
         }
 
+        public MainWindowViewVM MainWindowViewVM { get; set; }
+
         #region Commands
         public CreateExerciseCommand CreateExerciseCommand { get; set; } = new();
         public SelectMaterialCommand SelectMaterialCommand { get; set; } = new();

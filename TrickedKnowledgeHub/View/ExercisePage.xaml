@@ -13,7 +13,7 @@
     </Page.DataContext>
 
     <Page.Background>
-        <SolidColorBrush Color="White"/>
+        <SolidColorBrush Color="#e7e7e7"/>
     </Page.Background>
 
     <Grid>
@@ -66,7 +66,7 @@
             <TextBlock Text="{Binding SelectedExercise.Rating}" FontSize="20" Grid.Column="0"/>
             <TextBlock Text="Filens navn(Filename er kun sat op i CreateExerciseWindow)"
                        TextWrapping="Wrap" FontSize="20" Grid.Column="1"/>
-            <Button Content="download" Grid.Column="3"/>
+            <Button x:Name="Material_Download_Button" Content="Download øvelse" Command="{Binding DownloadMaterialCommand}" CommandParameter="{Binding}" Grid.Column="3"/>
         </Grid>
 
 
