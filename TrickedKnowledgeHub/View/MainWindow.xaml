@@ -58,7 +58,7 @@
             <Label Content="Filter" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20"/>
 
             <Label Content="Game" Style="{StaticResource CostumLabelStyle}" Grid.Row="1"/>
-            <ComboBox x:Name="GameCombo" Style="{StaticResource CustomComboBoxStyle}" Grid.Row="1" ItemsSource="{Binding AvailableGames}" SelectedItem="{Binding SelectedGame}">
+            <ComboBox x:Name="GameCombo" Style="{StaticResource CustomComboBoxStyle}" Grid.Row="1" ItemsSource="{Binding AvailableGames}" SelectedItem="{Binding SelectedGameFilter}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <Label Content="{Binding Title}"/>
@@ -67,7 +67,7 @@
             </ComboBox>
 
             <Label Content="LearningObjective" Style="{StaticResource CostumLabelStyle}" Grid.Row="2"/>
-            <ComboBox x:Name="ComboBox_Learn" Style="{StaticResource CustomComboBoxStyle}" Grid.Row="2" ItemsSource="{Binding AvailableLearningObjectives}" SelectedItem="{Binding SelectedLearningObjective}">
+            <ComboBox x:Name="ComboBox_Learn" Style="{StaticResource CustomComboBoxStyle}" Grid.Row="2" ItemsSource="{Binding AvailableLearningObjectives}" SelectedItem="{Binding SelectedLearningObjectiveFilter}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <Label Content="{Binding Title}"/>
@@ -76,7 +76,7 @@
             </ComboBox>
 
             <Label Content="FocusPoint" Style="{StaticResource CostumLabelStyle}" Grid.Row="3"/>
-            <ComboBox x:Name="ComboBox_Focus" Style="{StaticResource CustomComboBoxStyle}" Grid.Row="3" ItemsSource="{Binding AvailableFocusPoints}" SelectedItem="{Binding SelectedFocusPoint}">
+            <ComboBox x:Name="ComboBox_Focus" Style="{StaticResource CustomComboBoxStyle}" Grid.Row="3" ItemsSource="{Binding AvailableFocusPoints}" SelectedItem="{Binding SelectedFocusPointFilter}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <Label Content="{Binding Title}"/>
@@ -110,7 +110,7 @@
         <Frame Grid.Column="1" Grid.RowSpan="3" Source="ExercisePage.xaml" Visibility="Collapsed"/>
 
         <ListBox  Grid.Row="1" Grid.Column="1" x:Name="FeedListBox"
-                  ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding ExerciseVMs}" Background="{x:Null}">
+                  ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding VisibleExercises}" Background="{x:Null}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel HorizontalAlignment="Stretch">

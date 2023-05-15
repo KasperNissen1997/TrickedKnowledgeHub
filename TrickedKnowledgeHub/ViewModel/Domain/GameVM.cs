@@ -22,5 +22,13 @@ namespace TrickedKnowledgeHub.ViewModel.Domain
             foreach (LearningObjective learningObjective in source.LearningObjectives)
                 Objectives.Add(new(learningObjective));
         }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is GameVM otherGameVM)
+                return Source.Equals(otherGameVM.Source);
+
+            return base.Equals(obj);
+        }
     }
 }

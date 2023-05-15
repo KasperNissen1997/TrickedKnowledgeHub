@@ -39,5 +39,13 @@ namespace TrickedKnowledgeHub.Model
 
             return sb.ToString();
         }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is Game otherGame)
+                return Title.Equals(otherGame.Title);
+
+            return base.Equals(obj);
+        }
     }
 }

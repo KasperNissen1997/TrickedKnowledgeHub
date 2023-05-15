@@ -9,20 +9,15 @@ using TrickedKnowledgeHub.ViewModel.Domain;
 using TrickedKnowledgeHub.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Navigation;
 
 namespace TrickedKnowledgeHub.ViewModel
 {
     public class MainWindowViewVM : INotifyPropertyChanged
     {
-
-
         public EmployeeVM ActiveUser { get; set; }
 
         public CreateExerciseWindowViewVM CreateExerciseWindowVM { get; set; }
-
-        public OpenCreateExerciseViewCmd OpenCreateExerciseViewCmd { get; set; } = new OpenCreateExerciseViewCmd();
-
-        
 
         private ObservableCollection<ExerciseVM> _exerciseVM;
         public ObservableCollection<ExerciseVM> ExerciseVMs
@@ -35,6 +30,72 @@ namespace TrickedKnowledgeHub.ViewModel
             { 
                 _exerciseVM = value; 
                 OnPropertyChanged(nameof(ExerciseVMs));
+                OnPropertyChanged(nameof(VisibleExercises));
+            }
+        }
+
+        public ObservableCollection<ExerciseVM> VisibleExercises
+        {
+            get
+            {
+                IEnumerable<ExerciseVM> visibleExercises = ExerciseVMs;
+
+                if (SelectedGameFilter != null)
+                    visibleExercises = visibleExercises
+                        .Where(exercise => exercise.Game != null)
+                        .Where(exercise => exercise.Game.Equals(SelectedGameFilter)).ToList();
+
+                if (SelectedLearningObjectiveFilter != null)
+                    visibleExercises = visibleExercises.Where(exercise => exercise.LearningObjective == SelectedLearningObjectiveFilter).ToList();
+
+                if (SelectedFocusPointFilter != null)
+                    visibleExercises = visibleExercises.Where(exercise => exercise.FocusPoint == SelectedFocusPointFilter).ToList();
+
+                return new(visibleExercises);
+            }
+        }
+
+        private GameVM _selectedGameFilter;
+        public GameVM SelectedGameFilter
+        {
+            get
+            {
+                return _selectedGameFilter;
+            }
+
+            set
+            {
+                _selectedGameFilter = value;
+                OnPropertyChanged(nameof(SelectedGameFilter));
+                OnPropertyChanged(nameof(VisibleExercises));
+            }
+        }
+        private LearningObjectiveVM _selectedLearningObjectiveFilter;
+        public LearningObjectiveVM SelectedLearningObjectiveFilter
+        {
+            get
+            {
+                return _selectedLearningObjectiveFilter;
+            }
+
+            set
+            {
+                _selectedLearningObjectiveFilter = value;
+                OnPropertyChanged(nameof(SelectedLearningObjectiveFilter));
+            }
+        }
+        private FocusPointVM _selectedFocusPointFilter;
+        public FocusPointVM SelectedFocusPointFilter
+        {
+            get
+            {
+                return _selectedFocusPointFilter;
+            }
+
+            set
+            {
+                _selectedFocusPointFilter = value;
+                OnPropertyChanged(nameof(SelectedFocusPointFilter));
             }
         }
 
@@ -154,8 +215,6 @@ namespace TrickedKnowledgeHub.ViewModel
             {
                 _selectedFocusPoint = value;
                 OnPropertyChanged(nameof(SelectedFocusPoint));
-                //It fucking works with the code in learning objective hehe
-
             }
         }
         private string _title;
@@ -188,6 +247,10 @@ namespace TrickedKnowledgeHub.ViewModel
             }
         }
 
+        #region Commands
+        public OpenCreateExerciseViewCmd OpenCreateExerciseViewCmd { get; set; } = new OpenCreateExerciseViewCmd();
+        #endregion
+
         public MainWindowViewVM()
         {
             //You need to enter the email of a active user in the database, so be sure the email is in the database.
@@ -209,8 +272,6 @@ namespace TrickedKnowledgeHub.ViewModel
                 ExerciseVMs.Add(new ExerciseVM(exercise));
 
         }
-
-
 
         #region OnChanged Events
         public event PropertyChangedEventHandler? PropertyChanged;

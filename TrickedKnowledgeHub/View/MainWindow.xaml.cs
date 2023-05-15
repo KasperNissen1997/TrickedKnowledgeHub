@@ -28,7 +28,7 @@ namespace TrickedKnowledgeHub
 
             DBUpdate();
 
-            Filter();
+            //Filter();
         }
 
         
