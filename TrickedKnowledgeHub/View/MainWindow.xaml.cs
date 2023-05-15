@@ -43,6 +43,7 @@ namespace TrickedKnowledgeHub
             DBUpdate();
         }
 
+        
 
         public async void DBUpdate()
         {
@@ -101,7 +102,6 @@ namespace TrickedKnowledgeHub
 
             FrameExercise.Content = create_Exercise;
             create_Exercise.DataContext = vm.CreateExerciseWindowVM;
-
             // this sets the selcteditem to -1 as the listboxitems that are visible starts at 0
             // this makes it possible to select the same exercise over and over again
             FeedListBox.SelectedIndex = -1;
