@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows;
 using System.Windows.Input;
 using TrickedKnowledgeHub.ViewModel;
 
@@ -25,7 +27,12 @@ namespace TrickedKnowledgeHub.Command.MainWindowCommand
 
                 Create_exercise_window createExerciseWindow = new();
                 createExerciseWindow.DataContext = vm.CreateExerciseWindowVM;
-                createExerciseWindow.Show();
+                MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+                // Find the Frame control in the MainWindow using its name
+                Frame frameExercise = (Frame)mainWindow.FindName("FrameExercise");
+                frameExercise.Content= createExerciseWindow;
+                frameExercise.Visibility = Visibility.Visible;
+
             }
             else
                 throw new NotImplementedException();
