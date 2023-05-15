@@ -55,6 +55,10 @@ namespace TrickedKnowledgeHub.ViewModel
                         .Where(exercise => exercise.FocusPoint != null)
                         .Where(exercise => exercise.FocusPoint.Equals(SelectedFocusPointFilter)).ToList();
 
+                if (SelectedRatingFilter != 0)
+                    visibleExercises = visibleExercises
+                        .Where(exercise => exercise.Rating.Equals(SelectedRatingFilter)).ToList();
+
                 return new(visibleExercises);
             }
         }
@@ -189,7 +193,7 @@ namespace TrickedKnowledgeHub.ViewModel
 
         public List<Rating> Ratings { get; set; }
         private Rating _selectedRating;
-        public Rating SelectedRating
+        public Rating SelectedRatingFilter
         {
             get
             {
@@ -199,9 +203,7 @@ namespace TrickedKnowledgeHub.ViewModel
             set
             {
                 _selectedRating = value;
-                OnPropertyChanged(nameof(SelectedRating));
-
-                // TODO: Make sure the exercises are actually filtered when selecting a rating.
+                OnPropertyChanged(nameof(SelectedRatingFilter));
                 OnPropertyChanged(nameof(VisibleExercises));
             }
         }
@@ -224,7 +226,6 @@ namespace TrickedKnowledgeHub.ViewModel
                 AvailableGames.Add(new(game));
 
             Ratings = Rating.GetValues<Rating>().ToList();
-
 
             ExerciseVMs = new();
             foreach (Exercise exercise in RepositoryManager.ExerciseRepository.RetrieveAll())

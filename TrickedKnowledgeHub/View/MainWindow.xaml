@@ -85,13 +85,13 @@
             </ComboBox>
 
             <Label Content="Skill" Style="{StaticResource CostumLabelStyle}" Grid.Row="4"/>
-            <ComboBox x:Name="ComboBox_Skill" Style="{StaticResource CustomComboBoxStyle}" Grid.Row="4" ItemsSource="{Binding Ratings}" SelectedItem="{Binding SelectedRating}">
-                <ComboBox.ItemTemplate>
+            <ComboBox x:Name="ComboBox_Skill" Style="{StaticResource CustomComboBoxStyle}" Grid.Row="4" ItemsSource="{Binding Ratings}" SelectedItem="{Binding SelectedRatingFilter}"/>
+            <!--<ComboBox.ItemTemplate>
                     <DataTemplate>
                         <Label Content="{Binding Title}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
-            </ComboBox>
+            </ComboBox>-->
 
         </Grid>
 

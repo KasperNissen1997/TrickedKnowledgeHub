@@ -35,7 +35,7 @@ namespace TrickedKnowledgeHub
 
         public async void DBUpdate()
         {
-            var timer = new PeriodicTimer(TimeSpan.FromSeconds(1));
+            var timer = new PeriodicTimer(TimeSpan.FromSeconds(5));
             MainWindowViewVM mainWindowViewVM = (MainWindowViewVM)DataContext;
             
             ObservableCollection<ExerciseVM> exerciseVMs;
@@ -107,11 +107,11 @@ namespace TrickedKnowledgeHub
                                     }
                                 }
 
-                                if (mainWindowViewVM.SelectedRating != null)
+                                if (mainWindowViewVM.SelectedRatingFilter != null)
                                 {
                                     foreach (var exercise in exercises)
                                     {
-                                        if (exercise.Rating.Equals(mainWindowViewVM.SelectedRating) && mainWindowViewVM.SelectedRating != null)
+                                        if (exercise.Rating.Equals(mainWindowViewVM.SelectedRatingFilter) && mainWindowViewVM.SelectedRatingFilter != null)
                                         {
 
                                         }
