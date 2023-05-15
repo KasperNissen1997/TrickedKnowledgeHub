@@ -25,10 +25,9 @@ namespace TrickedKnowledgeHub
     public partial class MainWindow : Window
     {
         public ExercisePage ExercisePage { get; set; } = new();
-
+        MainWindowViewVM vm = new();
         public MainWindow()
         {
-            MainWindowViewVM vm = new();
 
             InitializeComponent();
 
@@ -97,6 +96,9 @@ namespace TrickedKnowledgeHub
         {
             Create_exercise_window create_Exercise = new();
             FrameExercise.Content = create_Exercise;
+            vm.CreateExerciseWindowVM.ActiveUser = vm.ActiveUser;
+
+            create_Exercise.DataContext = vm.CreateExerciseWindowVM;
             // this sets the selcteditem to -1 as the listboxitems that are visible starts at 0
             // this makes it possible to select the same exercise over and over again
             FeedListBox.SelectedIndex = -1;
