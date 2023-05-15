@@ -36,8 +36,8 @@ namespace TrickedKnowledgeHub
 
             ExercisePage.DataContext = vm.ExercisePageVM;
 
-            vm.CreateExerciseWindowVM.ActiveUser = vm.ActiveUser;
-            create_Exercise.DataContext = vm.CreateExerciseWindowVM;
+           
+
 
 
             DBUpdate();
@@ -100,7 +100,7 @@ namespace TrickedKnowledgeHub
         {
 
             FrameExercise.Content = create_Exercise;
-
+            create_Exercise.DataContext = vm.CreateExerciseWindowVM;
 
             // this sets the selcteditem to -1 as the listboxitems that are visible starts at 0
             // this makes it possible to select the same exercise over and over again
