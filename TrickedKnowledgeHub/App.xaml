@@ -4,11 +4,10 @@
              xmlns:local="clr-namespace:TrickedKnowledgeHub"
              StartupUri="View/MainWindow.xaml">
     <Application.Resources>
-        
         <!-- ListBoxItem customization-->
         <Style x:Key="_ListBoxItemStyle" TargetType="ListBoxItem">
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-            <Setter Property="Template">    
+            <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
                         <Border Name="_Border"
@@ -42,7 +41,28 @@
             <Setter Property="IsEditable" Value="True"/>
             <Setter Property="IsTextSearchCaseSensitive" Value="False"/>
         </Style>
-        
+
+        <!--Set's the watermark for the description textbox-->
+        <VisualBrush x:Key="Description" TileMode="None" Stretch="None" AlignmentX="Left" AlignmentY="Top">
+            <VisualBrush.Transform>
+                <TranslateTransform X="5" Y="5" />
+            </VisualBrush.Transform>
+            <VisualBrush.Visual>
+                <Grid>
+                    <TextBlock FontStyle="Italic" Foreground="Black" Opacity="0.5" Text="Enter a description for the exercise"/>
+                </Grid>
+            </VisualBrush.Visual>
+        </VisualBrush>
+
+        <!--Set's the watermark for the title textbox-->        
+        <VisualBrush x:Key="Title"  TileMode="None" Stretch="None" AlignmentX="Left" AlignmentY="Center">
+            <VisualBrush.Transform>
+                <TranslateTransform X="5" Y="0"/>
+            </VisualBrush.Transform>
+            <VisualBrush.Visual>
+                <TextBlock FontStyle="Italic" Foreground="black" Opacity="0.5" Text="Enter a title for the exercise"/>
+            </VisualBrush.Visual>
+        </VisualBrush>
 
         <!-- Label customization -->
         <Style x:Key="CostumLabelStyle" TargetType="Label">
