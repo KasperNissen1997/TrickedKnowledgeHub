@@ -22,5 +22,20 @@ namespace TrickedKnowledgeHub.ViewModel.Domain
             foreach (LearningObjective learningObjective in source.LearningObjectives)
                 Objectives.Add(new(learningObjective));
         }
+
+        /// <summary>
+        /// Compares <see cref="GameVM"/> objects. If <paramref name="obj"/> is of type <see cref="GameVM"/> then the base <see cref="Game.Equals(object?)"/> method is used.
+        /// </summary>
+        /// <param name="obj">The object that this should be compared with.</param>
+        /// <returns>
+        /// <see langword="true"/> if the <see cref="GameVM"/> instances represent the same <see cref="Game"/>, otherwise <see langword="false"/>.
+        /// </returns>
+        public override bool Equals(object? obj)
+        {
+            if (obj is GameVM otherGameVM)
+                return Source.Equals(otherGameVM.Source);
+
+            return base.Equals(obj);
+        }
     }
 }
