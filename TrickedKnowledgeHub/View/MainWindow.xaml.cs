@@ -64,44 +64,44 @@ namespace TrickedKnowledgeHub
 
             while (await timer.WaitForNextTickAsync())
             {
-                if (mainWindowViewVM.SelectedGame != null)
+                if (mainWindowViewVM.SelectedGameFilter != null)
                 {
                     exerciseVMs = new ObservableCollection<ExerciseVM>();
                     RepositoryManager.ExerciseRepository.Reset();
                     List<Exercise> exercises = RepositoryManager.ExerciseRepository.RetrieveAll();
 
                     // Get the selected game from the GameCombo, and add a null check
-                    GameVM selectedGame = mainWindowViewVM.SelectedGame;
-                    if (mainWindowViewVM.SelectedGame != null)
+                    GameVM selectedGame = mainWindowViewVM.SelectedGameFilter;
+                    if (mainWindowViewVM.SelectedGameFilter != null)
                     {
 
                         foreach (var exercise in exercises)
                         {
                             // Only add exercises that match the selected game
-                            if (selectedGame != null && exercise.Game != null && exercise.Game.Equals(selectedGame) && mainWindowViewVM.SelectedGame != null)
+                            if (selectedGame != null && exercise.Game != null && exercise.Game.Equals(selectedGame) && mainWindowViewVM.SelectedGameFilter != null)
                             {
                                 //Make it so that only the exercises with the selected game will be shown
                                 exerciseVMs.Add(new ExerciseVM(exercise));
                             }
                         }
 
-                        if (mainWindowViewVM.SelectedLearningObjective != null)
+                        if (mainWindowViewVM.SelectedLearningObjectiveFilter != null)
                         {
                             foreach (var exercise in exercises)
                             {
-                                if (exercise.FocusPoint.Parent.Equals(mainWindowViewVM.SelectedLearningObjective) && mainWindowViewVM.SelectedLearningObjective != null)
+                                if (exercise.FocusPoint.Parent.Equals(mainWindowViewVM.SelectedLearningObjectiveFilter) && mainWindowViewVM.SelectedLearningObjectiveFilter != null)
                                 {
 
                                 }
                             }
 
 
-                            if (mainWindowViewVM.SelectedFocusPoint != null)
+                            if (mainWindowViewVM.SelectedFocusPointFilter != null)
                             {
 
                                 foreach (var exercise in exercises)
                                 {
-                                    if (exercise.FocusPoint.Equals(mainWindowViewVM.SelectedFocusPoint) && mainWindowViewVM.SelectedFocusPoint != null)
+                                    if (exercise.FocusPoint.Equals(mainWindowViewVM.SelectedFocusPointFilter) && mainWindowViewVM.SelectedFocusPointFilter != null)
                                     {
 
                                     }

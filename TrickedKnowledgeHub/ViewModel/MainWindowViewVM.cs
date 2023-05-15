@@ -46,56 +46,16 @@ namespace TrickedKnowledgeHub.ViewModel
                         .Where(exercise => exercise.Game.Equals(SelectedGameFilter)).ToList();
 
                 if (SelectedLearningObjectiveFilter != null)
-                    visibleExercises = visibleExercises.Where(exercise => exercise.LearningObjective == SelectedLearningObjectiveFilter).ToList();
+                    visibleExercises = visibleExercises
+                        .Where(exercise => exercise.LearningObjective != null)
+                        .Where(exercise => exercise.LearningObjective.Equals(SelectedLearningObjectiveFilter)).ToList();
 
                 if (SelectedFocusPointFilter != null)
-                    visibleExercises = visibleExercises.Where(exercise => exercise.FocusPoint == SelectedFocusPointFilter).ToList();
+                    visibleExercises = visibleExercises
+                        .Where(exercise => exercise.FocusPoint != null)
+                        .Where(exercise => exercise.FocusPoint.Equals(SelectedFocusPointFilter)).ToList();
 
                 return new(visibleExercises);
-            }
-        }
-
-        private GameVM _selectedGameFilter;
-        public GameVM SelectedGameFilter
-        {
-            get
-            {
-                return _selectedGameFilter;
-            }
-
-            set
-            {
-                _selectedGameFilter = value;
-                OnPropertyChanged(nameof(SelectedGameFilter));
-                OnPropertyChanged(nameof(VisibleExercises));
-            }
-        }
-        private LearningObjectiveVM _selectedLearningObjectiveFilter;
-        public LearningObjectiveVM SelectedLearningObjectiveFilter
-        {
-            get
-            {
-                return _selectedLearningObjectiveFilter;
-            }
-
-            set
-            {
-                _selectedLearningObjectiveFilter = value;
-                OnPropertyChanged(nameof(SelectedLearningObjectiveFilter));
-            }
-        }
-        private FocusPointVM _selectedFocusPointFilter;
-        public FocusPointVM SelectedFocusPointFilter
-        {
-            get
-            {
-                return _selectedFocusPointFilter;
-            }
-
-            set
-            {
-                _selectedFocusPointFilter = value;
-                OnPropertyChanged(nameof(SelectedFocusPointFilter));
             }
         }
 
@@ -127,28 +87,24 @@ namespace TrickedKnowledgeHub.ViewModel
                 OnPropertyChanged(nameof(AvailableGames));
             }
         }
-        private GameVM? _selectedGame;
-        public GameVM? SelectedGame
+        private GameVM? _selectedGameFilter;
+        public GameVM? SelectedGameFilter
         {
             get
             {
-                return _selectedGame;
+                return _selectedGameFilter;
             }
 
             set
             {
-                _selectedGame = value;
-                OnPropertyChanged(nameof(SelectedGame));
+                _selectedGameFilter = value;
+                OnPropertyChanged(nameof(SelectedGameFilter));
+                OnPropertyChanged(nameof(VisibleExercises));
 
-                if (SelectedLearningObjective != null && !SelectedGame.Objectives.Contains(SelectedLearningObjective))
-                {
-                    SelectedLearningObjective = null;
-                }
+                if (SelectedLearningObjectiveFilter != null && !SelectedGameFilter.Objectives.Contains(SelectedLearningObjectiveFilter))
+                    SelectedLearningObjectiveFilter = null;
 
-                AvailableLearningObjectives = SelectedGame.Objectives;
-
-
-
+                AvailableLearningObjectives = SelectedGameFilter.Objectives;
             }
         }
         private ObservableCollection<LearningObjectiveVM> _availableLearningObjectives;
@@ -165,30 +121,26 @@ namespace TrickedKnowledgeHub.ViewModel
                 OnPropertyChanged(nameof(AvailableLearningObjectives));
             }
         }
-        private LearningObjectiveVM _selectedLearningObjective;
-        public LearningObjectiveVM SelectedLearningObjective
+        private LearningObjectiveVM _selectedLearningObjectiveFilter;
+        public LearningObjectiveVM SelectedLearningObjectiveFilter
         {
             get
             {
-                return _selectedLearningObjective;
+                return _selectedLearningObjectiveFilter;
             }
 
             set
             {
-                _selectedLearningObjective = value;
-                OnPropertyChanged(nameof(SelectedLearningObjective));
+                _selectedLearningObjectiveFilter = value;
+                OnPropertyChanged(nameof(SelectedLearningObjectiveFilter));
+                OnPropertyChanged(nameof(VisibleExercises));
 
-                if (SelectedLearningObjective != null)
-                {
-                    AvailableFocusPoints = SelectedLearningObjective.FocusPointVMs;
-                }
+                if (SelectedLearningObjectiveFilter != null)
+                    AvailableFocusPoints = SelectedLearningObjectiveFilter.FocusPointVMs;
                 else
-                {
                     AvailableFocusPoints = new ObservableCollection<FocusPointVM>();
-                }
             }
         }
-
         private ObservableCollection<FocusPointVM> _availableFocusPoints;
         public ObservableCollection<FocusPointVM> AvailableFocusPoints
         {
@@ -203,20 +155,23 @@ namespace TrickedKnowledgeHub.ViewModel
                 OnPropertyChanged(nameof(AvailableFocusPoints));
             }
         }
-        private FocusPointVM _selectedFocusPoint;
-        public FocusPointVM SelectedFocusPoint
+        private FocusPointVM _selectedFocusPointFilter;
+        public FocusPointVM SelectedFocusPointFilter
         {
             get
             {
-                return _selectedFocusPoint;
+                return _selectedFocusPointFilter;
             }
 
             set
             {
-                _selectedFocusPoint = value;
-                OnPropertyChanged(nameof(SelectedFocusPoint));
+                _selectedFocusPointFilter = value;
+                OnPropertyChanged(nameof(SelectedFocusPointFilter));
+                OnPropertyChanged(nameof(VisibleExercises));
             }
         }
+
+        // TODO: What is this being used for?
         private string _title;
         public string Title
         {
@@ -231,6 +186,7 @@ namespace TrickedKnowledgeHub.ViewModel
                 OnPropertyChanged(nameof(Title));
             }
         }
+
         public List<Rating> Ratings { get; set; }
         private Rating _selectedRating;
         public Rating SelectedRating
@@ -244,6 +200,9 @@ namespace TrickedKnowledgeHub.ViewModel
             {
                 _selectedRating = value;
                 OnPropertyChanged(nameof(SelectedRating));
+
+                // TODO: Make sure the exercises are actually filtered when selecting a rating.
+                OnPropertyChanged(nameof(VisibleExercises));
             }
         }
 

@@ -44,5 +44,13 @@ namespace TrickedKnowledgeHub.Model
 
             return sb.ToString();
         }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is LearningObjective otherLearningObjective)
+                return ID.Equals(otherLearningObjective.ID);
+
+            return base.Equals(obj);
+        }
     }
 }

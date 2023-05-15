@@ -14,5 +14,13 @@ namespace TrickedKnowledgeHub.ViewModel.Domain
 
             Title = source.Title;
         }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is FocusPointVM otherFocusPointVM)
+                return Source.Equals(otherFocusPointVM.Source);
+
+            return base.Equals(obj);
+        }
     }
 }

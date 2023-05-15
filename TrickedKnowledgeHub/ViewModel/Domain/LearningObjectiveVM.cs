@@ -22,5 +22,13 @@ namespace TrickedKnowledgeHub.ViewModel.Domain
             foreach (FocusPoint focusPoint in source.FocusPoints)
                 FocusPointVMs.Add(new(focusPoint));
         }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is LearningObjectiveVM otherLearningObjectiveVM)
+                return Source.Equals(otherLearningObjectiveVM.Source);
+
+            return base.Equals(obj);
+        }
     }
 }

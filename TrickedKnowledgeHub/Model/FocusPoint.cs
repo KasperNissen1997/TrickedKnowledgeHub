@@ -15,5 +15,21 @@
         {
             return $"Title: {Title}, Parent: {Parent.ID}";
         }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is FocusPoint otherFocusPoint)
+            {
+                if (!Title.Equals(otherFocusPoint.Title))
+                    return false;
+
+                if (!Parent.Equals(otherFocusPoint.Parent))
+                    return false;
+
+                return true;
+            }
+
+            return base.Equals(obj);
+        }
     }
 }
