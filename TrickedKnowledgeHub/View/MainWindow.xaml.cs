@@ -97,6 +97,25 @@ namespace TrickedKnowledgeHub
             }
         }
 
+        private void Create_Exercise_Click(object sender, RoutedEventArgs e)
+        {
+            Create_exercise_window create_Exercise = new();
+            FrameExercise.Content = create_Exercise;
+            MainWindowViewVM vm = new();
+            vm.CreateExerciseWindowVM.ActiveUser = vm.ActiveUser;
+
+            Create_exercise_window createExerciseWindow = new();
+            createExerciseWindow.DataContext = vm.CreateExerciseWindowVM;
+            // this sets the selcteditem to -1 as the listboxitems that are visible starts at 0
+            // this makes it possible to select the same exercise over and over again
+            FeedListBox.SelectedIndex = -1;
+
+            FrameExercise.Visibility = Visibility.Visible;
+            Blackout.Visibility = Visibility.Visible;
+            overlayBlack.Visibility = Visibility.Visible;
+
+
+        }
     }
 }
 

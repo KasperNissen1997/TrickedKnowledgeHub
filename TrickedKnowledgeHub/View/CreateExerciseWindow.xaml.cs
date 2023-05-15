@@ -24,6 +24,7 @@ namespace TrickedKnowledgeHub
         public Create_exercise_window()
         {
             InitializeComponent();
+
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -37,20 +38,18 @@ namespace TrickedKnowledgeHub
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
-            // this.Visibility = Visibility.Collapsed;
-            MainWindow mainWindow = new();
+            MainWindow mainWindow = (MainWindow)Window.GetWindow(this);
 
             // Find the Frame control in the MainWindow using its name
-            Frame frameExercise = (Frame)mainWindow.FindName("FrameExercise");
+            Frame frameExercise = mainWindow.FrameExercise;
+            Grid grid = mainWindow.Blackout;
 
-            Grid gridleft = (Grid)mainWindow.FindName("Blackoutleft");
-
-            Rectangle recleft = (Rectangle)mainWindow.FindName("Overlayleft");
+            Rectangle rec = mainWindow.overlayBlack;
             // Set the Visibility property of the Frame control to Collapsed
             frameExercise.Visibility = Visibility.Collapsed;
 
-            gridleft.Visibility = Visibility.Collapsed;
-            recleft.Visibility = Visibility.Collapsed;
+            grid.Visibility = Visibility.Collapsed;
+            rec.Visibility = Visibility.Collapsed;
 
         }
 
@@ -59,6 +58,7 @@ namespace TrickedKnowledgeHub
             string message = "Øvelsen er hermed gemt :)";
             string title = "Gemt Øvelse";
             MessageBox.Show(message, title);
+
            
         }
 
