@@ -74,11 +74,13 @@ namespace TrickedKnowledgeHub
 
         private void FeedListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            when-a-new-exercise-is-created-it-doesnt-appear-in-the-exercise-feed
+            FrameExercise.Content = ExercisePage;
             FrameExercise.Visibility = Visibility.Visible;
             FeedListBox.SelectedIndex = -1;
+            Blackout.Visibility = Visibility.Visible;
+            overlayBlack.Visibility = Visibility.Visible;
 
-
+        }
         private void Window_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             // this makes it possible when click outside the frame it closes the window
@@ -91,6 +93,20 @@ namespace TrickedKnowledgeHub
             }
         }
 
+        private void Create_Exercise_Click(object sender, RoutedEventArgs e)
+        {
+            Create_exercise_window create_Exercise = new();
+            FrameExercise.Content = create_Exercise;
+            // this sets the selcteditem to -1 as the listboxitems that are visible starts at 0
+            // this makes it possible to select the same exercise over and over again
+            FeedListBox.SelectedIndex = -1;
+
+            FrameExercise.Visibility = Visibility.Visible;
+            Blackout.Visibility = Visibility.Visible;
+            overlayBlack.Visibility = Visibility.Visible;
+
+
+        }
     }
 }
 

@@ -35,7 +35,7 @@
 
 
         <Grid x:Name="ButtonGrid" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="160" Height="70">
-            <Button Command="{Binding OpenCreateExerciseViewCmd}" CommandParameter="{Binding}" x:Name="Create_Exercise" 
+            <Button x:Name="Create_Exercise" Click="Create_Exercise_Click"
                     Content="Opret øvelse" HorizontalAlignment="Center" VerticalAlignment="Top"   Height="70" Width="160" 
                     Background="#FF0CBE94" Foreground="White" FontSize="24" FontWeight="Bold">
                 <Button.Resources>
