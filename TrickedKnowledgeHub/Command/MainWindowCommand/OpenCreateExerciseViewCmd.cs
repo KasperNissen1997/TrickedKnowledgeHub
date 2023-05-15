@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Input;
 using TrickedKnowledgeHub.ViewModel;
+using TrickedKnowledgeHub.Model;
 
 namespace TrickedKnowledgeHub.Command.MainWindowCommand
 {

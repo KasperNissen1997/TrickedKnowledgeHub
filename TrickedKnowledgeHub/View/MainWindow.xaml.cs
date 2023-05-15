@@ -74,11 +74,10 @@ namespace TrickedKnowledgeHub
 
         private void FeedListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            when-a-new-exercise-is-created-it-doesnt-appear-in-the-exercise-feed
             FrameExercise.Visibility = Visibility.Visible;
             FeedListBox.SelectedIndex = -1;
 
-
+        }
         private void Window_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             // this makes it possible when click outside the frame it closes the window
@@ -93,4 +92,6 @@ namespace TrickedKnowledgeHub
 
     }
 }
+
+
 
