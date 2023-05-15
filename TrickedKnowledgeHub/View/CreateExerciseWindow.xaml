@@ -61,7 +61,7 @@
 
         <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" x:Name="Description_TextBox" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="50,30,50,30" FontStyle="Italic" TextChanged="TextBox_TextChanged" TextWrapping="Wrap"></TextBox>
 
-        <Label Content="LearningObjectives*" Grid.Row="1" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,25,0,0"/>
+        <Label Content="Learning Objectives*" Grid.Row="1" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,25,0,0"/>
         <ComboBox ItemsSource="{Binding AvailableLearningObjectives}" SelectedItem="{Binding SelectedLearningObjective}" x:Name="LearningObjective_ComboBox" Grid.Row="1" Grid.Column="2" Width="100" Height="29" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0" FontSize="12">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
@@ -70,7 +70,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <Label Content="FocusPoint*" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,25,0,0"/>
+        <Label Content="Focus Point*" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,25,0,0"/>
         <ComboBox ItemsSource="{Binding AvailableFocusPoints}" SelectedItem="{Binding SelectedFocusPoint}" x:Name="FocusPoint_ComboBox" Grid.Row="1" Grid.Column="3" Width="100" Height="29" VerticalAlignment="Top" Margin="49,50,0,0" HorizontalAlignment="Left"  FontSize="12">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
