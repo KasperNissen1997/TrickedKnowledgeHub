@@ -25,7 +25,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="true">
-                                <Setter TargetName="_Border" Property="Background" Value="#e7e7e7"/>
+                                <Setter TargetName="_Border" Property="Background" Value="lightblue"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

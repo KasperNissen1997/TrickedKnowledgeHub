@@ -33,5 +33,16 @@ namespace TrickedKnowledgeHub.Model
         {
             return $"{ExerciseID}, {Title}, {Description}, {Material}, {Timestamp}, {Author}, {Game}, {FocusPoint}, {Rating}";
         }
+
+        public override bool Equals(object? obj)
+        {
+            if(obj is Exercise e)
+            {
+                return ExerciseID.Equals(e.ExerciseID) &&
+                    Title.Equals(e.Title) &&
+                    Description.Equals(e.Description);
+            }
+            return base.Equals(obj);
+        }
     }
 }

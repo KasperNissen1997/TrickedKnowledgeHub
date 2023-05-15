@@ -6,10 +6,14 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Xml.Linq;
+using System.Windows.Input;
 using TrickedKnowledgeHub.Model;
 using TrickedKnowledgeHub.Model.Repo;
+using TrickedKnowledgeHub.View;
 using TrickedKnowledgeHub.ViewModel;
 using TrickedKnowledgeHub.ViewModel.Domain;
 
@@ -20,15 +24,19 @@ namespace TrickedKnowledgeHub
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ExercisePage ExercisePage { get; set; } = new();
+        MainWindowViewVM vm = new();
         public MainWindow()
         {
+
             InitializeComponent();
 
-            DataContext = new MainWindowViewVM();
+            DataContext = vm;
 
-            //DBUpdate();
+            ExercisePage.DataContext = vm.ExercisePageVM;
 
-            //Filter();
+
+            // DBUpdate();
         }
 
         
@@ -37,95 +45,71 @@ namespace TrickedKnowledgeHub
         {
             var timer = new PeriodicTimer(TimeSpan.FromSeconds(5));
             MainWindowViewVM mainWindowViewVM = (MainWindowViewVM)DataContext;
-            
-            ObservableCollection<ExerciseVM> exerciseVMs;
+
+            //ObservableCollection<ExerciseVM> exerciseVMs = new ObservableCollection<ExerciseVM>();
+            List<Exercise> temp = new List<Exercise>();
+
 
             while (await timer.WaitForNextTickAsync())
             {
-                exerciseVMs = new ObservableCollection<ExerciseVM>();
-                RepositoryManager.ExerciseRepository.Reset();
                 List<Exercise> exercises = RepositoryManager.ExerciseRepository.RetrieveAll();
 
-                foreach (var exercise in exercises)
+                if (!exercises.SequenceEqual(temp))
                 {
-                    exerciseVMs.Add(new ExerciseVM(exercise));
-                }
+                    mainWindowViewVM.ExerciseVMs.Clear();
+                    foreach (var exercise in exercises)
+                    {
+                        mainWindowViewVM.ExerciseVMs.Add(new ExerciseVM(exercise));
+                    }
 
-                mainWindowViewVM.ExerciseVMs = exerciseVMs;
+                    //mainWindowViewVM.ExerciseVMs = exerciseVMs;
+                    temp = exercises;
+                }
+                else
+                {
+                    RepositoryManager.ExerciseRepository.Reset();
+                }
             }
         }
 
-        public async void Filter()
+        private void FeedListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            var timer = new PeriodicTimer(TimeSpan.FromSeconds(1));
-            MainWindowViewVM mainWindowViewVM = (MainWindowViewVM)DataContext;
+            FrameExercise.Content = ExercisePage;
+            FrameExercise.Visibility = Visibility.Visible;
+            FeedListBox.SelectedIndex = -1;
+            Blackout.Visibility = Visibility.Visible;
+            overlayBlack.Visibility = Visibility.Visible;
 
-            ObservableCollection<ExerciseVM> exerciseVMs;
-
-            while (await timer.WaitForNextTickAsync())
+        }
+        private void Window_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            // this makes it possible when click outside the frame it closes the window
+            if (!FrameExercise.IsMouseOver)
             {
-                if (mainWindowViewVM.SelectedGameFilter != null)
-                {
-                    exerciseVMs = new ObservableCollection<ExerciseVM>();
-                    RepositoryManager.ExerciseRepository.Reset();
-                    List<Exercise> exercises = RepositoryManager.ExerciseRepository.RetrieveAll();
+                FrameExercise.Visibility = Visibility.Collapsed;
+                Blackout.Visibility = Visibility.Collapsed;
+                overlayBlack.Visibility = Visibility.Collapsed;
 
-                    // Get the selected game from the GameCombo, and add a null check
-                    GameVM selectedGame = mainWindowViewVM.SelectedGameFilter;
-                    if (mainWindowViewVM.SelectedGameFilter != null)
-                    {
-
-                        foreach (var exercise in exercises)
-                        {
-                            // Only add exercises that match the selected game
-                            if (selectedGame != null && exercise.Game != null && exercise.Game.Equals(selectedGame) && mainWindowViewVM.SelectedGameFilter != null)
-                            {
-                                //Make it so that only the exercises with the selected game will be shown
-                                exerciseVMs.Add(new ExerciseVM(exercise));
-                            }
-                        }
-
-                        if (mainWindowViewVM.SelectedLearningObjectiveFilter != null)
-                        {
-                            foreach (var exercise in exercises)
-                            {
-                                if (exercise.FocusPoint.Parent.Equals(mainWindowViewVM.SelectedLearningObjectiveFilter) && mainWindowViewVM.SelectedLearningObjectiveFilter != null)
-                                {
-
-                                }
-                            }
-
-
-                            if (mainWindowViewVM.SelectedFocusPointFilter != null)
-                            {
-
-                                foreach (var exercise in exercises)
-                                {
-                                    if (exercise.FocusPoint.Equals(mainWindowViewVM.SelectedFocusPointFilter) && mainWindowViewVM.SelectedFocusPointFilter != null)
-                                    {
-
-                                    }
-                                }
-
-                                if (mainWindowViewVM.SelectedRatingFilter != null)
-                                {
-                                    foreach (var exercise in exercises)
-                                    {
-                                        if (exercise.Rating.Equals(mainWindowViewVM.SelectedRatingFilter) && mainWindowViewVM.SelectedRatingFilter != null)
-                                        {
-
-                                        }
-                                    }
-
-
-                                }
-                            }
-                        }
-                    }
-
-                    mainWindowViewVM.ExerciseVMs = exerciseVMs;
-                }
             }
+        }
+
+        private void Create_Exercise_Click(object sender, RoutedEventArgs e)
+        {
+            Create_exercise_window create_Exercise = new();
+            FrameExercise.Content = create_Exercise;
+            vm.CreateExerciseWindowVM.ActiveUser = vm.ActiveUser;
+
+            create_Exercise.DataContext = vm.CreateExerciseWindowVM;
+
+            // this sets the selcteditem to -1 as the listboxitems that are visible starts at 0
+            // this makes it possible to select the same exercise over and over again
+            FeedListBox.SelectedIndex = -1;
+
+            FrameExercise.Visibility = Visibility.Visible;
+            Blackout.Visibility = Visibility.Visible;
+            overlayBlack.Visibility = Visibility.Visible;
+
         }
     }
 }
+

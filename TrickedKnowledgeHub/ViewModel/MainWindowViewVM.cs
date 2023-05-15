@@ -22,13 +22,13 @@ namespace TrickedKnowledgeHub.ViewModel
         private ObservableCollection<ExerciseVM> _exerciseVM;
         public ObservableCollection<ExerciseVM> ExerciseVMs
         {
-            get 
-            { 
-                return _exerciseVM; 
+            get
+            {
+                return _exerciseVM;
             }
-            set 
-            { 
-                _exerciseVM = value; 
+            set
+            {
+                _exerciseVM = value;
                 OnPropertyChanged(nameof(ExerciseVMs));
                 OnPropertyChanged(nameof(VisibleExercises));
             }
@@ -56,7 +56,32 @@ namespace TrickedKnowledgeHub.ViewModel
 
             set
             {
-                SelectedExerciseVM = value;
+
+                if (value != null)
+                {
+                    _selectedExerciseVM = value;
+                    OnPropertyChanged(nameof(SelectedExerciseVM));
+
+                    ExercisePageVM.SelectedExercise = _selectedExerciseVM;
+                }
+            }
+        }
+        private ExercisePageVM _exercisePageVM;
+
+        public ExercisePageVM ExercisePageVM
+        {
+            get
+            {
+                if (_exercisePageVM == null)
+                {
+                    _exercisePageVM= new ExercisePageVM();
+                }
+                return _exercisePageVM;
+            }
+            set
+            {
+                _exercisePageVM = value;
+                OnPropertyChanged(nameof(ExercisePageVM));
             }
         }
 
@@ -215,6 +240,8 @@ namespace TrickedKnowledgeHub.ViewModel
                 AvailableGames.Add(new(game));
 
             Ratings = Rating.GetValues<Rating>().ToList();
+
+            CreateExerciseWindowVM.MainWindowViewVM = this;
 
             ExerciseVMs = new();
             foreach (Exercise exercise in RepositoryManager.ExerciseRepository.RetrieveAll())
