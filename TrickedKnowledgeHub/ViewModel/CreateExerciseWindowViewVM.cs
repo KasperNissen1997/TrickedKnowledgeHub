@@ -171,8 +171,8 @@ namespace TrickedKnowledgeHub.ViewModel
 
             }
         }
-        private Rating _selectedRating;
-        public Rating SelectedRating
+        private Rating? _selectedRating;
+        public Rating? SelectedRating
         {
             get
             {
