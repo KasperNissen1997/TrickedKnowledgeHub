@@ -4,10 +4,10 @@
              xmlns:local="clr-namespace:TrickedKnowledgeHub"
              StartupUri="View/MainWindow.xaml">
     <Application.Resources>
-        
+
         <Style x:Key="_ListBoxItemStyle" TargetType="ListBoxItem">
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-            <Setter Property="Template">    
+            <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
                         <Border Name="_Border"
@@ -31,7 +31,29 @@
             </Setter>
         </Style>
 
-      
+
+        <!--Set's the watermark for the description textbox-->
+        <VisualBrush x:Key="Description" TileMode="None" Stretch="None" AlignmentX="Left" AlignmentY="Top">
+            <VisualBrush.Transform>
+                <TranslateTransform X="5" Y="5" />
+            </VisualBrush.Transform>
+            <VisualBrush.Visual>
+                <Grid>
+                    <TextBlock FontStyle="Italic" Foreground="Black" Opacity="0.5" Text="Indtast beskrivelse til øvelsen"/>
+                </Grid>
+            </VisualBrush.Visual>
+        </VisualBrush>
+
+        <!--Set's the watermark for the title textbox-->        
+        <VisualBrush x:Key="Title"  TileMode="None" Stretch="None" AlignmentX="Left" AlignmentY="Center">
+            <VisualBrush.Transform>
+                <TranslateTransform X="5" Y="0"/>
+            </VisualBrush.Transform>
+            <VisualBrush.Visual>
+                <TextBlock FontStyle="Italic" Foreground="black" Opacity="0.5" Text="Indtast title til øvelsen"/>
+            </VisualBrush.Visual>
+        </VisualBrush>
+
 
     </Application.Resources>
 </Application>
