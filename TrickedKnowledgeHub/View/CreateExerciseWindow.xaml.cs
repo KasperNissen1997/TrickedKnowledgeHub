@@ -67,7 +67,7 @@ namespace TrickedKnowledgeHub
                 Game_ComboBox.SelectedItem = null;
                 Rating_ComboBox.SelectedItem = null;
 
-                ViewModel.CreateExerciseViewReset(ViewModel);
+                ViewModel.CreateExerciseViewReset();
             }
         }
     }

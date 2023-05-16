@@ -215,43 +215,29 @@ namespace TrickedKnowledgeHub.ViewModel
             AvailableLearningObjectives = new();
             AvailableFocusPoints = new();
 
-            foreach (Game game in RepositoryManager.GameRepository.RetrieveAll())
-            {
-                AvailableGames.Add(new(game));
-            }
-
-            foreach (LearningObjective learningObjective in RepositoryManager.LearningObjectiveRepository.RetrieveAll())
-                if (learningObjective.Parent == null)
-                    AvailableLearningObjectives.Add(new(learningObjective));
-
-            foreach (FocusPoint focusPoint in RepositoryManager.FocusPointRepository.RetrieveAll())
-                if (focusPoint.Parent.Parent == null)
-                    AvailableFocusPoints.Add(new(focusPoint));
-
-            Ratings = Rating.GetValues<Rating>().ToList();
+            CreateExerciseViewReset();
         }
 
-        public void CreateExerciseViewReset(CreateExerciseWindowViewVM vm)
+        public void CreateExerciseViewReset()
         {
-                vm.AvailableGames.Clear();
-                vm.AvailableFocusPoints.Clear();
-                vm.AvailableLearningObjectives.Clear();
-                vm.Ratings.Clear();
+                AvailableGames.Clear();
+                AvailableFocusPoints.Clear();
+                AvailableLearningObjectives.Clear();
 
                 foreach (Game game in RepositoryManager.GameRepository.RetrieveAll())
                 {
-                    vm.AvailableGames.Add(new(game));
+                    AvailableGames.Add(new(game));
                 }
 
                 foreach (LearningObjective learningObjective in RepositoryManager.LearningObjectiveRepository.RetrieveAll())
                     if (learningObjective.Parent == null)
-                        vm.AvailableLearningObjectives.Add(new(learningObjective));
+                        AvailableLearningObjectives.Add(new(learningObjective));
 
                 foreach (FocusPoint focusPoint in RepositoryManager.FocusPointRepository.RetrieveAll())
                     if (focusPoint.Parent.Parent == null)
-                        vm.AvailableFocusPoints.Add(new(focusPoint));
+                        AvailableFocusPoints.Add(new(focusPoint));
 
-                vm.Ratings = Rating.GetValues<Rating>().ToList();
+                Ratings = Rating.GetValues<Rating>().ToList();
             
         }
 
