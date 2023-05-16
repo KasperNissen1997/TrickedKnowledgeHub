@@ -242,7 +242,7 @@ namespace TrickedKnowledgeHub.ViewModel
             Ratings = Rating.GetValues<Rating>().ToList();
 
             CreateExerciseWindowVM.MainWindowViewVM = this;
-
+            CreateExerciseWindowVM.ActiveUser = ActiveUser;
             ExerciseVMs = new();
             foreach (Exercise exercise in RepositoryManager.ExerciseRepository.RetrieveAll())
                 ExerciseVMs.Add(new ExerciseVM(exercise));
