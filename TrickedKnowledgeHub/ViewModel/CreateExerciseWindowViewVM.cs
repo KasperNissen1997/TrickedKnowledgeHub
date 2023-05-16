@@ -235,10 +235,7 @@ namespace TrickedKnowledgeHub.ViewModel
 
                 foreach (FocusPoint focusPoint in RepositoryManager.FocusPointRepository.RetrieveAll())
                     if (focusPoint.Parent.Parent == null)
-                        AvailableFocusPoints.Add(new(focusPoint));
-
-                Ratings = Rating.GetValues<Rating>().ToList();
-            
+                        AvailableFocusPoints.Add(new(focusPoint));            
         }
 
         private string _fileName;
