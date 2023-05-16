@@ -11,6 +11,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TrickedKnowledgeHub.Model.Repo;
+using TrickedKnowledgeHub.Model;
+using TrickedKnowledgeHub.ViewModel;
+using Microsoft.Identity.Client;
 
 namespace TrickedKnowledgeHub
 {
@@ -22,7 +26,7 @@ namespace TrickedKnowledgeHub
         public Create_exercise_window()
         {
             InitializeComponent();
-
+            
         }
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
@@ -52,6 +56,19 @@ namespace TrickedKnowledgeHub
 
             grid.Visibility = Visibility.Collapsed;
             rec.Visibility = Visibility.Collapsed;
+        }
+
+        private void Reset_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is CreateExerciseWindowViewVM ViewModel)
+            {
+                FocusPoint_ComboBox.SelectedItem = null;
+                LearningObjective_ComboBox.SelectedItem = null;
+                Game_ComboBox.SelectedItem = null;
+                Rating_ComboBox.SelectedItem = null;
+
+                ViewModel.CreateExerciseViewReset(ViewModel);
+            }
         }
     }
 }

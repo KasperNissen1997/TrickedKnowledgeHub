@@ -89,15 +89,15 @@ namespace TrickedKnowledgeHub.ViewModel
                 _selectedGame = value;
                 OnPropertyChanged(nameof(SelectedGame));
 
-                if (SelectedLearningObjective != null && !SelectedGame.Objectives.Contains(SelectedLearningObjective))
+                if (SelectedGame != null)
                 {
-                    SelectedLearningObjective = null;
+                    if (SelectedLearningObjective != null && !SelectedGame.Objectives.Contains(SelectedLearningObjective))
+                    {
+                        SelectedLearningObjective = null;
+                    }
+
+                    AvailableLearningObjectives = SelectedGame.Objectives;
                 }
-
-                AvailableLearningObjectives = SelectedGame.Objectives;
-
-
-
             }
         }
 
@@ -207,6 +207,8 @@ namespace TrickedKnowledgeHub.ViewModel
         public SelectMaterialCommand SelectMaterialCommand { get; set; } = new();
         #endregion
 
+        
+
         public CreateExerciseWindowViewVM()
         {
             AvailableGames = new();
@@ -227,6 +229,30 @@ namespace TrickedKnowledgeHub.ViewModel
                     AvailableFocusPoints.Add(new(focusPoint));
 
             Ratings = Rating.GetValues<Rating>().ToList();
+        }
+
+        public void CreateExerciseViewReset(CreateExerciseWindowViewVM vm)
+        {
+                vm.AvailableGames.Clear();
+                vm.AvailableFocusPoints.Clear();
+                vm.AvailableLearningObjectives.Clear();
+                vm.Ratings.Clear();
+
+                foreach (Game game in RepositoryManager.GameRepository.RetrieveAll())
+                {
+                    vm.AvailableGames.Add(new(game));
+                }
+
+                foreach (LearningObjective learningObjective in RepositoryManager.LearningObjectiveRepository.RetrieveAll())
+                    if (learningObjective.Parent == null)
+                        vm.AvailableLearningObjectives.Add(new(learningObjective));
+
+                foreach (FocusPoint focusPoint in RepositoryManager.FocusPointRepository.RetrieveAll())
+                    if (focusPoint.Parent.Parent == null)
+                        vm.AvailableFocusPoints.Add(new(focusPoint));
+
+                vm.Ratings = Rating.GetValues<Rating>().ToList();
+            
         }
 
         private string _fileName;
