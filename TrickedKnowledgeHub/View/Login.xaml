@@ -15,6 +15,8 @@
         <TextBox x:Name="txtUserName" HorizontalAlignment="Left" Margin="293,169,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="197" Height="29" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
         <Label x:Name="lblLoginError" HorizontalAlignment="Left" Margin="293,303,0,0" VerticalAlignment="Top" Height="80" Width="197" Content="Error message her...."/>
         <Label x:Name="___No_Name_" Content="TrickedKnowledgeHub" HorizontalAlignment="Left" Margin="215,37,0,0" VerticalAlignment="Top" FontSize="36"/>
-        <components:BindablePasswordBox x:Name="txtPassword" HorizontalAlignment="Left" Margin="293,271,0,0" VerticalAlignment="Top" Width="197" Height="29"/>
+        <components:BindablePasswordBox x:Name="txtPassword" HorizontalAlignment="Left" Margin="293,271,0,0" VerticalAlignment="Top" Width="197" Height="29"
+                                        Password="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        
     </Grid>
 </Window>
