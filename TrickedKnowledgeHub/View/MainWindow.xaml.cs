@@ -27,6 +27,7 @@ namespace TrickedKnowledgeHub
         public ExercisePage ExercisePage { get; set; } = new();
         MainWindowViewVM vm = new();
         Create_exercise_window create_Exercise = new();
+
         public MainWindow()
         {
 
