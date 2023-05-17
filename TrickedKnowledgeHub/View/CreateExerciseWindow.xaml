@@ -13,6 +13,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
@@ -27,60 +28,75 @@
         </Grid.RowDefinitions>
 
 
-        <Image Source="/Img/TrickedLog.jpg" Grid.Column="3" Width="100" Height="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0"/>
+        <Image Source="/Img/TrickedLog.jpg" Grid.Column="4" Width="100" Height="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0"/>
 
-        <Button x:Name="Cancel_Button" Content="Cancel" Width="150" Height="50" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"    Foreground="White"  Background="#FFB70F0F"  FontWeight="Bold" FontStyle="Italic" Click="Cancel_Button_Click">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5"/>
-                </Style>
-            </Button.Resources>
-        </Button>
+        <Button Style="{StaticResource CustomButtonStyle}" Command="{Binding CreateExerciseCommand}" CommandParameter="{Binding}" 
+                x:Name="Create_Button" Content="Create" Width="150" Height="50" FontWeight="Bold"
+                Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"    
+                Foreground="White" Background="#297a18" BorderBrush="#FF297A18" Click="Create_Exercise" />
 
-        <Button x:Name="Reset_Button" Content="Reset" Width="100" Height="50" Grid.Column="3" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"    Foreground="White"  Background="Orange"  FontWeight="Bold" FontStyle="Italic" Click="Reset_Button_Click">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5"/>
-                </Style>
-            </Button.Resources>
-        </Button>
+        <Button Style="{StaticResource CustomButtonStyle}" 
+                x:Name="Cancel_Button" Content="Cancel" Width="150" Height="50" FontWeight="Bold" FontStyle="Italic" 
+                Grid.Column="3" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"
+                Foreground="White"  Background="#FFB70F0F" Click="Cancel_Button_Click"/>
 
-        <Button x:Name="Create_Button" Command="{Binding CreateExerciseCommand}" CommandParameter="{Binding}" Content="Create" Width="150" Height="50" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"    Foreground="White"  Background="#297a18"    FontWeight="Bold" BorderBrush="#FF297A18" Click="Create_Exercise" >
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5"/>
-                </Style>
-            </Button.Resources>
-        </Button>
+        <Button Style="{StaticResource CustomButtonStyle}" 
+                x:Name="Reset_Button" Content="Reset" Width="100" Height="50" FontWeight="Bold" FontStyle="Italic"
+                Grid.Column="4" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"    
+                Foreground="White"  Background="Orange" Click="Reset_Button_Click"/>
 
-        <Label Content="Title*" HorizontalAlignment="Left" Margin="50,0,0,50" VerticalAlignment="Bottom"/>
-        <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" x:Name="Title_TextBox" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Width="300" Height="25" Margin="50,0,50,30" VerticalAlignment="Bottom">
-            <TextBox.Style>
-                <Style TargetType="TextBox">
-                    <Style.Triggers>
-                        <Trigger Property="Text" Value="">
-                            <Setter Property="Background" Value="{StaticResource Title}"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBox.Style>
-        </TextBox>
 
-        <Label Grid.Row="1" Content="Description*" Margin="50,0,0,0" VerticalAlignment="Top"/>
+        <Grid Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" x:Name="Description_TextBox" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="50,30,50,30" FontStyle="Italic" TextWrapping="Wrap">
-            <TextBox.Style>
-                <Style TargetType="TextBox">
-                    <Style.Triggers>
-                        <Trigger Property="Text" Value="">
-                            <Setter Property="Background" Value="{StaticResource Description}"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBox.Style>
-        </TextBox>
+            <Label Content="Title*" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+            <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" 
+                 x:Name="Title_TextBox" Width="400" Height="25" VerticalAlignment="Center" HorizontalAlignment="Left"
+                 Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Style.Triggers>
+                            <Trigger Property="Text" Value="">
+                                <Setter Property="Background" Value="{StaticResource Title}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+        </Grid>
 
-        <Grid Grid.Column="2" Grid.Row="1">
+
+        <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="1" Content="Description*" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+
+            <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" x:Name="Description_TextBox" 
+                 Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" 
+                 Width="400" Height="200" FontStyle="Italic" TextWrapping="Wrap" HorizontalAlignment="Left">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Style.Triggers>
+                            <Trigger Property="Text" Value="">
+                                <Setter Property="Background" Value="{StaticResource Description}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            
+        </Grid>
+
+        <Grid Grid.Column="3" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -110,14 +126,19 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-
-            <Label Content="Rating" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-            <ComboBox ItemsSource="{Binding Ratings}" SelectedItem="{Binding SelectedRating}" 
-                      x:Name="Rating_ComboBox" Grid.Row="2" Width="125" Height="30" 
-                      VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <Label Content="Focus Point*" Grid.Row="2"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <ComboBox ItemsSource="{Binding AvailableFocusPoints}" SelectedItem="{Binding SelectedFocusPoint}" x:Name="FocusPoint_ComboBox" 
+                      Grid.Row="2" Width="125" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding Title}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            
         </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="3">
+        <Grid Grid.Row="1" Grid.Column="4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -126,25 +147,18 @@
             </Grid.RowDefinitions>
 
             <Label Content="Select Material...*" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Button Command="{Binding SelectMaterialCommand}" CommandParameter="{Binding}" Content="Vælg..." FontStyle="Italic" Width="100" Height="29" 
+            <Button Style="{StaticResource CustomButtonStyle}" Command="{Binding SelectMaterialCommand}" CommandParameter="{Binding}" Content="Vælg..." FontStyle="Italic" Width="100" Height="29" 
                     Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
-            <Label Content="Focus Point*" Grid.Row="1"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <ComboBox ItemsSource="{Binding AvailableFocusPoints}" SelectedItem="{Binding SelectedFocusPoint}" x:Name="FocusPoint_ComboBox" 
-                      Grid.Row="1" Width="125" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <Label Content="{Binding Title}"/>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+            <Label Content="Rating" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            <ComboBox ItemsSource="{Binding Ratings}" SelectedItem="{Binding SelectedRating}" 
+                      x:Name="Rating_ComboBox" Grid.Row="1" Width="125" Height="30" 
+                      VerticalAlignment="Center" HorizontalAlignment="Left"/>
 
             <TextBlock Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" TextWrapping="Wrap" 
                        VerticalAlignment="Center" HorizontalAlignment="Left" MaxWidth="100" Height="auto" 
                        FontStyle="Italic" FontSize="10"/>
-
         </Grid>
-        
         
     </Grid>
 </Page>
