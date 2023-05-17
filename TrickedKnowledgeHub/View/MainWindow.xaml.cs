@@ -75,7 +75,7 @@ namespace TrickedKnowledgeHub
                     RepositoryManager.ExerciseRepository.Reset();
                 }
             }
-        
+        }
 
         private void FeedListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
