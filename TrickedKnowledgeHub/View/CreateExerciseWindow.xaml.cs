@@ -15,6 +15,8 @@ using TrickedKnowledgeHub.Model.Repo;
 using TrickedKnowledgeHub.Model;
 using TrickedKnowledgeHub.ViewModel;
 using Microsoft.Identity.Client;
+using System.Runtime.ConstrainedExecution;
+using TrickedKnowledgeHub.Command.CreateExerciseWindowCommand;
 
 namespace TrickedKnowledgeHub
 {
@@ -23,10 +25,11 @@ namespace TrickedKnowledgeHub
     /// </summary>
     public partial class Create_exercise_window : Page
     {
+        CreateExerciseWindowViewVM vm = new();
         public Create_exercise_window()
         {
             InitializeComponent();
-            
+
         }
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
@@ -39,6 +42,8 @@ namespace TrickedKnowledgeHub
             string message = "Øvelsen er hermed gemt :)";
             string title = "Gemt Øvelse";
             MessageBox.Show(message, title);
+            CreateExerciseCommand cem = new();
+            cem.Execute((CreateExerciseWindowViewVM)DataContext);
             FrameClose();
         }
 
@@ -56,6 +61,14 @@ namespace TrickedKnowledgeHub
 
             grid.Visibility = Visibility.Collapsed;
             rec.Visibility = Visibility.Collapsed;
+
+            FocusPoint_ComboBox.SelectedItem = null;
+            LearningObjective_ComboBox.SelectedItem = null;
+            Game_ComboBox.SelectedItem = null;
+            Rating_ComboBox.SelectedItem = null;
+
+            vm.CreateExerciseViewReset();
+
         }
 
         private void Reset_Button_Click(object sender, RoutedEventArgs e)
@@ -68,6 +81,8 @@ namespace TrickedKnowledgeHub
                 Rating_ComboBox.SelectedItem = null;
 
                 ViewModel.CreateExerciseViewReset();
+
+                Description_TextBox = null;
             }
         }
     }

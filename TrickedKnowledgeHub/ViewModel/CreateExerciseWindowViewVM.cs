@@ -216,6 +216,8 @@ namespace TrickedKnowledgeHub.ViewModel
             AvailableFocusPoints = new();
 
             CreateExerciseViewReset();
+
+            Ratings = Rating.GetValues<Rating>().ToList();
         }
 
         public void CreateExerciseViewReset()
