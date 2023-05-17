@@ -41,41 +41,41 @@ namespace TrickedKnowledgeHub
 
 
 
-            //DBUpdate();
+            DBUpdate();
         }
 
         
 
-        //public async void DBUpdate()
-        //{
-        //    var timer = new PeriodicTimer(TimeSpan.FromSeconds(5));
-        //    MainWindowViewVM mainWindowViewVM = (MainWindowViewVM)DataContext;
+        public async void DBUpdate()
+        {
+            var timer = new PeriodicTimer(TimeSpan.FromSeconds(5));
+            MainWindowViewVM mainWindowViewVM = (MainWindowViewVM)DataContext;
 
-        //    //ObservableCollection<ExerciseVM> exerciseVMs = new ObservableCollection<ExerciseVM>();
-        //    List<Exercise> temp = new List<Exercise>();
+            //ObservableCollection<ExerciseVM> exerciseVMs = new ObservableCollection<ExerciseVM>();
+            List<Exercise> temp = new List<Exercise>();
 
 
-        //    while (await timer.WaitForNextTickAsync())
-        //    {
-        //        List<Exercise> exercises = RepositoryManager.ExerciseRepository.RetrieveAll();
+            while (await timer.WaitForNextTickAsync())
+            {
+                List<Exercise> exercises = RepositoryManager.ExerciseRepository.RetrieveAll();
 
-        //        if (!exercises.SequenceEqual(temp))
-        //        {
-        //            mainWindowViewVM.ExerciseVMs.Clear();
-        //            foreach (var exercise in exercises)
-        //            {
-        //                mainWindowViewVM.ExerciseVMs.Add(new ExerciseVM(exercise));
-        //            }
+                if (!exercises.SequenceEqual(temp))
+                {
+                    mainWindowViewVM.ExerciseVMs.Clear();
+                    foreach (var exercise in exercises)
+                    {
+                        mainWindowViewVM.ExerciseVMs.Add(new ExerciseVM(exercise));
+                    }
 
-        //            //mainWindowViewVM.ExerciseVMs = exerciseVMs;
-        //            temp = exercises;
-        //        }
-        //        else
-        //        {
-        //            RepositoryManager.ExerciseRepository.Reset();
-        //        }
-        //    }
-        //}
+                    //mainWindowViewVM.ExerciseVMs = exerciseVMs;
+                    temp = exercises;
+                }
+                else
+                {
+                    RepositoryManager.ExerciseRepository.Reset();
+                }
+            }
+        
 
         private void FeedListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
