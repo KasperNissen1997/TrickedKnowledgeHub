@@ -41,6 +41,7 @@ namespace TrickedKnowledgeHub.Model.Repo
                         Rating? rating = null;
                         if (!string.IsNullOrEmpty(ratingString)) { rating = (Rating)Enum.Parse(typeof(Rating), ratingString); } //If the ratingString is not null then set the rating to the converted Enum type
                         string F_Title = dr["F_Title"].ToString();
+                        int LO_ID = Int32.Parse(dr["LO_ID"].ToString());
 
                         Employee associatedEmployee;
                         Game? associatedGame;
@@ -50,13 +51,13 @@ namespace TrickedKnowledgeHub.Model.Repo
                         {
                             associatedEmployee = RepositoryManager.TestEmployeeRepository.Retrieve(Mail);
                             associatedGame = RepositoryManager.TestGameRepository.Retrieve(G_Title);
-                            associatedFocusPoint = RepositoryManager.TestFocusPointRepository.Retrieve(F_Title);
+                            associatedFocusPoint = RepositoryManager.TestFocusPointRepository.Retrieve(F_Title, LO_ID);
                         }
                         else
                         {
                             associatedEmployee = RepositoryManager.EmployeeRepository.Retrieve(Mail);
                             associatedGame = RepositoryManager.GameRepository.Retrieve(G_Title);
-                            associatedFocusPoint = RepositoryManager.FocusPointRepository.Retrieve(F_Title);
+                            associatedFocusPoint = RepositoryManager.FocusPointRepository.Retrieve(F_Title, LO_ID);
                         }
 
                         Exercise exercise = new(ID, Title, description, Material, Time, associatedEmployee, associatedGame, associatedFocusPoint, rating);
