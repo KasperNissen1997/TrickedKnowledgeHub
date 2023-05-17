@@ -129,7 +129,7 @@ namespace RepositoryTestProject
             Employee author = employeeRepo.Retrieve("test@test.com");
             Game game = gameRepo.Retrieve("CS:GO");
             LearningObjective learningObjective = learningObjectiveRepo.Retrieve(1);
-            FocusPoint focusPoint = focusPointRepo.Retrieve("Spray");
+            FocusPoint focusPoint = focusPointRepo.Retrieve("Spray", learningObjective.ID);
             Rating rating = Rating.Begynder;
 
             //Act
@@ -167,7 +167,7 @@ namespace RepositoryTestProject
             Employee author = employeeRepo.Retrieve("test@test.com");
             Game game = gameRepo.Retrieve("CS:GO");
             LearningObjective learningObjective = learningObjectiveRepo.Retrieve(1);
-            FocusPoint focusPoint = focusPointRepo.Retrieve("Spray");
+            FocusPoint focusPoint = focusPointRepo.Retrieve("Spray", learningObjective.ID);
             Rating rating = Rating.Begynder;
 
             // Act

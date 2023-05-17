@@ -119,7 +119,8 @@ namespace RepositoryTestProject
             string title = "Pop flashes (D2)";
 
             // Act
-            FocusPoint popFlashesD2FocusPoint = focusPointRepo.Retrieve(title);
+            LearningObjective learningObjective = learningObjectiveRepo.Retrieve(2);
+            FocusPoint popFlashesD2FocusPoint = focusPointRepo.Retrieve(title, learningObjective.ID);
 
             // Assert
             Assert.AreEqual("Title: Pop flashes (D2), Parent: 2", popFlashesD2FocusPoint.ToString());
