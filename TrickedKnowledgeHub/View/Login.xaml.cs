@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +14,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TrickedKnowledgeHub.Model;
+using TrickedKnowledgeHub.Model.Repo;
 using TrickedKnowledgeHub.ViewModel;
 
-namespace TrickedKnowledgeHub
+namespace TrickedKnowledgeHub.View
 {
     /// <summary>
     /// Interaction logic for Login.xaml
@@ -26,7 +28,6 @@ namespace TrickedKnowledgeHub
 
         public Login()
         {
-            
             InitializeComponent();
 
             VM = new LoginViewModel();
@@ -35,9 +36,30 @@ namespace TrickedKnowledgeHub
 
         private void bntLogin_Click(object sender, RoutedEventArgs e)
         {
+            Employee employee;
 
+            try
+            {
+                employee = RepositoryManager.EmployeeRepository.Retrieve(VM.Username);
+            }
+            catch (Exception)
+            {
+                Trace.WriteLine($"Error finding employee with username {VM.Username}");
+                return;
+            }
+
+            if (employee.Password.Equals(VM.Password))
+            {
+                Trace.WriteLine("Login succesfull!");
+
+                MainWindow mainWindow = new();
+
+                if (mainWindow.DataContext is MainWindowViewVM mainWindowVM)
+                    mainWindowVM.ActiveUser = new(employee);
+
+                mainWindow.Show();
+                Close();
+            }
         }
-
-
     }
 }
