@@ -17,6 +17,7 @@ using TrickedKnowledgeHub.ViewModel;
 using Microsoft.Identity.Client;
 using System.Runtime.ConstrainedExecution;
 using TrickedKnowledgeHub.Command.CreateExerciseWindowCommand;
+using System.Windows.Media.Media3D;
 
 namespace TrickedKnowledgeHub
 {
@@ -25,7 +26,6 @@ namespace TrickedKnowledgeHub
     /// </summary>
     public partial class Create_exercise_window : Page
     {
-        CreateExerciseWindowViewVM vm = new();
         public Create_exercise_window()
         {
             InitializeComponent();
@@ -62,13 +62,17 @@ namespace TrickedKnowledgeHub
             grid.Visibility = Visibility.Collapsed;
             rec.Visibility = Visibility.Collapsed;
 
-            FocusPoint_ComboBox.SelectedItem = null;
-            LearningObjective_ComboBox.SelectedItem = null;
-            Game_ComboBox.SelectedItem = null;
-            Rating_ComboBox.SelectedItem = null;
+            if (DataContext is CreateExerciseWindowViewVM ViewModel)
+            {
+                FocusPoint_ComboBox.SelectedItem = null;
+                LearningObjective_ComboBox.SelectedItem = null;
+                Game_ComboBox.SelectedItem = null;
+                Rating_ComboBox.SelectedItem = null;
+                Description_TextBox.Text = null;
+                Title_TextBox.Text = null;
 
-            vm.CreateExerciseViewReset();
-
+                ViewModel.CreateExerciseViewReset();
+            }
         }
 
         private void Reset_Button_Click(object sender, RoutedEventArgs e)
@@ -79,10 +83,12 @@ namespace TrickedKnowledgeHub
                 LearningObjective_ComboBox.SelectedItem = null;
                 Game_ComboBox.SelectedItem = null;
                 Rating_ComboBox.SelectedItem = null;
+                Description_TextBox.Text = null;
+                Title_TextBox.Text = null;
 
                 ViewModel.CreateExerciseViewReset();
 
-                Description_TextBox = null;
+
             }
         }
     }
