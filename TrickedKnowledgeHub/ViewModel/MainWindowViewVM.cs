@@ -10,6 +10,7 @@ using TrickedKnowledgeHub.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Navigation;
+using System.Collections.Specialized;
 
 namespace TrickedKnowledgeHub.ViewModel
 {
@@ -246,6 +247,8 @@ namespace TrickedKnowledgeHub.ViewModel
             ExerciseVMs = new();
             foreach (Exercise exercise in RepositoryManager.ExerciseRepository.RetrieveAll())
                 ExerciseVMs.Add(new ExerciseVM(exercise));
+
+            ExerciseVMs.CollectionChanged += new NotifyCollectionChangedEventHandler(OnCollectionChanged);
         }
 
         /// <summary>
@@ -292,6 +295,11 @@ namespace TrickedKnowledgeHub.ViewModel
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(VisibleExercises));
         }
         #endregion
     }
