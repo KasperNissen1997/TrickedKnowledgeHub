@@ -37,14 +37,14 @@ namespace TrickedKnowledgeHub
 
             ExercisePage.DataContext = vm.ExercisePageVM;
 
-           
+
 
 
 
             DBUpdate();
         }
 
-        
+
 
         public async void DBUpdate()
         {
