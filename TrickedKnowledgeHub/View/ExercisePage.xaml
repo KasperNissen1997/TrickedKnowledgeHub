@@ -17,37 +17,46 @@
     </Page.Background>
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
+            
+
+            <Image Source="/Img/TrickedLog.jpg" Grid.Row="0" Grid.Column="1"/>
+            <TextBlock Grid.Column="1" Grid.Row="1" FontSize="20"
+                       Text="{Binding SelectedExercise.Author.Name, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <TextBlock Grid.Column="1" Grid.Row="2" FontSize="20"
+                       Text="{Binding SelectedExercise.Author.Type}"/>
         
-        
-        <Grid Grid.Row="0"><!--Row one author name and type-->
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
-            <Image Source="/Img/TrickedLog.jpg"/>
-            <TextBlock Grid.Column="1" Text="{Binding SelectedExercise.Author.Name, UpdateSourceTrigger=PropertyChanged}" FontSize="20" />
-            <TextBlock Grid.Column="2" Text="{Binding SelectedExercise.Author.Type}" FontSize="20"/>
-            <Button x:Name="Frame_Collapsed" Grid.Column="3" Click="Frame_Collapsed_Click">
+            <Button x:Name="Frame_Collapsed" Grid.Column="4" Click="Frame_Collapsed_Click">
                 <Image Source="/Img/closeicon.jpg" Width="auto" Height="auto"/>
             </Button>
-        </Grid>
-        <Grid Grid.Row="1"><!--Row two Title for exercise-->
+
+        <Grid Grid.Row="1" Grid.Column="2">
             <TextBlock Text="{Binding SelectedExercise.Title}" FontSize=" 20"/>
         </Grid>
-        <Grid Grid.Row="2"><!--Row three Description-->
+
+        <Grid Grid.Row="2" Grid.Column="2" >
             <TextBlock Text="{Binding SelectedExercise.Description}" TextWrapping="Wrap" FontSize="20"/>
         </Grid>
-        <Grid Grid.Row="3" Margin="0,2"><!--Row four game LO FP-->
+
+        <Button Grid.Row="3" Grid.Column="3"
+                x:Name="Material_Download_Button" Content="Download" Command="{Binding DownloadMaterialCommand}" CommandParameter="{Binding}"/>
+
+        <Grid Grid.Row="3" Grid.Column="2" ><!--Row four game LO FP-->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -56,6 +65,8 @@
             <TextBlock Text="{Binding SelectedExercise.Game.Title}" FontSize="20" Grid.Column="0"/>
             <TextBlock Text="{Binding SelectedExercise.LearningObjective.Title}" FontSize="20" Grid.Column="1"/>
             <TextBlock Text="{Binding SelectedExercise.FocusPoint.Title}" FontSize="20" Grid.Column="2"/>
+            
+            
         </Grid>
         <Grid Grid.Row="4"><!--Row five Rating and missing filename downloadButton-->
             <Grid.ColumnDefinitions>
@@ -66,8 +77,7 @@
             <TextBlock Text="{Binding SelectedExercise.Rating}" FontSize="20" Grid.Column="0"/>
             <TextBlock Text="Filens navn(Filename er kun sat op i CreateExerciseWindow)"
                        TextWrapping="Wrap" FontSize="20" Grid.Column="1"/>
-            <Button x:Name="Material_Download_Button" Content="Download øvelse" Command="{Binding DownloadMaterialCommand}" CommandParameter="{Binding}" Grid.Column="3"/>
-        </Grid>
+                    </Grid>
 
 
     </Grid>
