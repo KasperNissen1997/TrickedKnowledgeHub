@@ -183,6 +183,11 @@ namespace TrickedKnowledgeHub.Model.Repo
             exerciseList.Remove(exercise);
         }
 
+        public void Update(int id, string title, string description, byte[] material, Game? game, FocusPoint? focuspoint, Rating? rating)
+        {
+
+        }
+
         #endregion
     }
 }

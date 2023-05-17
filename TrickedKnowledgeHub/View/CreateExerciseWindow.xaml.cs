@@ -87,8 +87,6 @@ namespace TrickedKnowledgeHub
                 Title_TextBox.Text = null;
 
                 ViewModel.CreateExerciseViewReset();
-
-
             }
         }
     }

@@ -11,7 +11,7 @@
     
 
     <Page.DataContext>
-        <vm:UpdatePageVM/>
+        <vm:CreateExerciseWindowViewVM/>
     </Page.DataContext>
     
     <Page.Background>
@@ -51,7 +51,7 @@
             </Button.Resources>
         </Button>
 
-        <Button x:Name="Create_Button" Content="Create" Width="150" Height="50" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"    Foreground="White"  Background="#297a18"    FontWeight="Bold" BorderBrush="#FF297A18" >
+        <Button x:Name="Update_Button" Content="Update" Width="150" Height="50" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"    Foreground="White"  Background="#297a18"    FontWeight="Bold" BorderBrush="#FF297A18" Click="Update_Button_Click" >
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>

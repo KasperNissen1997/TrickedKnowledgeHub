@@ -68,10 +68,18 @@
                        TextWrapping="Wrap" FontSize="20" Grid.Column="1"/>
             <Button x:Name="Material_Download_Button" Content="Download øvelse" Command="{Binding DownloadMaterialCommand}" CommandParameter="{Binding}" Grid.Column="3"/>
         </Grid>
-            
+
+        <Grid Grid.Row="5">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="Edit_Button" Content="Edit Exercise" Grid.Column="3" Click="Edit_Click"/>
+        </Grid>
+        
         <Grid Grid.Row="5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>

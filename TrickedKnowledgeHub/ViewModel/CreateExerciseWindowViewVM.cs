@@ -220,7 +220,7 @@ namespace TrickedKnowledgeHub.ViewModel
             Ratings = Rating.GetValues<Rating>().ToList();
         }
 
-        public void CreateExerciseViewReset()
+        public void CreateExerciseViewReset() //TODO: Needs to be made into a command in the future
         {
             AvailableGames.Clear();
             AvailableFocusPoints.Clear();

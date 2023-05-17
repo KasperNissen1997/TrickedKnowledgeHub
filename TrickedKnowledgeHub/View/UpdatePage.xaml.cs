@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TrickedKnowledgeHub.Model;
+using TrickedKnowledgeHub.ViewModel;
 
 namespace TrickedKnowledgeHub.View
 {
@@ -20,9 +22,24 @@ namespace TrickedKnowledgeHub.View
     /// </summary>
     public partial class UpdatePage : Page
     {
-        public UpdatePage()
+        UpdatePageVM vm = new();
+        public UpdatePage(Exercise selectedExercise)
         {
             InitializeComponent();
+
+            // Set the data context of the UpdatePage to the selected exercise
+            DataContext = selectedExercise;
+        }
+
+        private void Update_Button_Click(object sender, RoutedEventArgs e) //TODO: Make this into a command in the future
+        {
+            if (DataContext is ExercisePage view)
+            {
+                //vm.Id
+                vm.Title = Title_TextBox.Text;
+                vm.Description = Description_TextBox.Text;
+                vm.Update();
+            }
         }
     }
 }

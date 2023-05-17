@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TrickedKnowledgeHub.Model;
+using TrickedKnowledgeHub.ViewModel.Domain;
 
 namespace TrickedKnowledgeHub.View
 {
@@ -43,6 +45,24 @@ namespace TrickedKnowledgeHub.View
             grid.Visibility = Visibility.Collapsed;
             rec.Visibility = Visibility.Collapsed;
 
+        }
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = (MainWindow)Window.GetWindow(this);
+
+            var selectedExercise = DataContext as Exercise;
+
+            UpdatePage updatePage = new(selectedExercise);
+
+            Frame frameExercise = mainWindow.FrameExercise;
+
+            updatePage.Content = selectedExercise;
+
+            frameExercise.Content = updatePage;
+
+            frameExercise.Visibility = Visibility.Visible;
+
+            //Im so confused
         }
     }
 }
