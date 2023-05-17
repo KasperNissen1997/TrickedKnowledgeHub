@@ -43,6 +43,9 @@ namespace TrickedKnowledgeHub.Command.CreateExerciseWindowCommand
             if (parameter is CreateExerciseWindowViewVM vm)
             {
                 ExerciseVM exercise;
+
+                if (vm.SelectedRating == 0)
+                    vm.SelectedRating = null;
                 
                 if (vm.SelectedGame == null)
                 {

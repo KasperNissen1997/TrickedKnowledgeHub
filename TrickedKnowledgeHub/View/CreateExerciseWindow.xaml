@@ -36,6 +36,14 @@
             </Button.Resources>
         </Button>
 
+        <Button x:Name="Reset_Button" Content="Reset" Width="100" Height="50" Grid.Column="3" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"    Foreground="White"  Background="Orange"  FontWeight="Bold" FontStyle="Italic" Click="Reset_Button_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
         <Button x:Name="Create_Button" Command="{Binding CreateExerciseCommand}" CommandParameter="{Binding}" Content="Create" Width="150" Height="50" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"    Foreground="White"  Background="#297a18"    FontWeight="Bold" BorderBrush="#FF297A18" Click="Create_Exercise" >
             <Button.Resources>
                 <Style TargetType="Border">

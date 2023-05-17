@@ -89,15 +89,15 @@ namespace TrickedKnowledgeHub.ViewModel
                 _selectedGame = value;
                 OnPropertyChanged(nameof(SelectedGame));
 
-                if (SelectedLearningObjective != null && !SelectedGame.Objectives.Contains(SelectedLearningObjective))
+                if (SelectedGame != null)
                 {
-                    SelectedLearningObjective = null;
+                    if (SelectedLearningObjective != null && !SelectedGame.Objectives.Contains(SelectedLearningObjective))
+                    {
+                        SelectedLearningObjective = null;
+                    }
+
+                    AvailableLearningObjectives = SelectedGame.Objectives;
                 }
-
-                AvailableLearningObjectives = SelectedGame.Objectives;
-
-
-
             }
         }
 
@@ -171,8 +171,8 @@ namespace TrickedKnowledgeHub.ViewModel
 
             }
         }
-        private Rating _selectedRating;
-        public Rating SelectedRating
+        private Rating? _selectedRating;
+        public Rating? SelectedRating
         {
             get
             {
@@ -207,24 +207,35 @@ namespace TrickedKnowledgeHub.ViewModel
         public SelectMaterialCommand SelectMaterialCommand { get; set; } = new();
         #endregion
 
+        
+
         public CreateExerciseWindowViewVM()
         {
             AvailableGames = new();
             AvailableLearningObjectives = new();
             AvailableFocusPoints = new();
 
-            foreach (Game game in RepositoryManager.GameRepository.RetrieveAll())
-                AvailableGames.Add(new(game));
+            CreateExerciseViewReset();
+        }
 
-            foreach (LearningObjective learningObjective in RepositoryManager.LearningObjectiveRepository.RetrieveAll())
-                if (learningObjective.Parent == null)
-                    AvailableLearningObjectives.Add(new(learningObjective));
+        public void CreateExerciseViewReset()
+        {
+                AvailableGames.Clear();
+                AvailableFocusPoints.Clear();
+                AvailableLearningObjectives.Clear();
 
-            foreach (FocusPoint focusPoint in RepositoryManager.FocusPointRepository.RetrieveAll())
-                if (focusPoint.Parent.Parent == null)
-                    AvailableFocusPoints.Add(new(focusPoint));
+                foreach (Game game in RepositoryManager.GameRepository.RetrieveAll())
+                {
+                    AvailableGames.Add(new(game));
+                }
 
-            Ratings = Rating.GetValues<Rating>().ToList();
+                foreach (LearningObjective learningObjective in RepositoryManager.LearningObjectiveRepository.RetrieveAll())
+                    if (learningObjective.Parent == null)
+                        AvailableLearningObjectives.Add(new(learningObjective));
+
+                foreach (FocusPoint focusPoint in RepositoryManager.FocusPointRepository.RetrieveAll())
+                    if (focusPoint.Parent.Parent == null)
+                        AvailableFocusPoints.Add(new(focusPoint));            
         }
 
         private string _fileName;
