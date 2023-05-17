@@ -96,16 +96,16 @@ namespace RepositoryTestProject
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void Test_Retrieve_WrongTitle()
         {
             // Arrange
             string gameTitle = "Minecraft";
 
             // Act
-            gameRepo.Retrieve(gameTitle);
+            Game retrievedGame = gameRepo.Retrieve(gameTitle);
 
             // Assert
+            Assert.AreEqual(null, retrievedGame);
         }
     }
 }
