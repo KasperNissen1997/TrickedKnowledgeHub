@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.IdentityModel.Tokens;
+using System;
 using System.ComponentModel;
 using TrickedKnowledgeHub.Command.MainWindowCommand;
 using TrickedKnowledgeHub.Model;
@@ -71,6 +72,14 @@ namespace TrickedKnowledgeHub.ViewModel.Domain
             {
                 Rating = null;
             }
+
+            SelectedFileName = "temporary Filename";
+        }
+        private string _selectedFileName;
+        public string SelectedFileName
+        {
+            get { return _selectedFileName; }
+            set { _selectedFileName = value; }
         }
     }
 }
