@@ -72,6 +72,14 @@ namespace TrickedKnowledgeHub.ViewModel.Domain
                 Rating = null;
             }
         }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is ExerciseVM otherVM)
+                return Source.ExerciseID.Equals(otherVM.Source.ExerciseID);
+
+            return base.Equals(obj);
+        }
     }
 }
 
