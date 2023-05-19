@@ -99,8 +99,8 @@
                     Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Width="75"
                     x:Name="Material_Download_Button" Content="Download"/>
 
-            <TextBlock
-                       Grid.Row="3" TextWrapping="Wrap" FontSize="20" Grid.Column="1" Text="{Binding SelectedExercise.SelectedFileName}" />
+            <TextBlock Text="{Binding SelectedExercise.SelectedFileName}"
+                       Grid.Row="3" TextWrapping="Wrap" FontSize="20" Grid.Column="1"/>
 
         </Grid>
 
