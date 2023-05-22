@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:TrickedKnowledgeHub.View"
       xmlns:vm="clr-namespace:TrickedKnowledgeHub.ViewModel"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="1200"
       Title="ExercisePage">
     <Page.DataContext>
         <vm:ExercisePageVM/>
@@ -17,65 +17,101 @@
     </Page.Background>
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="15"/>
+        </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+                <RowDefinition Height="100"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        
-        
-        <Grid Grid.Row="0"><!--Row one author name and type-->
+
+        <Grid Grid.Column="1" Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <Image Source="/Img/TrickedLog.jpg"/>
-            <TextBlock Grid.Column="1" Text="{Binding SelectedExercise.Author.Name, UpdateSourceTrigger=PropertyChanged}" FontSize="20" />
-            <TextBlock Grid.Column="2" Text="{Binding SelectedExercise.Author.Type}" FontSize="20"/>
-            <Button x:Name="Frame_Collapsed" Grid.Column="3" Click="Frame_Collapsed_Click">
+
+            <Image Source="/Img/TrickedLog.jpg" Grid.Row="0" Grid.Column="0"/>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" VerticalAlignment="Bottom" FontWeight="Bold" FontSize="18"
+                           Text="{Binding SelectedExercise.Author.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Grid.Row="1" VerticalAlignment="Top" FontStyle="Italic" FontSize="16"
+                           Text="{Binding SelectedExercise.Author.Type}" />
+                
+            </Grid>
+        </Grid>
+        
+        <TextBlock Grid.Row="1" Grid.Column="1" Height="25"  Text="{Binding SelectedExercise.Title}" 
+                       FontSize="24" FontWeight="Bold" TextDecorations="Underline" />
+
+        <TextBlock Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Width="400"
+                   Text="{Binding SelectedExercise.Description}" TextWrapping="Wrap" FontSize="20" HorizontalAlignment="Left"/>
+
+        <Grid Grid.Row="2" Grid.Column="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Game" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="0" FontSize="14"/>
+            <TextBlock Text="{Binding SelectedExercise.Game.Title}" FontSize="20" Grid.Row="0" Width="125" Height="30" 
+                      VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+            <Label Content="Learning objective" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" FontSize="14"/>
+            <TextBlock Text="{Binding SelectedExercise.LearningObjective.Title}" FontSize="20" Grid.Row="1" Width="125" Height="30" 
+                      VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+            <Label Content="Focus point" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="2" FontSize="14"/>
+            <TextBlock Text="{Binding SelectedExercise.FocusPoint.Title}" FontSize="20" Grid.Row="2" Width="125" Height="30" 
+                      VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Rating" Grid.Row="1" FontSize="14"/>
+            <TextBlock Text="{Binding SelectedExercise.Rating}" FontSize="20" Grid.Row="1" Width="125" Height="30" 
+                      VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+            <Button Command="{Binding DownloadMaterialCommand}" CommandParameter="{Binding}"
+                    Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Width="75"
+                    x:Name="Material_Download_Button" Content="Download"/>
+
+            <TextBlock Text="Filens navn(Filename er kun sat op i CreateExerciseWindow)" 
+                       Grid.Row="3" TextWrapping="Wrap" FontSize="20" Grid.Column="1"/>
+
+        </Grid>
+
+        <Grid Grid.Column="4" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="Frame_Collapsed" Grid.Column="1" Click="Frame_Collapsed_Click" HorizontalAlignment="Right">
                 <Image Source="/Img/closeicon.jpg" Width="auto" Height="auto"/>
             </Button>
-        </Grid>
-        <Grid Grid.Row="1"><!--Row two Title for exercise-->
-            <TextBlock Text="{Binding SelectedExercise.Title}" FontSize=" 20"/>
-        </Grid>
-        <Grid Grid.Row="2"><!--Row three Description-->
-            <TextBlock Text="{Binding SelectedExercise.Description}" TextWrapping="Wrap" FontSize="20"/>
-        </Grid>
-        <Grid Grid.Row="3" Margin="0,2"><!--Row four game LO FP-->
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="{Binding SelectedExercise.Game.Title}" FontSize="20" Grid.Column="0"/>
-            <TextBlock Text="{Binding SelectedExercise.LearningObjective.Title}" FontSize="20" Grid.Column="1"/>
-            <TextBlock Text="{Binding SelectedExercise.FocusPoint.Title}" FontSize="20" Grid.Column="2"/>
-        </Grid>
-        <Grid Grid.Row="4"><!--Row five Rating and missing filename downloadButton-->
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="{Binding SelectedExercise.Rating}" FontSize="20" Grid.Column="0"/>
-            <TextBlock Text="Filens navn(Filename er kun sat op i CreateExerciseWindow)"
-                       TextWrapping="Wrap" FontSize="20" Grid.Column="1"/>
-            <Button x:Name="Material_Download_Button" Content="Download øvelse" Command="{Binding DownloadMaterialCommand}" CommandParameter="{Binding}" Grid.Column="3"/>
-        </Grid>
-            
-        <Grid Grid.Row="5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="Exercise_Delete_Button" Content="Delete exercise" Command="{Binding DeleteExerciseCommand}" CommandParameter="{Binding}" Grid.Column="3" Click="Frame_Collapsed_Click"/>
         </Grid>
 
     </Grid>
