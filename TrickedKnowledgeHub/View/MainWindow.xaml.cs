@@ -38,16 +38,15 @@ namespace TrickedKnowledgeHub
             DataContext = vm;
             ExercisePage.DataContext = vm.ExercisePageVM;
 
-            DBUpdate();
+            BackgroundWorker bw = new BackgroundWorker();
+            bw.DoWork += new DoWorkEventHandler(DBUpdate);
+            bw.RunWorkerAsync();
         }
-
         
-
-        public async void DBUpdate()
+        public void DBUpdate(object sender, DoWorkEventArgs e)
         {
-            PeriodicTimer timer = new(TimeSpan.FromSeconds(5));
-
-            while (await timer.WaitForNextTickAsync())
+            BackgroundWorker worker = (BackgroundWorker) sender;
+            while (!worker.CancellationPending)
             {
                 List<ExerciseVM> knownExerciseVMs = vm.ExerciseVMs.ToList();
 
@@ -74,7 +73,7 @@ namespace TrickedKnowledgeHub
 
                 foreach (ExerciseVM exerciseToRemove in exercisesToRemove)
                     vm.ExerciseVMs.Remove(exerciseToRemove);
-                
+                Thread.Sleep(TimeSpan.FromSeconds(5));
             }
         }
 
