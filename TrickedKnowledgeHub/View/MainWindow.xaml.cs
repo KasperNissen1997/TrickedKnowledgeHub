@@ -73,7 +73,8 @@ namespace TrickedKnowledgeHub
 
                 foreach (ExerciseVM exerciseToRemove in exercisesToRemove)
                     vm.ExerciseVMs.Remove(exerciseToRemove);
-                Thread.Sleep(TimeSpan.FromSeconds(5));
+                
+                Thread.Sleep(TimeSpan.FromSeconds(0.5));
             }
         }
 
