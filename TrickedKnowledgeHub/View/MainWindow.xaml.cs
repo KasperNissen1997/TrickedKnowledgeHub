@@ -27,52 +27,54 @@ namespace TrickedKnowledgeHub
         public ExercisePage ExercisePage { get; set; } = new();
         MainWindowViewVM vm = new();
         Create_exercise_window create_Exercise = new();
+
+        private List<ExerciseVM> ExistingExerciseVMs = new();
+
         public MainWindow()
         {
 
             InitializeComponent();
 
             DataContext = vm;
-
             ExercisePage.DataContext = vm.ExercisePageVM;
 
-           
-
-
-
-            DBUpdate();
+            BackgroundWorker bw = new BackgroundWorker();
+            bw.DoWork += new DoWorkEventHandler(DBUpdate);
+            bw.RunWorkerAsync();
         }
-
         
-
-        public async void DBUpdate()
+        public void DBUpdate(object sender, DoWorkEventArgs e)
         {
-            var timer = new PeriodicTimer(TimeSpan.FromSeconds(5));
-            MainWindowViewVM mainWindowViewVM = (MainWindowViewVM)DataContext;
-
-            //ObservableCollection<ExerciseVM> exerciseVMs = new ObservableCollection<ExerciseVM>();
-            List<Exercise> temp = new List<Exercise>();
-
-
-            while (await timer.WaitForNextTickAsync())
+            BackgroundWorker worker = (BackgroundWorker) sender;
+            while (!worker.CancellationPending)
             {
-                List<Exercise> exercises = RepositoryManager.ExerciseRepository.RetrieveAll();
+                List<ExerciseVM> knownExerciseVMs = vm.ExerciseVMs.ToList();
 
-                if (!exercises.SequenceEqual(temp))
-                {
-                    mainWindowViewVM.ExerciseVMs.Clear();
-                    foreach (var exercise in exercises)
-                    {
-                        mainWindowViewVM.ExerciseVMs.Add(new ExerciseVM(exercise));
-                    }
+                ExistingExerciseVMs.Clear();
+                RepositoryManager.ExerciseRepository.Reset();
 
-                    //mainWindowViewVM.ExerciseVMs = exerciseVMs;
-                    temp = exercises;
-                }
-                else
-                {
-                    RepositoryManager.ExerciseRepository.Reset();
-                }
+                foreach (Exercise exercise in RepositoryManager.ExerciseRepository.RetrieveAll())
+                    ExistingExerciseVMs.Add(new(exercise));
+
+                List<ExerciseVM> exercisesToAdd = new();
+
+                foreach (ExerciseVM existingExercise in ExistingExerciseVMs)
+                    if (!knownExerciseVMs.Contains(existingExercise))
+                        exercisesToAdd.Add(existingExercise);
+
+                foreach (ExerciseVM exerciseToAdd in exercisesToAdd)
+                    vm.ExerciseVMs.Add(exerciseToAdd);
+
+                List<ExerciseVM> exercisesToRemove = new();
+
+                foreach (ExerciseVM knownExercise in knownExerciseVMs)
+                    if (!ExistingExerciseVMs.Contains(knownExercise))
+                        exercisesToRemove.Add(knownExercise);
+
+                foreach (ExerciseVM exerciseToRemove in exercisesToRemove)
+                    vm.ExerciseVMs.Remove(exerciseToRemove);
+                
+                Thread.Sleep(TimeSpan.FromSeconds(0.5));
             }
         }
 

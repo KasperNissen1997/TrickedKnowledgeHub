@@ -207,7 +207,7 @@ namespace TrickedKnowledgeHub.ViewModel
         public SelectMaterialCommand SelectMaterialCommand { get; set; } = new();
         #endregion
 
-        
+
 
         public CreateExerciseWindowViewVM()
         {
@@ -216,26 +216,31 @@ namespace TrickedKnowledgeHub.ViewModel
             AvailableFocusPoints = new();
 
             CreateExerciseViewReset();
+
+            Ratings = Rating.GetValues<Rating>().ToList();
         }
 
         public void CreateExerciseViewReset()
         {
-                AvailableGames.Clear();
-                AvailableFocusPoints.Clear();
-                AvailableLearningObjectives.Clear();
+            AvailableGames.Clear();
+            AvailableFocusPoints.Clear();
+            AvailableLearningObjectives.Clear();
 
-                foreach (Game game in RepositoryManager.GameRepository.RetrieveAll())
-                {
-                    AvailableGames.Add(new(game));
-                }
+            foreach (Game game in RepositoryManager.GameRepository.RetrieveAll())
+            {
+                AvailableGames.Add(new(game));
+            }
 
-                foreach (LearningObjective learningObjective in RepositoryManager.LearningObjectiveRepository.RetrieveAll())
-                    if (learningObjective.Parent == null)
-                        AvailableLearningObjectives.Add(new(learningObjective));
+            foreach (LearningObjective learningObjective in RepositoryManager.LearningObjectiveRepository.RetrieveAll())
+                if (learningObjective.Parent == null)
+                    AvailableLearningObjectives.Add(new(learningObjective));
 
-                foreach (FocusPoint focusPoint in RepositoryManager.FocusPointRepository.RetrieveAll())
-                    if (focusPoint.Parent.Parent == null)
-                        AvailableFocusPoints.Add(new(focusPoint));            
+            foreach (FocusPoint focusPoint in RepositoryManager.FocusPointRepository.RetrieveAll())
+                if (focusPoint.Parent.Parent == null)
+                    AvailableFocusPoints.Add(new(focusPoint));
+
+            FileName = null;
+            Material = null;
         }
 
         private string _fileName;

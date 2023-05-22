@@ -27,7 +27,6 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-
         <Image Source="/Img/TrickedLog.jpg" Grid.Column="4" Width="100" Height="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0"/>
 
         <Button Style="{StaticResource CustomButtonStyle}" Command="{Binding CreateExerciseCommand}" CommandParameter="{Binding}" 
@@ -159,6 +158,5 @@
                        VerticalAlignment="Center" HorizontalAlignment="Left" MaxWidth="100" Height="auto" 
                        FontStyle="Italic" FontSize="10"/>
         </Grid>
-        
     </Grid>
 </Page>

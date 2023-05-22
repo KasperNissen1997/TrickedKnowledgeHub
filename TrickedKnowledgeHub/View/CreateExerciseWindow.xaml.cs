@@ -15,6 +15,9 @@ using TrickedKnowledgeHub.Model.Repo;
 using TrickedKnowledgeHub.Model;
 using TrickedKnowledgeHub.ViewModel;
 using Microsoft.Identity.Client;
+using System.Runtime.ConstrainedExecution;
+using TrickedKnowledgeHub.Command.CreateExerciseWindowCommand;
+using System.Windows.Media.Media3D;
 
 namespace TrickedKnowledgeHub
 {
@@ -26,7 +29,7 @@ namespace TrickedKnowledgeHub
         public Create_exercise_window()
         {
             InitializeComponent();
-            
+
         }
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
@@ -39,6 +42,8 @@ namespace TrickedKnowledgeHub
             string message = "Øvelsen er hermed gemt :)";
             string title = "Gemt Øvelse";
             MessageBox.Show(message, title);
+            CreateExerciseCommand cem = new();
+            cem.Execute((CreateExerciseWindowViewVM)DataContext);
             FrameClose();
         }
 
@@ -56,6 +61,18 @@ namespace TrickedKnowledgeHub
 
             grid.Visibility = Visibility.Collapsed;
             rec.Visibility = Visibility.Collapsed;
+
+            if (DataContext is CreateExerciseWindowViewVM ViewModel)
+            {
+                FocusPoint_ComboBox.SelectedItem = null;
+                LearningObjective_ComboBox.SelectedItem = null;
+                Game_ComboBox.SelectedItem = null;
+                Rating_ComboBox.SelectedItem = null;
+                Description_TextBox.Text = null;
+                Title_TextBox.Text = null;
+
+                ViewModel.CreateExerciseViewReset();
+            }
         }
 
         private void Reset_Button_Click(object sender, RoutedEventArgs e)
@@ -66,8 +83,12 @@ namespace TrickedKnowledgeHub
                 LearningObjective_ComboBox.SelectedItem = null;
                 Game_ComboBox.SelectedItem = null;
                 Rating_ComboBox.SelectedItem = null;
+                Description_TextBox.Text = null;
+                Title_TextBox.Text = null;
 
                 ViewModel.CreateExerciseViewReset();
+
+
             }
         }
     }

@@ -109,7 +109,6 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-
             <Button x:Name="Frame_Collapsed" Grid.Column="1" Click="Frame_Collapsed_Click" HorizontalAlignment="Right">
                 <Image Source="/Img/closeicon.jpg" Width="auto" Height="auto"/>
             </Button>

@@ -164,6 +164,25 @@ namespace TrickedKnowledgeHub.Model.Repo
             return new(exerciseList);
         }
 
+
+
+        public void Delete(Exercise exercise)
+        {
+            using(SqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                SqlCommand cmd = new SqlCommand("DELETE FROM EXERCISE_FOCUSPOINT WHERE E_ID = @E_ID", con);
+                cmd.Parameters.Add("@E_ID", SqlDbType.Int).Value = exercise.ExerciseID;
+                cmd.ExecuteNonQuery();
+
+                SqlCommand cmd2 = new SqlCommand("DELETE FROM EXERCISE WHERE ID = @ID", con);
+                cmd2.Parameters.Add("@ID", SqlDbType.Int).Value = exercise.ExerciseID;
+                cmd2.ExecuteNonQuery();
+            }
+            exerciseList.Remove(exercise);
+        }
+
         #endregion
     }
 }

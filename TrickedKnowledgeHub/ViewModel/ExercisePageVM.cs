@@ -14,7 +14,7 @@ namespace TrickedKnowledgeHub.ViewModel
     public class ExercisePageVM : INotifyPropertyChanged
     {
         public DownloadMaterialCommand DownloadMaterialCommand { get; set; } = new();
-        
+        public DeleteExerciseCommand DeleteExerciseCommand { get; set; } = new();
 
 
         private ExerciseVM _selectedExercise;
