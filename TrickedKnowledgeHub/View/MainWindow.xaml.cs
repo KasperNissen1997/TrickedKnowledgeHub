@@ -38,15 +38,15 @@ namespace TrickedKnowledgeHub
             DataContext = vm;
             ExercisePage.DataContext = vm.ExercisePageVM;
 
-            BackgroundWorker bw = new BackgroundWorker();
-            bw.DoWork += new DoWorkEventHandler(DBUpdate);
-            bw.RunWorkerAsync();
+            BackgroundWorker bw = new BackgroundWorker();                       //Instantiating a new BackgroundWorker
+            bw.DoWork += new DoWorkEventHandler(DBUpdate);                      //Add the DBUpdate method to the DoWork event handler
+            bw.RunWorkerAsync();                                                //RunWorkerAsync starts execution of the Backgroundworker and its given work which is our method
         }
         
         public void DBUpdate(object sender, DoWorkEventArgs e)
         {
-            BackgroundWorker worker = (BackgroundWorker) sender;
-            while (!worker.CancellationPending)                                 //While worker isn't pending on cancellation
+            BackgroundWorker worker = (BackgroundWorker) sender;                //Cast the sender as a BackgroundWorker type and assign it to local variable "worker"
+            while (!worker.CancellationPending)                                 //While worker isn't pending on cancellation, which it never is
             {
                 //Get information
                 List<ExerciseVM> knownExerciseVMs = vm.ExerciseVMs.ToList();    //Get collection of known exercises
