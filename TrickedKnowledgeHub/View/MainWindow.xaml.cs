@@ -46,33 +46,38 @@ namespace TrickedKnowledgeHub
         public void DBUpdate(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = (BackgroundWorker) sender;
-            while (!worker.CancellationPending)
+            while (!worker.CancellationPending)                                 //While worker isn't pending on cancellation
             {
-                List<ExerciseVM> knownExerciseVMs = vm.ExerciseVMs.ToList();
+                //Get information
+                List<ExerciseVM> knownExerciseVMs = vm.ExerciseVMs.ToList();    //Get collection of known exercises
 
-                ExistingExerciseVMs.Clear();
-                RepositoryManager.ExerciseRepository.Reset();
+                ExistingExerciseVMs.Clear();                                    //Clear existing exercise list
+                RepositoryManager.ExerciseRepository.Reset();                   //Reset Exercise list in repo (Clear then Load)
 
-                foreach (Exercise exercise in RepositoryManager.ExerciseRepository.RetrieveAll())
-                    ExistingExerciseVMs.Add(new(exercise));
+                foreach (Exercise exercise in 
+                    RepositoryManager.ExerciseRepository.RetrieveAll())         //For each exercise in Exercise list
+                        ExistingExerciseVMs.Add(new(exercise));                 //Add that exercise to the list supposed to contain existing exercises
 
-                List<ExerciseVM> exercisesToAdd = new();
+                //Prepare information
+                List<ExerciseVM> exercisesToAdd = new();                        //New list to contain exercises to add
 
-                foreach (ExerciseVM existingExercise in ExistingExerciseVMs)
-                    if (!knownExerciseVMs.Contains(existingExercise))
-                        exercisesToAdd.Add(existingExercise);
+                foreach (ExerciseVM existingExercise in ExistingExerciseVMs)    //For each existing exercise
+                    if (!knownExerciseVMs.Contains(existingExercise))           //If knownExerciseVms doesn't contain an existing Exercise
+                        exercisesToAdd.Add(existingExercise);                   //Add that existing Exercise to exercisesToAdd list
 
-                foreach (ExerciseVM exerciseToAdd in exercisesToAdd)
-                    vm.ExerciseVMs.Add(exerciseToAdd);
+                //Add information
+                foreach (ExerciseVM exerciseToAdd in exercisesToAdd)            //Foreach Exercise to add in exercisesToAdd list
+                    vm.ExerciseVMs.Add(exerciseToAdd);                          //Add that Exercise to ExerciseVms collection
 
-                List<ExerciseVM> exercisesToRemove = new();
+                //Correct
+                List<ExerciseVM> exercisesToRemove = new();                     //New list to conatin Exercises to remove
 
-                foreach (ExerciseVM knownExercise in knownExerciseVMs)
-                    if (!ExistingExerciseVMs.Contains(knownExercise))
-                        exercisesToRemove.Add(knownExercise);
+                foreach (ExerciseVM knownExercise in knownExerciseVMs)          //For each known Exercise
+                    if (!ExistingExerciseVMs.Contains(knownExercise))           //If  ExistingExerciseVMs doesn't contain that known Exercise, meaning that Exercise has been deleted
+                        exercisesToRemove.Add(knownExercise);                   //Add that known Exercise to exercisesToRemove list
 
-                foreach (ExerciseVM exerciseToRemove in exercisesToRemove)
-                    vm.ExerciseVMs.Remove(exerciseToRemove);
+                foreach (ExerciseVM exerciseToRemove in exercisesToRemove)      //For each Exercise to remove
+                    vm.ExerciseVMs.Remove(exerciseToRemove);                    //Remove that Exercise  from ExerciseVMs
                 
                 Thread.Sleep(TimeSpan.FromSeconds(0.5));
             }
