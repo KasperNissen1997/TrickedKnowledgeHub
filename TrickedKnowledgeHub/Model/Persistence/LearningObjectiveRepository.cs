@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
 
-namespace TrickedKnowledgeHub.Model.Repo
+namespace TrickedKnowledgeHub.Model.Persistence
 {
     public class LearningObjectiveRepository : Repository
     {

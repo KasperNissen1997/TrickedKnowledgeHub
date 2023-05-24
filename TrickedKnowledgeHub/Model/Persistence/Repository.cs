@@ -1,7 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
-namespace TrickedKnowledgeHub.Model.Repo
+namespace TrickedKnowledgeHub.Model.Persistence
 {
     public abstract class Repository : IRepository
     {

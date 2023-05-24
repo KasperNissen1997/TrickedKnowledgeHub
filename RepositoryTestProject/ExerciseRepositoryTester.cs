@@ -1,4 +1,4 @@
-﻿using TrickedKnowledgeHub.Model.Repo;
+﻿using TrickedKnowledgeHub.Model.Persistence;
 using TrickedKnowledgeHub.Model;
 using Microsoft.Data.SqlClient;
 

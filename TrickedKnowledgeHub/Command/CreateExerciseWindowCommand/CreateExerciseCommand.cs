@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using TrickedKnowledgeHub.Model;
-using TrickedKnowledgeHub.Model.Repo;
+using TrickedKnowledgeHub.Model.Persistence;
 using TrickedKnowledgeHub.ViewModel;
 using TrickedKnowledgeHub.ViewModel.Domain;
 

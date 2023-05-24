@@ -1,6 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using TrickedKnowledgeHub.Model;
-using TrickedKnowledgeHub.Model.Repo;
+using TrickedKnowledgeHub.Model.Persistence;
 
 namespace RepositoryTestProject
 {

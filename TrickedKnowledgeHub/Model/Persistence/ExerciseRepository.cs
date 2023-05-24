@@ -6,7 +6,7 @@ using System.Windows.Media.Media3D;
 using System.Linq.Expressions;
 using System.Collections.ObjectModel;
 
-namespace TrickedKnowledgeHub.Model.Repo
+namespace TrickedKnowledgeHub.Model.Persistence
 {
     public class ExerciseRepository : Repository
     {

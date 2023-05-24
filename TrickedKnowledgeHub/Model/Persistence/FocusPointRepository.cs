@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
-namespace TrickedKnowledgeHub.Model.Repo
+namespace TrickedKnowledgeHub.Model.Persistence
 {
     /// <summary>
     /// This repository streamlines all DB communcation associated with the creation, retrieval, updating and deletion of all <see cref="FocusPoint"/> instances. <br/>
