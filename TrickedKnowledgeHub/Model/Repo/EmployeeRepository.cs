@@ -94,17 +94,21 @@ namespace TrickedKnowledgeHub.Model.Repo
             }
         }
 
-        public Employee Retrieve(string email) //Retrieves Employee based on string parameter
+        /// <summary>
+        /// Retrieves the <see cref="Employee"/> where the mail properpty matches <paramref name="email"/>.
+        /// </summary>
+        /// <param name="email">The email of the <see cref="Employee"/> that should be retrieved.</param>
+        /// <returns>An <see cref="Employee"/> where the mail property matches <paramref name="email"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown if no <see cref="Employee"/> has a mail property that matches with <paramref name="email"/>.</exception>
+        public Employee Retrieve(string email)
         {
-            foreach (Employee employee in employees) //foreach Employee in list
-            {
-                if (email == employee.Mail) //if given string equals selected employee mail
-                {
-                    return employee; //return selected employee
-                }
-                
-            }
-            throw new ArgumentException($"Could not find employee with mail: {email} ");
+            // Iterate through all existing employees and search for an employee with a matching mail.
+            foreach (Employee employee in employees)
+                if (email == employee.Mail)
+                    return employee;
+
+            // If we couldn't find any matching employee...
+            throw new ArgumentException($"Could not find employee with mail: {email}");
         }
 
         public List<Employee> RetrieveAll() //Retrieves all Employees, aka returning the whole list
