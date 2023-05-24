@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TrickedKnowledgeHub.Model.Repo;
+using TrickedKnowledgeHub.Model.Persistence;
 using TrickedKnowledgeHub.Model;
 using TrickedKnowledgeHub.ViewModel;
 using Microsoft.Identity.Client;

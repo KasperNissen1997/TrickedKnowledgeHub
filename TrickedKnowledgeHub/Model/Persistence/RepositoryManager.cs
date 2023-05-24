@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TrickedKnowledgeHub.Model.Repo
+namespace TrickedKnowledgeHub.Model.Persistence
 {
     public static class RepositoryManager
     {

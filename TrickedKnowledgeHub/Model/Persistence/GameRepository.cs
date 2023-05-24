@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Data.SqlClient;
 
-namespace TrickedKnowledgeHub.Model.Repo
+namespace TrickedKnowledgeHub.Model.Persistence
 {
     public class GameRepository : Repository
     {

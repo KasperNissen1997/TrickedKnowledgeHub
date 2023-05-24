@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Media.Media3D;
 using TrickedKnowledgeHub.Model;
 using Microsoft.Office.Interop.Word;
-using TrickedKnowledgeHub.Model.Repo;
+using TrickedKnowledgeHub.Model.Persistence;
 using TrickedKnowledgeHub.Command.CreateExerciseWindowCommand;
 using TrickedKnowledgeHub.ViewModel.Domain;
 

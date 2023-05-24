@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Input;
 using TrickedKnowledgeHub.Model;
-using TrickedKnowledgeHub.Model.Repo;
+using TrickedKnowledgeHub.Model.Persistence;
 using TrickedKnowledgeHub.ViewModel;
 using Microsoft.Win32;
 using TrickedKnowledgeHub.ViewModel.Domain;

@@ -12,7 +12,7 @@ using System.Windows;
 using System.Xml.Linq;
 using System.Windows.Input;
 using TrickedKnowledgeHub.Model;
-using TrickedKnowledgeHub.Model.Repo;
+using TrickedKnowledgeHub.Model.Persistence;
 using TrickedKnowledgeHub.View;
 using TrickedKnowledgeHub.ViewModel;
 using TrickedKnowledgeHub.ViewModel.Domain;

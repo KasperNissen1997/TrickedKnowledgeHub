@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TrickedKnowledgeHub.Command.MainWindowCommand;
-using TrickedKnowledgeHub.Model.Repo;
+using TrickedKnowledgeHub.Model.Persistence;
 using TrickedKnowledgeHub.ViewModel.Domain;
 using TrickedKnowledgeHub.Model;
 using System.Collections.ObjectModel;
