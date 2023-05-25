@@ -61,7 +61,6 @@ namespace TrickedKnowledgeHub.Command.CreateExerciseWindowCommand
             }
             else
                 throw new NotImplementedException();
-
         }
     }
 }
