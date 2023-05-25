@@ -28,14 +28,14 @@ namespace TrickedKnowledgeHub.Command.MainWindowCommand
             {
                 SaveFileDialog saveFileDialog = new(); //New dialog
 
-                saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory); //Initial directory equals the specified folder path
-                                                                                                                         //given from GetFolderPath method which returns a string of a path
+                //Initial directory equals the specified folder path given from GetFolderPath method which returns a string of a path
+                saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory); 
 
                 saveFileDialog.DefaultExt = ".docx";
 
                 if (saveFileDialog.ShowDialog() == true)
-                {
-                    byte[] material = RepositoryManager.ExerciseRepository.GetMaterial(exercisePage.SelectedExercise.Source.ExerciseID); //material equals the byte returned from the GetMaterial method using ExerciseID from the selected Exercise
+                {   //material equals the byte returned from the GetMaterial method using ExerciseID from the selected Exercise
+                    byte[] material = RepositoryManager.ExerciseRepository.GetMaterial(exercisePage.SelectedExercise.Source.ExerciseID);
 
                     string filePath = saveFileDialog.FileName + "";
 
