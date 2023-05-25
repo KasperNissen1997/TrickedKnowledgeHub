@@ -135,10 +135,6 @@ namespace RepositoryTestProject
             //Act
             Exercise exercise = exerciseRepo.Create(title, description, material, timestamp, author, game, focusPoint, rating);
 
-            // TODO: Remove this before pushing to main...
-            // Fuck you if you think multiple asserts are bad
-            // https://softwareengineering.stackexchange.com/questions/7823/is-it-ok-to-have-multiple-asserts-in-a-single-unit-test
-
             //Assert
             Assert.AreEqual(3, exercise.ExerciseID);
             Assert.AreEqual(title, exercise.Title);

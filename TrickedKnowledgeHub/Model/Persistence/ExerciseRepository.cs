@@ -19,7 +19,6 @@ namespace TrickedKnowledgeHub.Model.Persistence
             Load();
         }
 
-
         public override void Load()
         {
             using (SqlConnection con = GetConnection())
