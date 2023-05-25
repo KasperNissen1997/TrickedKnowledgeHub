@@ -29,7 +29,7 @@
 
         <Image Source="/Img/TrickedLog.jpg" Grid.Column="4" Width="100" Height="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0"/>
 
-        <Button Style="{StaticResource CustomButtonStyle}" Command="{Binding CreateExerciseCommand}" CommandParameter="{Binding}" 
+        <Button Style="{StaticResource CustomButtonStyle}" 
                 x:Name="Create_Button" Content="Create" Width="150" Height="50" FontWeight="Bold"
                 Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"    
                 Foreground="White" Background="#297a18" BorderBrush="#FF297A18" Click="Create_Exercise" />
