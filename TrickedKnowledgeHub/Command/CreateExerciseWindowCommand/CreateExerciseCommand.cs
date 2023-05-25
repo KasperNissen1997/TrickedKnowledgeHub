@@ -42,24 +42,23 @@ namespace TrickedKnowledgeHub.Command.CreateExerciseWindowCommand
         {
             var vm = (CreateExerciseWindowViewVM)parameter;
             ExerciseVM exercise;
-
-            if (vm.SelectedRating == 0)
-                vm.SelectedRating = null;
-
-            if (vm.SelectedGame == null)
+            if (vm != null)
             {
-                exercise = new ExerciseVM(RepositoryManager.ExerciseRepository.Create(vm.Title, vm.Description, vm.Material, DateTime.Now, vm.ActiveUser.Source, null, vm.SelectedFocusPoint.Source, vm.SelectedRating));
-                vm.MainWindowViewVM.ExerciseVMs.Add(exercise);
-            }
-            else if (vm.SelectedGame != null)
-            {
-                exercise = new ExerciseVM(RepositoryManager.ExerciseRepository.Create(vm.Title, vm.Description, vm.Material, DateTime.Now, vm.ActiveUser.Source, vm.SelectedGame.Source, vm.SelectedFocusPoint.Source, vm.SelectedRating));
+                if (vm.SelectedRating == 0)
+                    vm.SelectedRating = null;
+
+                if (vm.SelectedGame == null)
+                {
+                    exercise = new ExerciseVM(RepositoryManager.ExerciseRepository.Create(vm.Title, vm.Description, vm.Material, DateTime.Now, vm.ActiveUser.Source, null, vm.SelectedFocusPoint.Source, vm.SelectedRating));
+                }
+                else
+                {
+                    exercise = new ExerciseVM(RepositoryManager.ExerciseRepository.Create(vm.Title, vm.Description, vm.Material, DateTime.Now, vm.ActiveUser.Source, vm.SelectedGame.Source, vm.SelectedFocusPoint.Source, vm.SelectedRating));
+                }
                 vm.MainWindowViewVM.ExerciseVMs.Add(exercise);
             }
             else
-            {  
-                    throw new NotImplementedException();
-            }
+                throw new NotImplementedException();
         }
     }
 }
