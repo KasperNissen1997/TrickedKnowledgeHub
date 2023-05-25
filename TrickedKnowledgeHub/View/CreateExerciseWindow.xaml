@@ -172,7 +172,7 @@
             </Grid.RowDefinitions>
 
             <Label Content="Select Material...*" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Button Style="{StaticResource CustomButtonStyle}" Command="{Binding SelectMaterialCommand}" CommandParameter="{Binding}" Content="Vælg..." FontStyle="Italic" Width="100" Height="29" 
+            <Button Style="{StaticResource CustomButtonStyle}" Command="{Binding SelectMaterialCommand}" CommandParameter="{Binding}" Content="Choose..." FontStyle="Italic" Width="100" Height="29" 
                     Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
             <Label Content="Rating" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left"/>
