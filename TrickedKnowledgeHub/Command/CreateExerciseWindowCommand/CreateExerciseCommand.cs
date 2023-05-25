@@ -49,17 +49,14 @@ namespace TrickedKnowledgeHub.Command.CreateExerciseWindowCommand
                     vm.SelectedRating = null;
                 
                 if (vm.SelectedGame == null)
-                {
                     exercise = new ExerciseVM(RepositoryManager.ExerciseRepository.Create(vm.Title, vm.Description, vm.Material, DateTime.Now, vm.ActiveUser.Source, null, vm.SelectedFocusPoint.Source, vm.SelectedRating));
-                }
                 else
-                {
                     exercise = new ExerciseVM(RepositoryManager.ExerciseRepository.Create(vm.Title, vm.Description, vm.Material, DateTime.Now, vm.ActiveUser.Source, vm.SelectedGame.Source, vm.SelectedFocusPoint.Source, vm.SelectedRating));
-                }
+
                 vm.MainWindowViewVM.ExerciseVMs.Add(exercise);
 
-                string message = "Øvelsen er hermed gemt";
-                string title = "Gemt Øvelse";
+                string title = "Exercise creation status";
+                string message = "The exercise was succesfully created!";
                 MessageBox.Show(message, title);
             }
             else
