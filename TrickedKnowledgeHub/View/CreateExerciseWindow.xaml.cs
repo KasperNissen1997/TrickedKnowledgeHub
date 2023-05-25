@@ -40,7 +40,7 @@ namespace TrickedKnowledgeHub
         private void Create_Exercise(object sender, RoutedEventArgs e)
         {
             CreateExerciseCommand cem = new CreateExerciseCommand();
-            cem.
+            cem.Execute((CreateExerciseWindowViewVM)DataContext);
             FrameClose();
         }
 
