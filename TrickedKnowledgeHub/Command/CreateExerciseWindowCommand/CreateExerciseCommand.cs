@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using TrickedKnowledgeHub.Model;
 using TrickedKnowledgeHub.Model.Persistence;
@@ -48,18 +49,18 @@ namespace TrickedKnowledgeHub.Command.CreateExerciseWindowCommand
                     vm.SelectedRating = null;
                 
                 if (vm.SelectedGame == null)
-                {
                     exercise = new ExerciseVM(RepositoryManager.ExerciseRepository.Create(vm.Title, vm.Description, vm.Material, DateTime.Now, vm.ActiveUser.Source, null, vm.SelectedFocusPoint.Source, vm.SelectedRating));
-                }
                 else
-                {
                     exercise = new ExerciseVM(RepositoryManager.ExerciseRepository.Create(vm.Title, vm.Description, vm.Material, DateTime.Now, vm.ActiveUser.Source, vm.SelectedGame.Source, vm.SelectedFocusPoint.Source, vm.SelectedRating));
-                }
+
                 vm.MainWindowViewVM.ExerciseVMs.Add(exercise);
+
+                string title = "Exercise creation status";
+                string message = "The exercise was succesfully created!";
+                MessageBox.Show(message, title);
             }
             else
                 throw new NotImplementedException();
-
         }
     }
 }

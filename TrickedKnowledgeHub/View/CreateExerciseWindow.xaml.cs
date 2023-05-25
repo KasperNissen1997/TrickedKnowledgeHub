@@ -39,10 +39,7 @@ namespace TrickedKnowledgeHub
 
         private void Create_Exercise(object sender, RoutedEventArgs e)
         {
-            string message = "Øvelsen er hermed gemt :)";
-            string title = "Gemt Øvelse";
-            MessageBox.Show(message, title);
-            CreateExerciseCommand cem = new();
+            CreateExerciseCommand cem = new CreateExerciseCommand();
             cem.Execute((CreateExerciseWindowViewVM)DataContext);
             FrameClose();
         }
@@ -87,8 +84,6 @@ namespace TrickedKnowledgeHub
                 Title_TextBox.Text = null;
 
                 ViewModel.CreateExerciseViewReset();
-
-
             }
         }
     }
