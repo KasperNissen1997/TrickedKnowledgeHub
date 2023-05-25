@@ -36,7 +36,6 @@ namespace TrickedKnowledgeHub
             InitializeComponent();
 
             DataContext = vm;
-            ExercisePage.DataContext = vm.ExercisePageVM;
 
             BackgroundWorker bw = new BackgroundWorker();                       //Instantiating a new BackgroundWorker
             bw.DoWork += new DoWorkEventHandler(DBUpdate);                      //Add the DBUpdate method to the DoWork event handler
@@ -85,6 +84,7 @@ namespace TrickedKnowledgeHub
 
         private void FeedListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
+            ExercisePage.DataContext = vm.ExercisePageVM;
             FrameExercise.Content = ExercisePage;
             FrameExercise.Visibility = Visibility.Visible;
             FeedListBox.SelectedIndex = -1;
