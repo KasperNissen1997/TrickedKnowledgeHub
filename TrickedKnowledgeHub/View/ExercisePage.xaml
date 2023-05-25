@@ -114,5 +114,17 @@
             </Button>
         </Grid>
 
+        <Grid Grid.Row="3" Grid.Column="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+
+        <Button Command="{Binding DeleteExerciseCommand}" CommandParameter="{Binding}"
+                Grid.Row="3" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Width="75"
+                x:Name="Exercises_Delete_Button" Content="Delete"
+                Click="Frame_Collapsed_Click"/>
+
     </Grid>
 </Page>
