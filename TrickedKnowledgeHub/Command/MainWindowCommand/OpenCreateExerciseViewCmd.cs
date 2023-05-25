@@ -17,12 +17,17 @@ namespace TrickedKnowledgeHub.Command.MainWindowCommand
 
         public bool CanExecute(object? parameter)
         {
-            return true;
+            if (parameter is MainWindowViewVM)
+            {
+                return true;
+            }
+                return false;
         }
 
         public void Execute(object? parameter)
         {
-            if (parameter is MainWindowViewVM vm)
+            var vm = (MainWindowViewVM)parameter;
+            try
             {
                 vm.CreateExerciseWindowVM.ActiveUser = vm.ActiveUser;
 
@@ -35,8 +40,10 @@ namespace TrickedKnowledgeHub.Command.MainWindowCommand
                 frameExercise.Visibility = Visibility.Visible;
 
             }
-            else
+            catch
+            {
                 throw new NotImplementedException();
+            }
         }
     }
 }

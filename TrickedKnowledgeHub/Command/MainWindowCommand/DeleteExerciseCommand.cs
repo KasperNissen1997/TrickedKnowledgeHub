@@ -16,15 +16,18 @@ namespace TrickedKnowledgeHub.Command.MainWindowCommand
 
         public bool CanExecute(object? parameter)
         {
-            return true;
+            if (parameter is ExercisePageVM)
+            {
+                return true;
+            }
+            return false;
         }
 
         public void Execute(object? parameter)
         {
-            if(parameter is ExercisePageVM exercisePageVM)
-            {
-                RepositoryManager.ExerciseRepository.Delete(exercisePageVM.SelectedExercise.Source);
-            }
+            var exercisePageVM = (ExercisePageVM)parameter;
+
+            RepositoryManager.ExerciseRepository.Delete(exercisePageVM.SelectedExercise.Source);
         }
     }
 }

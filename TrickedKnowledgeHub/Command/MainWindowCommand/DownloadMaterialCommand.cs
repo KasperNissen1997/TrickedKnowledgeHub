@@ -19,29 +19,32 @@ namespace TrickedKnowledgeHub.Command.MainWindowCommand
 
         public bool CanExecute(object parameter)
         {
-            return true;
+            if (parameter is ExercisePageVM)
+            {
+                return true;
+            }
+            return false;
         }
 
         public void Execute(object parameter)
         {
-            if (parameter is ExercisePageVM exercisePage)
-            {
-                SaveFileDialog saveFileDialog = new(); //New dialog
+            var exercisePage = (ExercisePageVM) parameter;
+            SaveFileDialog saveFileDialog = new(); //New dialog
 
-                //Initial directory equals the specified folder path given from GetFolderPath method which returns a string of a path
-                saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory); 
+            //Initial directory equals the specified folder path given from GetFolderPath method which returns a string of a path
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
 
-                saveFileDialog.DefaultExt = ".docx";
+            saveFileDialog.DefaultExt = ".docx";
 
-                if (saveFileDialog.ShowDialog() == true)
-                {   //material equals the byte returned from the GetMaterial method using ExerciseID from the selected Exercise
-                    byte[] material = RepositoryManager.ExerciseRepository.GetMaterial(exercisePage.SelectedExercise.Source.ExerciseID);
+            if (saveFileDialog.ShowDialog() == true)
+            {   //material equals the byte returned from the GetMaterial method using ExerciseID from the selected Exercise
+                byte[] material = RepositoryManager.ExerciseRepository.GetMaterial(exercisePage.SelectedExercise.Source.ExerciseID);
 
-                    string filePath = saveFileDialog.FileName + "";
+                string filePath = saveFileDialog.FileName + "";
 
-                    File.WriteAllBytes(filePath, material); //Creates file on specified path and name, using specified byte
-                }
+                File.WriteAllBytes(filePath, material); //Creates file on specified path and name, using specified byte
             }
+
         }
     }
 }

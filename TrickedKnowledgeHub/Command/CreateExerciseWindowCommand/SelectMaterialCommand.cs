@@ -18,7 +18,7 @@ namespace TrickedKnowledgeHub.Command.CreateExerciseWindowCommand
 
         public bool CanExecute(object? parameter)
         {
-            if (parameter is CreateExerciseWindowViewVM vm)
+            if (parameter is CreateExerciseWindowViewVM)
             {
                 return true;
             }
