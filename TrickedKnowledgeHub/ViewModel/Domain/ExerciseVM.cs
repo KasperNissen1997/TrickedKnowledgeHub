@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
+using TrickedKnowledgeHub.Command.MainWindowCommand;
 using TrickedKnowledgeHub.Model;
 
 namespace TrickedKnowledgeHub.ViewModel.Domain
@@ -8,14 +10,28 @@ namespace TrickedKnowledgeHub.ViewModel.Domain
         public Exercise Source { get; }
 
         public string Title { get; set; }
-        public string Description { get; set; }
+        public string Description {get; set;}
+        public string ShortDesription 
+        { 
+            get
+            { 
+                if (Description.Length > 40)
+                {
+                    return Description.Substring(0, 40) + "...";
+                }
+                return Description;
+            } 
+        }
         public byte[] Material { get; set; }
         public DateTime Timestamp { get; set; }
 
         public EmployeeVM Author { get; set; }
         public GameVM? Game { get; set; }
+        public LearningObjectiveVM? LearningObjective { get; set; }
         public FocusPointVM? FocusPoint { get; set; }
-        public Rating Rating { get; set; }
+        public Rating? Rating { get; set; }
+
+        public DownloadMaterialCommand DownloadMaterialCommand { get; set; } = new();
 
         public ExerciseVM(Exercise source)
         {
@@ -36,11 +52,34 @@ namespace TrickedKnowledgeHub.ViewModel.Domain
 
             // Handle a possible null reference
             if (source.FocusPoint != null)
+            {
                 FocusPoint = new(source.FocusPoint);
+                LearningObjective = new(source.FocusPoint.Parent);
+            }
             else
+            {
                 FocusPoint = null;
+                LearningObjective = null;
+            }
 
-            Rating = source.Rating;
+            // Handle a possible null reference
+            if (source.Rating != null)
+            {
+                Rating = source.Rating;
+            }
+            else
+            {
+                Rating = null;
+            }
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is ExerciseVM otherVM)
+                return Source.ExerciseID.Equals(otherVM.Source.ExerciseID);
+
+            return base.Equals(obj);
         }
     }
 }
+

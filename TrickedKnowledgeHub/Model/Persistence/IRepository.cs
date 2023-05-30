@@ -1,4 +1,4 @@
-﻿namespace TrickedKnowledgeHub.Model.Repo
+﻿namespace TrickedKnowledgeHub.Model.Persistence
 {
     public interface IRepository
     {

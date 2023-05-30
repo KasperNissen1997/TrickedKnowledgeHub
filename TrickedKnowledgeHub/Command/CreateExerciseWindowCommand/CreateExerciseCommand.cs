@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using TrickedKnowledgeHub.Model;
-using TrickedKnowledgeHub.Model.Repo;
+using TrickedKnowledgeHub.Model.Persistence;
 using TrickedKnowledgeHub.ViewModel;
 using TrickedKnowledgeHub.ViewModel.Domain;
 
@@ -28,6 +30,9 @@ namespace TrickedKnowledgeHub.Command.CreateExerciseWindowCommand
                 if (vm.Material == null)
                     return false;
 
+                if (vm.Description == null)
+                    return false;
+
                 return true;
             }
 
@@ -38,8 +43,21 @@ namespace TrickedKnowledgeHub.Command.CreateExerciseWindowCommand
         {
             if (parameter is CreateExerciseWindowViewVM vm)
             {
-                Exercise exercise = new(vm.Title, vm.Description, vm.Material, DateTime.Now, vm.ActiveUser.Source, vm.SelectedGame.Source, vm.SelectedFocusPoint.Source, vm.SelectedRating);
-                RepositoryManager.ExerciseRepository.Create(exercise); 
+                ExerciseVM exercise;
+
+                if (vm.SelectedRating == 0)
+                    vm.SelectedRating = null;
+                
+                if (vm.SelectedGame == null)
+                    exercise = new ExerciseVM(RepositoryManager.ExerciseRepository.Create(vm.Title, vm.Description, vm.Material, DateTime.Now, vm.ActiveUser.Source, null, vm.SelectedFocusPoint.Source, vm.SelectedRating));
+                else
+                    exercise = new ExerciseVM(RepositoryManager.ExerciseRepository.Create(vm.Title, vm.Description, vm.Material, DateTime.Now, vm.ActiveUser.Source, vm.SelectedGame.Source, vm.SelectedFocusPoint.Source, vm.SelectedRating));
+
+                vm.MainWindowViewVM.ExerciseVMs.Add(exercise);
+
+                string title = "Exercise creation status";
+                string message = "The exercise was succesfully created!";
+                MessageBox.Show(message, title);
             }
             else
                 throw new NotImplementedException();

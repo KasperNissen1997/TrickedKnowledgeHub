@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Media.Media3D;
 using TrickedKnowledgeHub.Model;
 using Microsoft.Office.Interop.Word;
-using TrickedKnowledgeHub.Model.Repo;
+using TrickedKnowledgeHub.Model.Persistence;
 using TrickedKnowledgeHub.Command.CreateExerciseWindowCommand;
 using TrickedKnowledgeHub.ViewModel.Domain;
 
@@ -17,11 +17,10 @@ namespace TrickedKnowledgeHub.ViewModel
 {
     public class CreateExerciseWindowViewVM : INotifyPropertyChanged
     {
-
         private EmployeeVM activeUser;
         public EmployeeVM ActiveUser
         {
-            get 
+            get
             {
                 return activeUser;
             }
@@ -90,15 +89,15 @@ namespace TrickedKnowledgeHub.ViewModel
                 _selectedGame = value;
                 OnPropertyChanged(nameof(SelectedGame));
 
-                if (SelectedLearningObjective != null && !SelectedGame.Objectives.Contains(SelectedLearningObjective))
+                if (SelectedGame != null)
                 {
-                    SelectedLearningObjective = null;
+                    if (SelectedLearningObjective != null && !SelectedGame.Objectives.Contains(SelectedLearningObjective))
+                    {
+                        SelectedLearningObjective = null;
+                    }
+
+                    AvailableLearningObjectives = SelectedGame.Objectives;
                 }
-
-                AvailableLearningObjectives = SelectedGame.Objectives;
-
-
-
             }
         }
 
@@ -138,7 +137,7 @@ namespace TrickedKnowledgeHub.ViewModel
                     AvailableFocusPoints = new ObservableCollection<FocusPointVM>();
                 }
 
-                
+
 
             }
         }
@@ -172,8 +171,8 @@ namespace TrickedKnowledgeHub.ViewModel
 
             }
         }
-        private Rating _selectedRating;
-        public Rating SelectedRating
+        private Rating? _selectedRating;
+        public Rating? SelectedRating
         {
             get
             {
@@ -201,10 +200,14 @@ namespace TrickedKnowledgeHub.ViewModel
             }
         }
 
+        public MainWindowViewVM MainWindowViewVM { get; set; }
+
         #region Commands
         public CreateExerciseCommand CreateExerciseCommand { get; set; } = new();
         public SelectMaterialCommand SelectMaterialCommand { get; set; } = new();
         #endregion
+
+
 
         public CreateExerciseWindowViewVM()
         {
@@ -212,12 +215,45 @@ namespace TrickedKnowledgeHub.ViewModel
             AvailableLearningObjectives = new();
             AvailableFocusPoints = new();
 
-            foreach (Game game in RepositoryManager.GameRepository.RetriveAll())
-                AvailableGames.Add(new(game));
-                
-            Ratings = Rating.GetValues<Rating>().ToList();
+            CreateExerciseViewReset();
 
-            // Initialize AvailableLearningObjectives to contain the standard learning objectives.
+            Ratings = Rating.GetValues<Rating>().ToList();
+        }
+
+        public void CreateExerciseViewReset()
+        {
+            AvailableGames.Clear();
+            AvailableFocusPoints.Clear();
+            AvailableLearningObjectives.Clear();
+
+            foreach (Game game in RepositoryManager.GameRepository.RetrieveAll())
+            {
+                AvailableGames.Add(new(game));
+            }
+
+            foreach (LearningObjective learningObjective in RepositoryManager.LearningObjectiveRepository.RetrieveAll())
+                if (learningObjective.Parent == null)
+                    AvailableLearningObjectives.Add(new(learningObjective));
+
+            foreach (FocusPoint focusPoint in RepositoryManager.FocusPointRepository.RetrieveAll())
+                if (focusPoint.Parent.Parent == null)
+                    AvailableFocusPoints.Add(new(focusPoint));
+
+            FileName = null;
+            Material = null;
+        }
+
+        private string _fileName;
+        public string FileName
+        {
+            get { return _fileName; }
+            set
+            {
+                _fileName = value;
+                OnPropertyChanged(nameof(FileName));
+            }
+
+
         }
 
         #region OnChanged Events

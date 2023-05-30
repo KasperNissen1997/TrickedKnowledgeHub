@@ -1,0 +1,116 @@
+﻿<Window x:Class="TrickedKnowledgeHub.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TrickedKnowledgeHub"
+        xmlns:vm="clr-namespace:TrickedKnowledgeHub.ViewModel"
+        xmlns:v="clr-namespace:TrickedKnowledgeHub.View"
+        mc:Ignorable="d"
+        Title="MainWindow"  WindowState="Maximized" d:DesignHeight="600" d:DesignWidth="1000" MinHeight="650" MinWidth="1000"
+        PreviewMouseDown="Window_PreviewMouseDown">
+    <Window.DataContext>
+        <vm:MainWindowViewVM/>
+    </Window.DataContext>
+
+    <Window.Background>
+        <SolidColorBrush Color="#e7e7e7"/>
+    </Window.Background>
+
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Img/TrickedLog.jpg" Stretch="Uniform" Opacity="0.1"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <TextBlock x:Name="nicknameTextblock" Text="{Binding ActiveUser.Nickname}" FontSize="24" FontWeight="ExtraBold" Grid.Row="1" Grid.Column="0"/>
+            <TextBlock x:Name="typeTextblock" Text="{Binding ActiveUser.Type}" FontSize="15"  FontStyle="Italic" Grid.Row="2" Grid.Column="0" />
+
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Filter" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20"/>
+
+            <Label Content="Game" Style="{StaticResource CostumLabelStyle}" Grid.Row="1"/>
+            <ComboBox x:Name="GameCombo" DisplayMemberPath="Title" Style="{StaticResource CustomComboBoxStyle}" Grid.Row="1" ItemsSource="{Binding AvailableGames}" SelectedItem="{Binding SelectedGameFilter}">
+            </ComboBox>
+
+            <Label Content="Learning Objective" Style="{StaticResource CostumLabelStyle}" Grid.Row="2"/>
+            <ComboBox x:Name="ComboBox_Learn" DisplayMemberPath="Title" Style="{StaticResource CustomComboBoxStyle}" Grid.Row="2" ItemsSource="{Binding AvailableLearningObjectives}" SelectedItem="{Binding SelectedLearningObjectiveFilter}">
+            </ComboBox>
+
+            <Label Content="Focuspoint" Style="{StaticResource CostumLabelStyle}" Grid.Row="3"/>
+            <ComboBox x:Name="ComboBox_Focus" DisplayMemberPath="Title" Style="{StaticResource CustomComboBoxStyle}" Grid.Row="3" ItemsSource="{Binding AvailableFocusPoints}" SelectedItem="{Binding SelectedFocusPointFilter}">
+            </ComboBox>
+
+            <Label Content="Rating" Style="{StaticResource CostumLabelStyle}" Grid.Row="4"/>
+            <ComboBox x:Name="ComboBox_Skill" Style="{StaticResource CustomComboBoxStyle}" Grid.Row="4" ItemsSource="{Binding Ratings}" SelectedItem="{Binding SelectedRatingFilter}"/>
+            <!-- Commented this out, as it seemed to create more trouble than good @KN d. 15/05-2023 -->
+            <!--<ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding Title}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>-->
+
+        </Grid>
+
+        <Grid x:Name="ButtonGrid" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="160" Height="70">
+            <Button Style="{StaticResource CustomButtonStyle}" x:Name="Create_Exercise" Click="Create_Exercise_Click"
+                    Content="Create exercise" HorizontalAlignment="Center" VerticalAlignment="Top"   Height="70" Width="160" 
+                    Background="#FF0CBE94" Foreground="White" FontSize="20" FontWeight="Bold">
+            </Button>
+        </Grid>
+
+        <Frame x:Name="FrameExercise" Grid.Column="1" Grid.Row="1" NavigationUIVisibility="Hidden"
+               Visibility="Collapsed" Background="White" Panel.ZIndex="1"/>
+        <Grid x:Name="Blackout" Grid.ColumnSpan="3" Grid.RowSpan="3"  Background="black" Opacity="0.5" Visibility="Collapsed">
+            <Rectangle x:Name="overlayBlack" Fill="Transparent" Visibility="Collapsed"/>
+        </Grid>
+
+        <ListBox  Grid.Row="1" Grid.Column="1" x:Name="FeedListBox"
+                  ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" ItemsSource="{Binding VisibleExercises}" Background="{x:Null}"
+                  SelectionChanged="FeedListBox_SelectionChanged" SelectionMode="Single" SelectedItem="{Binding SelectedExerciseVM}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                    <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+                        <TextBlock Text="Title: "/>
+                        <TextBlock Text="{Binding Title}"/>
+                        <TextBlock Text="     Game: "/>
+                        <TextBlock Text="{Binding Game.Title ,FallbackValue='No Game'}"/>
+                        <TextBlock Text="    Description: "/>
+                        <TextBlock Text="{Binding ShortDesription}"/>
+                    </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>

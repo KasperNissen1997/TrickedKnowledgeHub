@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
-namespace TrickedKnowledgeHub.Model.Repo
+namespace TrickedKnowledgeHub.Model.Persistence
 {
     /// <summary>
     /// This repository streamlines all DB communcation associated with the creation, retrieval, updating and deletion of all <see cref="FocusPoint"/> instances. <br/>
@@ -107,11 +107,11 @@ namespace TrickedKnowledgeHub.Model.Repo
         /// A <see cref="FocusPoint"/> instance with a matching title. <br/>
         /// If no such <see cref="FocusPoint"/> exists, <see langword="null"/> is returned instead.</returns>
         /// <exception cref="ArgumentException"></exception>
-        public FocusPoint Retrieve(string title)
+        public FocusPoint Retrieve(string title,int LO_ID)
         {
             // Iterate over each FocusPoint instance stored locally, and search for the FocusPoint with a matching title.
             foreach (FocusPoint focusPoint in focusPoints)
-                if (title.Equals(focusPoint.Title))
+                if (title.Equals(focusPoint.Title)&&LO_ID.Equals(focusPoint.Parent.ID))
                     return focusPoint;
 
             throw new ArgumentException($"No FocusPoint found with title: {title}");

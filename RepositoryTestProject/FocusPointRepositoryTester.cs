@@ -1,6 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using TrickedKnowledgeHub.Model;
-using TrickedKnowledgeHub.Model.Repo;
+using TrickedKnowledgeHub.Model.Persistence;
 
 namespace RepositoryTestProject
 {
@@ -16,7 +16,7 @@ namespace RepositoryTestProject
         [TestInitialize]
         public void TestInitialize()
         {
-            // Initilize the DB with a bunch of LearningObjectives.
+            // Initilize the DB with a bunch of FocusPoints.
             using (SqlConnection con = new(connectionString))
             {
                 con.Open();
@@ -54,7 +54,7 @@ namespace RepositoryTestProject
         [TestCleanup]
         public void TestCleanup()
         {
-            // Remove all LearningObjective rows in the DB.
+            // Remove all FocusPoint rows in the DB.
             using (SqlConnection con = new(connectionString))
             {
                 con.Open();
@@ -119,7 +119,8 @@ namespace RepositoryTestProject
             string title = "Pop flashes (D2)";
 
             // Act
-            FocusPoint popFlashesD2FocusPoint = focusPointRepo.Retrieve(title);
+            LearningObjective learningObjective = learningObjectiveRepo.Retrieve(2);
+            FocusPoint popFlashesD2FocusPoint = focusPointRepo.Retrieve(title, learningObjective.ID);
 
             // Assert
             Assert.AreEqual("Title: Pop flashes (D2), Parent: 2", popFlashesD2FocusPoint.ToString());

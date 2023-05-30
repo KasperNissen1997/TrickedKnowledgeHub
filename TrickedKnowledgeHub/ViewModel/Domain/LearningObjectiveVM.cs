@@ -22,5 +22,18 @@ namespace TrickedKnowledgeHub.ViewModel.Domain
             foreach (FocusPoint focusPoint in source.FocusPoints)
                 FocusPointVMs.Add(new(focusPoint));
         }
+
+        /// <summary>
+        /// Compares <see cref="LearningObjectiveVM"/> objects. If <paramref name="obj"/> is of type <see cref="LearningObjectiveVM"/> then the base <see cref="LearningObjective.Equals(object?)"/> method is used.
+        /// </summary>
+        /// <param name="obj">The object that this should be compared with.</param>
+        /// <returns><see langword="true"/> if the <see cref="LearningObjectiveVM"/> instances represent the same <see cref="LearningObjective"/>, otherwise <see langword="false"/>.</returns>
+        public override bool Equals(object? obj)
+        {
+            if (obj is LearningObjectiveVM otherLearningObjectiveVM)
+                return Source.Equals(otherLearningObjectiveVM.Source);
+
+            return base.Equals(obj);
+        }
     }
 }

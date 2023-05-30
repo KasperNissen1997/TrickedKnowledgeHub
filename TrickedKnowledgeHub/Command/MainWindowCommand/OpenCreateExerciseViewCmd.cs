@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows;
 using System.Windows.Input;
 using TrickedKnowledgeHub.ViewModel;
+using TrickedKnowledgeHub.Model;
 
 namespace TrickedKnowledgeHub.Command.MainWindowCommand
 {
@@ -21,11 +24,16 @@ namespace TrickedKnowledgeHub.Command.MainWindowCommand
         {
             if (parameter is MainWindowViewVM vm)
             {
-                if (vm.create_exercise_window.DataContext is CreateExerciseWindowViewVM createExerciseVM)
-                    createExerciseVM.ActiveUser = vm.ActiveUser;
+                vm.CreateExerciseWindowVM.ActiveUser = vm.ActiveUser;
 
-                vm.create_exercise_window.Show();
-                
+                Create_exercise_window createExerciseWindow = new();
+                createExerciseWindow.DataContext = vm.CreateExerciseWindowVM;
+                MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+                // Find the Frame control in the MainWindow using its name
+                Frame frameExercise = (Frame)mainWindow.FindName("FrameExercise");
+                frameExercise.Content= createExerciseWindow;
+                frameExercise.Visibility = Visibility.Visible;
+
             }
             else
                 throw new NotImplementedException();

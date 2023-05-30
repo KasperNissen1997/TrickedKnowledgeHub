@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
 
-namespace TrickedKnowledgeHub.Model.Repo
+namespace TrickedKnowledgeHub.Model.Persistence
+
 {
     public class EmployeeRepository : Repository
     {
@@ -21,14 +22,14 @@ namespace TrickedKnowledgeHub.Model.Repo
             {
                 con.Open(); //Open connection
 
-                SqlCommand cmd = new SqlCommand("SELECT Name, Mail, Nickname, Password, Type  FROM EMPLOYEE", con); //SQL Query run at execution
+                SqlCommand cmd = new SqlCommand("SELECT Mail, Name, Nickname, Password, Type  FROM EMPLOYEE", con); //SQL Query run at execution
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read()) //While reader reads
                     {
-                        string name = reader["Name"].ToString();
                         string mail = reader["Mail"].ToString();
+                        string name = reader["Name"].ToString();
                         string nickname = reader["Nickname"].ToString();
                         string password = reader["Password"].ToString();
 
@@ -38,7 +39,7 @@ namespace TrickedKnowledgeHub.Model.Repo
                         switch (danishType)
                         {
                             case "Underviser":
-                                employeeType = EmployeeType.Teacher;
+                                employeeType = EmployeeType.Coach;
                                 break;
 
                             case "Administator":
@@ -50,16 +51,23 @@ namespace TrickedKnowledgeHub.Model.Repo
                                 break;
 
                             default:
-                                employeeType = EmployeeType.Teacher;
+                                employeeType = EmployeeType.Coach;
                                 break;
                         }
 
-                        Employee employee = new(name, mail, nickname, password, employeeType);
+                        Employee employee = new(mail, name, nickname, password, employeeType);
 
                         employees.Add(employee);
                     }
                 }
             }
+        }
+
+        public void Reset()
+        {
+            employees.Clear();
+
+            Load();
         }
 
         public Employee Create(string email, string name, string nickname, string password, EmployeeType type)
@@ -68,7 +76,7 @@ namespace TrickedKnowledgeHub.Model.Repo
             {
                 con.Open(); //Open connection
 
-                SqlCommand cmd = new SqlCommand("INSERT INTO EMPLOYEE (Name, Mail, Nickname, Password, Type) " + //SQL query ran at execution
+                SqlCommand cmd = new SqlCommand("INSERT INTO EMPLOYEE (Mail, Name, Nickname, Password, Type) " + //SQL query ran at execution
                                                 "VALUES(@Mail, @Name, @Nickname, @Password, @Type)", con); //values references @ in code block below
                 
                 cmd.Parameters.AddWithValue("@Mail", email); //cmd.Parameters{Get;}.AddWithValue(ParameterName, object value)
@@ -87,18 +95,21 @@ namespace TrickedKnowledgeHub.Model.Repo
             }
         }
 
-        public Employee Retrieve(string email) //Retrieves Employee based on string parameter
+        /// <summary>
+        /// Retrieves the <see cref="Employee"/> where the mail properpty matches <paramref name="email"/>.
+        /// </summary>
+        /// <param name="email">The email of the <see cref="Employee"/> that should be retrieved.</param>
+        /// <returns>An <see cref="Employee"/> where the mail property matches <paramref name="email"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown if no <see cref="Employee"/> has a mail property that matches with <paramref name="email"/>.</exception>
+        public Employee Retrieve(string email)
         {
-            foreach (Employee employee in employees) //foreach Employee in list
-            {
-                if (email == employee.Mail) //if given string equals selected employee mail
-                {
-                    return employee; //return selected employee
-                }
-                
-            }
+            // Iterate through all existing employees and search for an employee with a matching mail.
+            foreach (Employee employee in employees)
+                if (email == employee.Mail)
+                    return employee;
 
-            throw new ArgumentException($"Could not find employee with mail: {email} ");
+            // If we couldn't find any matching employee...
+            throw new ArgumentException($"Could not find employee with mail: {email}");
         }
 
         public List<Employee> RetrieveAll() //Retrieves all Employees, aka returning the whole list

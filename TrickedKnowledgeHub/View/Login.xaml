@@ -1,0 +1,22 @@
+﻿<Window x:Class="TrickedKnowledgeHub.View.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TrickedKnowledgeHub.View"
+        xmlns:components="clr-namespace:TrickedKnowledgeHub.Components"
+        mc:Ignorable="d"
+        Title="Login" Height="500
+        " Width="800">
+    <Grid>
+        <Label Content="Username" HorizontalAlignment="Left" Margin="356,133,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="SemiBold"/>
+        <Button x:Name="bntLogin" Content="Login" HorizontalAlignment="Left" Margin="293,405,0,0" VerticalAlignment="Top" Click="bntLogin_Click" Height="40" Width="197" Command="{Binding LoginBNTCommand}" CommandParameter="{Binding}"/>
+        <Label Content="Password" HorizontalAlignment="Left" Margin="359,221,0,0" VerticalAlignment="Top" FontWeight="SemiBold" FontSize="16"/>
+        <TextBox x:Name="txtUserName" HorizontalAlignment="Left" Margin="293,169,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="197" Height="29" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label x:Name="lblLoginError" HorizontalAlignment="Left" Margin="293,303,0,0" VerticalAlignment="Top" Height="80" Width="197" Content="Error message her...."/>
+        <Label x:Name="___No_Name_" Content="TrickedKnowledgeHub" HorizontalAlignment="Left" Margin="215,37,0,0" VerticalAlignment="Top" FontSize="36"/>
+        <components:BindablePasswordBox x:Name="txtPassword" HorizontalAlignment="Left" Margin="293,271,0,0" VerticalAlignment="Top" Width="197" Height="29"
+                                        Password="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        
+    </Grid>
+</Window>
